@@ -49,6 +49,7 @@ app.baseURL = 'localhost:8080'
 # DATABASE
 
 #--------------------------------------------------------------------
+# percobaan tambah komentar
 
 database.default.hostname = localhost
 
