@@ -20,12 +20,7 @@ class EbookModel extends Model
     // ebook per user (must login)
     // update, delete, add
 
-    // public function getEbook($id=false){
-    //     if($id){
-    //         return $this->find_all()->findAll();
-    //     }
-    //     return $this->find_all()->where('id_buku', $id)->first();
-    // }
+
     public function create($judul, $path, $author, $kategori){
         $data = [
             'title' => $judul,
@@ -50,10 +45,4 @@ class EbookModel extends Model
     public function delete_data($id){
         return $this->delete(['id', $id]);
     }
-    // public function find_kategori() {
-    //     return $this->select('kategori.*')->findAll();
-    // }
-    // public function find_author() {
-    //     return $this->select('author.*')->findAll();
-    // }
 }
