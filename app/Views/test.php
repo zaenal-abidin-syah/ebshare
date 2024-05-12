@@ -5,5 +5,15 @@
 // }
 
 // print_r($data);
-print_r($kategori);
+print_r($test);
+
 ?>
+<?php if (! empty($errors)): ?>
+  <div class="alert alert-danger">
+  <?php foreach ($errors as $field => $error): ?>
+    <div class="w3-panel w3-pale-red w3-border">
+      <p><?= esc($error) ?></p>
+    </div>
+  <?php endforeach ?>
+  </div>
+<?php endif ?>

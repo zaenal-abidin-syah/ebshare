@@ -1,7 +1,5 @@
 <?= $this->extend('/layouts/dashboardLayout') ?>
 <?= $this->section('content') ?>
-
-      <div class="w-full px-6 py-6 mx-auto">
         <!-- table 1 -->
 
         <div class="flex flex-wrap -mx-3">

@@ -7,6 +7,10 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/ebook', 'Ebook::index');
+$routes->get('/login', 'Auth::login');
+$routes->post('/verify', 'Auth::verify');
+$routes->get('/register', 'Auth::register');
+$routes->post('/register', 'Auth::registerUser');
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/dashboard/profile', 'Dashboard::profile');
 $routes->get('/dashboard/table', 'Dashboard::table');

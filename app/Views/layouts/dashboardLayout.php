@@ -162,6 +162,7 @@
           </div>
         </div>
       </nav>
+      <div class="w-full px-6 py-6 mx-auto">
 
       <!-- end Navbar -->
 
@@ -200,7 +201,7 @@
               </div>
             </div>
           </div>
-        </footer>
+      </footer>
       </div>
       <!-- end cards -->
     </main>
