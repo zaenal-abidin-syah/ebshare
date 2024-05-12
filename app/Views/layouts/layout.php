@@ -44,7 +44,6 @@
           </span>
         </button>
 
-        <!-- Collapsible navigation container -->
         <div
           class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
           id="navbarSupportedContent1"
@@ -60,36 +59,33 @@
           </a>
         </div>
 
-          <!-- Left navigation links -->
+
           <ul
             class="list-style-none me-auto flex flex-col ps-0 lg:flex-row"
             data-twe-navbar-nav-ref
           >
             <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <!-- Dashboard link -->
               <a
                 class="text-neutral-100 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-300 active:text-neutral-400 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                href="#"
+                href="<?= base_url('/dashboard') ?>"
                 data-twe-nav-link-ref
                 >Dashboard</a
               >
             </li>
-            <!-- Team link -->
             <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
               <a
                 class="text-neutral-100 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-300 active:text-neutral-400 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                href="#"
+                href="<?= base_url('/ebook') ?>"
                 data-twe-nav-link-ref
-                >Team</a
+                >Ebook</a
               >
             </li>
-            <!-- Projects link -->
             <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
               <a
                 class="text-neutral-100 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-300 active:text-neutral-400 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                href="#"
+                href="<?= base_url('/kategori') ?>"
                 data-twe-nav-link-ref
-                >Projects</a
+                >Kategori</a
               >
             </li>
           </ul>
