@@ -13,8 +13,10 @@ class Ebook extends BaseController
   }
     public function index(): string
     {
-        $data['title'] = 'Ebshare | Ebook';
-        return view('home', $data);
+      $data['title'] = 'Ebshare | Ebook';
+      $data['ebooks'] = $this->model->allEbook();
+      $data['kategori'] = $this->kategoriModel->allKategori();
+      return view('ebook', $data);
     }
     public function test(){
       $data['title'] = 'Ebshare | Ebook';

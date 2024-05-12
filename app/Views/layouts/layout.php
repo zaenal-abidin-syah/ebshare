@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= esc($title) ?></title>
     <link rel="stylesheet" href="./style/style.css" />
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/tw-elements/css/tw-elements.min.css" />
   </head>
   <body>
     <!-- Main navigation container -->
@@ -48,17 +51,15 @@
           data-twe-collapse-item
         >
           <!-- Logo -->
-          <a
-            class="mb-4 me-5 ms-2 mt-3 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
-            href="#"
-          >
-            <img
-              src="https://tecdn.b-cdn.net/img/logo/te-transparent-noshadows.webp"
-              style="height: 15px"
-              alt="TE Logo"
-              loading="lazy"
-            />
+          <div class="relative flex items-center">
+          <!-- Icon -->
+          <a class="me-4 text-neutral-100 dark:text-white" href="#">
+            <span class="[&>svg]:w-7">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="blue" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5V78.6c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8V454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5V83.8c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11V456c0 11.4 11.7 19.3 22.4 15.5z"/></svg>
+            </span>
           </a>
+        </div>
+
           <!-- Left navigation links -->
           <ul
             class="list-style-none me-auto flex flex-col ps-0 lg:flex-row"
@@ -96,6 +97,7 @@
         </div>
 
         <!-- Right elements -->
+        
         <div class="relative flex items-center">
           <!-- Icon -->
           <a class="me-4 text-neutral-100 dark:text-white" href="#">
@@ -480,6 +482,7 @@
       </div>
     </footer>
     <script src="./script/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script>
     <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
   </body>
 </html>
