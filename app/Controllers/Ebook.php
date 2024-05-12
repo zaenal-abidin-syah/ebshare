@@ -3,10 +3,13 @@
 namespace App\Controllers;
 
 use App\Models\EbookModel;
+use App\Models\KategoriModel;
 class Ebook extends BaseController
 {
+  // task = pagination
   public function __construct(){
     $this->model = new EbookModel();
+    $this->kategoriModel = new KategoriModel();
   }
     public function index(): string
     {
@@ -14,7 +17,9 @@ class Ebook extends BaseController
         return view('home', $data);
     }
     public function test(){
-      $data['title'] = 'Ebshare | Test';
-      return view('test', $data);
+      $data['title'] = 'Ebshare | Ebook';
+      $data['ebooks'] = $this->model->allEbook();
+      $data['kategori'] = $this->kategoriModel->allKategori();
+      return view('ebook', $data);
     }
 }

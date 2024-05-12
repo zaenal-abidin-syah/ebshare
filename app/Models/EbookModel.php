@@ -20,6 +20,10 @@ class EbookModel extends Model
     // ebook per user (must login)
     // update, delete, add
 
+    public function allEbook(){
+        return $this->get()->getResultArray();
+    }
+
 
     public function create($judul, $path, $author, $kategori){
         $data = [

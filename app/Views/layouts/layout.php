@@ -480,5 +480,6 @@
       </div>
     </footer>
     <script src="./script/script.js"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
   </body>
 </html>
