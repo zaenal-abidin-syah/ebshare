@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | Ebshare</title>
-    <link rel="stylesheet" href="../style/style.css" />
+    <title><?= esc($title) ?></title>
+    <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
     <!-- Main navigation container -->
@@ -479,12 +479,6 @@
         <a class="font-semibold" href="https://tw-elements.com/">Ebshare</a>
       </div>
     </footer>
-    <script>
-      const sidebar = document.querySelector("#navbarSupportedContent1");
-      const hamburger = document.querySelector("#hamburger");
-      hamburger.addEventListener("click", () => {
-        sidebar.classList.toggle("hidden");
-      });
-    </script>
+    <script src="./script/script.js"></script>
   </body>
 </html>
