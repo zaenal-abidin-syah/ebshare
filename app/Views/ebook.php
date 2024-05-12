@@ -34,11 +34,13 @@
         <div
           class="mt-auto border-t-2 border-neutral-100 px-6 py-3 text-center text-surface/75 dark:border-white/10 dark:text-neutral-300"
         >
-          <small>Last updated 3 mins ago</small>
+          <!-- <small>Last updated 3 mins ago</small> -->
         </div>
       </div>
     <?php } ?>
     </div>
+
+
 
 <div
   data-twe-modal-init
@@ -120,6 +122,8 @@
     </div>
   </div>
 </div>
+<div style="float: right">
+<?= $pager->links('default', 'tailwind_full') ?>
 
 <script>
   const buttonModal = document.querySelectorAll(".button-modal");

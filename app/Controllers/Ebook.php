@@ -11,17 +11,22 @@ class Ebook extends BaseController
     $this->model = new EbookModel();
     $this->kategoriModel = new KategoriModel();
   }
+  // public function index(): string
+  // {
+  //   $data['title'] = 'Ebshare | Ebook';
+  //   $data['ebooks'] = $this->model->allEbook();
+  //   $data['kategori'] = $this->kategoriModel->allKategori();
+  //   return view('ebook', $data);
+  // }
   public function index(): string
   {
-    $data['title'] = 'Ebshare | Ebook';
-    $data['ebooks'] = $this->model->allEbook();
-    $data['kategori'] = $this->kategoriModel->allKategori();
-    return view('ebook', $data);
-  }
-  public function test(){
-    $data['title'] = 'Ebshare | Ebook';
-    $data['ebooks'] = $this->model->allEbook();
-    $data['kategori'] = $this->kategoriModel->allKategori();
+    // $data['ebooks'] = $this->model->allEbook()->paginate(10);
+    // $data['pager'] = $this->model->pager;
+    $data = [
+      'title' => 'Ebshare | Ebook',
+      'ebooks' => $this->model->paginate(12),
+      'pager' => $this->model->pager
+  ];
     return view('ebook', $data);
   }
 }

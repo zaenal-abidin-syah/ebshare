@@ -234,9 +234,7 @@
     <!-- First navigation element with purple-700 theme -->
     <!-- First navigation component with larger text and padding -->
     <nav aria-label="Page navigation example">
-      <!-- Unordered list container with flex display and no list style -->
       <ul class="list-style-none flex">
-        <!-- Previous button (disabled) -->
         <li>
           <a
             class="pointer-events-none relative block rounded bg-transparent px-5 py-3 text-lg text-surface/50 transition duration-300 dark:text-neutral-400"
