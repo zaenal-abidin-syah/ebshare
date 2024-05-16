@@ -29,4 +29,34 @@ class Ebook extends BaseController
   ];
     return view('ebook', $data);
   }
+  public function add(){
+    $data = [
+      'title' => 'Ebshare | Tambah Ebook',
+      'kategori' => $this->kategoriModel->get()->getResultArray()
+  ];
+    return view('addEbook', $data);
+  }
+  public function addEbook(): string
+  {
+    $data = [
+      'judul' => $_POST['judul'],
+      'penulis' => $_POST['penulis'],
+      'penerbit' => $_POST['penerbit'],
+      'path' => $_POST['path'],
+      'ukuran' => $_POST['ukuran'],
+      'tahun_terbit' => $_POST['tahun_terbit'],
+      'deskripsi' => $_POST['deskripsi'],
+      'id_user' => 1,
+      'id_kategori' => $_POST['id_kategori'],
+    ];
+
+    if ($this->model->create($data) === false) {
+      $data['errors'] = $this->model->errors();
+      $data['kategori'] = $this->modelKategori->findAll();
+      return view('addEbook', $data);
+    }else{
+      return redirect()->to(base_url('/ebook'));
+    }
+    // return view('addEbook', $data);
+  }
 }

@@ -7,6 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/ebook', 'Ebook::index');
+$routes->get('/ebook/add', 'Ebook::add');
+$routes->post('/ebook', 'Ebook::addEbook');
 $routes->get('/login', 'Auth::login');
 $routes->post('/verify', 'Auth::verify');
 $routes->get('/register', 'Auth::register');
