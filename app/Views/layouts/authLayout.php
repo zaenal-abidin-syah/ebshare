@@ -13,5 +13,7 @@
   <div class="flex justify-center items-center w-full h-screen bg-purple-50">
     <?= $this->renderSection('content'); ?>
   </div>
+  <script src="./script/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script>
 </body>
 </html>

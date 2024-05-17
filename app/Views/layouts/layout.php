@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><?= esc($title) ?></title>
+    <title><?= $title ?></title>
     <link rel="stylesheet" href="./style/style.css" />
     <link
   rel="stylesheet"
@@ -479,6 +479,6 @@
     </footer>
     <script src="./script/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script>
-    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+    <!-- <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script> -->
   </body>
 </html>

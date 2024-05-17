@@ -4,14 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class KategoriModel extends Model
+class TagModel extends Model
 {
-  protected $table      = 'kategori';
+  protected $table      = 'tag';
   protected $primaryKey = 'id';
 
   protected $useAutoIncrement = true;
-
-  public function allKategori(){
+  public function allTag(){
     return $this->get()->getResultArray();
   }
 }

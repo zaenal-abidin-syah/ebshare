@@ -4,12 +4,14 @@ namespace App\Controllers;
 
 use App\Models\EbookModel;
 use App\Models\KategoriModel;
+use App\Models\TagModel;
 class Ebook extends BaseController
 {
   // task = pagination
   public function __construct(){
     $this->model = new EbookModel();
     $this->kategoriModel = new KategoriModel();
+    $this->tagModel = new TagModel;
   }
   // public function index(): string
   // {
@@ -24,7 +26,9 @@ class Ebook extends BaseController
     // $data['pager'] = $this->model->pager;
     $data = [
       'title' => 'Ebshare | Ebook',
-      'ebooks' => $this->model->paginate(12),
+      'ebooks' => $this->model->allEbook()->paginate(12),
+      'kategori' => $this->kategoriModel->allKategori(),
+      'tag' => $this->tagModel->allTag(),
       'pager' => $this->model->pager
   ];
     return view('ebook', $data);
