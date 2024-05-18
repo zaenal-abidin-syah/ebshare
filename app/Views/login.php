@@ -1,6 +1,7 @@
 <?= $this->extend('/layouts/authLayout'); ?>
 <?= $this->section('content'); ?>
 
+
 <section class="gradient-form h-full w-1/2">
   <div class="container h-full p-10">
     <div
@@ -18,15 +19,26 @@
                   <h4 class="mb-12 mt-1 pb-1 text-xl font-semibold">
                     Login Ebshare Account
                   </h4>
+                  <?php if(session()->getFlashdata('message')){ ?>
+                    <div
+                    class="w-full items-center rounded-lg bg-danger-100 px-4 mb-4 py-3 text-base text-danger-700 dark:bg-[#2c0f14] dark:text-danger-500"
+                    role="alert"
+                    id="alert-static-danger"
+                    data-twe-alert-init>
+                    <?= session()->getFlashdata('message'); ?>
+                  </div>
+                  <?php } ?>
+                  
                 </div>
 
-                <form action="<?= base_url('/verify') ?>" method="post">
+                <form action="<?= base_url('/login') ?>" method="post">
                   <!--Username input-->
                   <div class="relative mb-4" data-twe-input-wrapper-init>
                     <input
                       type="text"
                       class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
                       id="username"
+                      name="username"
                       placeholder="Username" />
                     <label
                       for="username"
@@ -41,6 +53,7 @@
                       type="password"
                       class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
                       id="password"
+                      name="password"
                       placeholder="Password" />
                     <label
                       for="password"

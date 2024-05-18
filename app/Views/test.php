@@ -7,6 +7,10 @@
 // print_r($data);
 print_r($test);
 
+if(session('username')){
+  print_r(session('username'));
+}
+
 ?>
 <?php if (! empty($errors)): ?>
   <div class="alert alert-danger">

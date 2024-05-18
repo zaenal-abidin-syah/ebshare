@@ -60,18 +60,18 @@
         </div>
 
 
-          <ul
-            class="list-style-none me-auto flex flex-col ps-0 lg:flex-row"
-            data-twe-navbar-nav-ref
-          >
-            <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
-              <a
-                class="text-neutral-100 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-300 active:text-neutral-400 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                href="<?= base_url('/dashboard') ?>"
-                data-twe-nav-link-ref
-                >Dashboard</a
-              >
-            </li>
+          <ul class="list-style-none me-auto flex flex-col ps-0 lg:flex-row"
+            data-twe-navbar-nav-ref >
+            <?php if(session()->get('login'))  { ?>
+              <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
+                <a
+                  class="text-neutral-100 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-300 active:text-neutral-400 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
+                  href="<?= base_url('/dashboard') ?>"
+                  data-twe-nav-link-ref
+                  >Dashboard</a
+                >
+              </li>
+            <?php } ?>
             <li class="mb-4 lg:mb-0 lg:pe-2" data-twe-nav-item-ref>
               <a
                 class="text-neutral-100 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-300 active:text-neutral-400 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
@@ -116,7 +116,7 @@
             data-twe-dropdown-ref
             data-twe-dropdown-alignment="end"
           >
-            <!-- First dropdown trigger -->
+          <?php if(session()->get('login'))  { ?>
             <a
               class="me-4 flex items-center text-neutral-100 dark:text-white"
               href="#"
@@ -125,77 +125,7 @@
               data-twe-dropdown-toggle-ref
               aria-expanded="false"
             >
-              <!-- Dropdown trigger icon -->
-              <span class="[&>svg]:w-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <!-- Notification counter -->
-              <span
-                class="absolute -mt-4 ms-2.5 rounded-full bg-danger px-[0.35em] py-[0.15em] text-[0.6rem] font-bold leading-none text-white"
-                >1</span
-              >
-            </a>
-            <!-- First dropdown menu -->
-            <ul
-              class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
-              aria-labelledby="dropdownMenuButton1"
-              data-twe-dropdown-menu-ref
-            >
-              <!-- First dropdown menu items -->
-              <li>
-                <a
-                  class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                  href="#"
-                  data-twe-dropdown-item-ref
-                  >Action</a
-                >
-              </li>
-              <li>
-                <a
-                  class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                  href="#"
-                  data-twe-dropdown-item-ref
-                  >Another action</a
-                >
-              </li>
-              <li>
-                <a
-                  class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                  href="#"
-                  data-twe-dropdown-item-ref
-                  >Something else here</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <!-- Second dropdown container -->
-          <div
-            class="relative"
-            data-twe-dropdown-ref
-            data-twe-dropdown-alignment="end"
-          >
-            <!-- Second dropdown trigger -->
-            <a
-              class="flex items-center whitespace-nowrap transition duration-150 ease-in-out motion-reduce:transition-none"
-              href="#"
-              id="dropdownMenuButton2"
-              role="button"
-              data-twe-dropdown-toggle-ref
-              aria-expanded="false"
-            >
-              <!-- User avatar -->
-              <img
+            <img
                 src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
                 class="rounded-full"
                 style="height: 25px; width: 25px"
@@ -203,19 +133,17 @@
                 loading="lazy"
               />
             </a>
-            <!-- Second dropdown menu -->
             <ul
               class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg data-[twe-dropdown-show]:block dark:bg-surface-dark"
-              aria-labelledby="dropdownMenuButton2"
+              aria-labelledby="dropdownMenuButton1"
               data-twe-dropdown-menu-ref
             >
-              <!-- Second dropdown menu items -->
               <li>
                 <a
                   class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
                   href="#"
                   data-twe-dropdown-item-ref
-                  >Action</a
+                  ><?= session()->get('username') ?></a
                 >
               </li>
               <li>
@@ -223,19 +151,31 @@
                   class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
                   href="#"
                   data-twe-dropdown-item-ref
-                  >Another action</a
+                  ><?= session()->get('email') ?></a
                 >
               </li>
               <li>
                 <a
-                  class="block w-full whitespace-nowrap bg-white px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"
-                  href="#"
+                type="button"
+                class="inline-block rounded bg-danger w-full text-center px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-danger-3 transition duration-150 ease-in-out hover:bg-danger-accent-300 hover:shadow-danger-2 focus:bg-danger-accent-300 focus:shadow-danger-2 focus:outline-none focus:ring-0 active:bg-danger-600 active:shadow-danger-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                href="<?= base_url('/logout') ?>"
                   data-twe-dropdown-item-ref
-                  >Something else here</a
+                  >Logout</a
                 >
               </li>
             </ul>
+            <?php }else { ?>
+              <a href="<?= base_url('/login') ?>" 
+                data-twe-ripple-init
+                data-twe-ripple-color="light"
+                class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+                Login
+            </a>
+            <?php } ?>
+            
           </div>
+
+          <!-- Second dropdown container -->
         </div>
         <!-- Right elements -->
       </div>
