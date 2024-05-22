@@ -40,25 +40,47 @@ class EbookModel extends Model
   public function ebookByYear($year){
     return $this->where('tahun_terbit', $year)->get()->getResultArray();
   }
-  public function allEbook(){
-    return $this->select('ebook.*, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ", ") tag')
+  public function allEbook($id=false){
+    if($id){
+      return $this->select('ebook.*, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
+            ->join('ebook_tag et', 'et.id_ebook = ebook.id')
+            ->join('kategori k', 'k.id = ebook.id_kategori')
+            ->join('tag t', 't.id = et.id_tag')
+            ->where('ebook.id_user', $id)
+            ->groupBy('ebook.id');
+    }else{
+      return $this->select('ebook.*, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
             ->join('ebook_tag et', 'et.id_ebook = ebook.id')
             ->join('kategori k', 'k.id = ebook.id_kategori')
             ->join('tag t', 't.id = et.id_tag')
             ->groupBy('ebook.id');
+    }
+    
   }
-  public function allStatistik(){
+  public function allStatistik($id=false){
     // $this->userModel = new UserModel();
     // $builder = $this->userModel->selectCount('id');
-    $db      = \Config\Database::connect();
-    $user = $db->table('user')->selectCount('id');
 
-    return $this->selectCount('ebook.id', 'ebooks')
-                ->selectSum('es.jumlah_unduhan')
-                ->selectSum('es.jumlah_komentar')
-                ->selectSubquery($user, 'user')
-                ->join('ebook_statistik es', 'ebook.id = es.id_ebook')
-                ->get()->getResultArray();
+    if ($id){
+      return $this->selectCount('ebook.id', 'ebooks')
+                  ->selectSum('es.jumlah_unduhan')
+                  ->selectSum('es.jumlah_komentar')
+                  ->selectSum('es.jumlah_favorite')
+                  ->where('ebook.id_user', $id)
+                  ->join('ebook_statistik es', 'ebook.id = es.id_ebook')
+                  ->get()->getResultArray();
+    }else {
+      $db      = \Config\Database::connect();
+      $user = $db->table('user')->selectCount('id');
+
+      return $this->selectCount('ebook.id', 'ebooks')
+                  ->selectSum('es.jumlah_unduhan')
+                  ->selectSum('es.jumlah_komentar')
+                  ->selectSubquery($user, 'user')
+                  ->join('ebook_statistik es', 'ebook.id = es.id_ebook')
+                  ->get()->getResultArray();
+    }
+    
     // return $builder->get();
   }
 

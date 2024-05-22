@@ -23,6 +23,7 @@ class Login extends BaseController
     $user = $this->model->where('username', $username)->first();
     if($user && hash('sha256', $password) == $user['password']){
       session()->set([
+        'id' => $user['id'],
         'username' => $user['username'],
         'email' => $user['email'],
         'login' => true,

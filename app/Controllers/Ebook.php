@@ -13,17 +13,9 @@ class Ebook extends BaseController
     $this->kategoriModel = new KategoriModel();
     $this->tagModel = new TagModel;
   }
-  // public function index(): string
-  // {
-  //   $data['title'] = 'Ebshare | Ebook';
-  //   $data['ebooks'] = $this->model->allEbook();
-  //   $data['kategori'] = $this->kategoriModel->allKategori();
-  //   return view('ebook', $data);
-  // }
+
   public function index(): string
   {
-    // $data['ebooks'] = $this->model->allEbook()->paginate(10);
-    // $data['pager'] = $this->model->pager;
     $data = [
       'title' => 'Ebshare | Ebook',
       'ebooks' => $this->model->allEbook()->paginate(12),

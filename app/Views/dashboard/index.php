@@ -1,6 +1,7 @@
 <?= $this->extend('/layouts/dashboardLayout') ?>
 <?= $this->section('content') ?>
 
+
       <!-- cards -->
       <div class="w-full px-6 py-6 mx-auto">
         <!-- row 1 -->
@@ -12,11 +13,10 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Today's Money</p>
-                      <h5 class="mb-2 font-bold dark:text-white">$53,000</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Ebooks Upload</p>
+                      <h5 class="mb-2 font-bold dark:text-white"><?= $statistik[0]['ebooks'] ?></h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+55%</span>
-                        since yesterday
+                        <span class="text-sm font-bold leading-normal text-emerald-500">Total ebook yang telah di upload</span>               
                       </p>
                     </div>
                   </div>
@@ -37,11 +37,10 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Today's Users</p>
-                      <h5 class="mb-2 font-bold dark:text-white">2,300</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Total Jumlah Unduhan</p>
+                      <h5 class="mb-2 font-bold dark:text-white"><?= $statistik[0]['jumlah_unduhan'] ?></h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+3%</span>
-                        since last week
+                        <span class="text-sm font-bold leading-normal text-emerald-500">Jumlah total orang yang mengunduh ebook</span>
                       </p>
                     </div>
                   </div>
@@ -62,11 +61,10 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">New Clients</p>
-                      <h5 class="mb-2 font-bold dark:text-white">+3,462</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Total Komentar</p>
+                      <h5 class="mb-2 font-bold dark:text-white"><?= $statistik[0]['jumlah_komentar'] ?></h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-red-600">-2%</span>
-                        since last quarter
+                        <span class="text-sm font-bold leading-normal text-emerald-500">Jumlah total komentar ebook</span>
                       </p>
                     </div>
                   </div>
@@ -87,11 +85,10 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Sales</p>
-                      <h5 class="mb-2 font-bold dark:text-white">$103,430</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Total Favorite</p>
+                      <h5 class="mb-2 font-bold dark:text-white"><?= $statistik[0]['jumlah_favorite'] ?></h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+5%</span>
-                        than last month
+                        <span class="text-sm font-bold leading-normal text-emerald-500">Jumlah ebook yang di favorite</span>
                       </p>
                     </div>
                   </div>

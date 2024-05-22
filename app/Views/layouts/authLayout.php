@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $title ?></title>
   <link rel="stylesheet" href="./style/style.css" />
-    <link
+  <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/tw-elements/css/tw-elements.min.css" />
 </head>

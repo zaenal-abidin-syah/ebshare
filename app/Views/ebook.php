@@ -2,6 +2,7 @@
 <!-- hero section -->
     <!-- Section: Design Block -->
 <?= $this->section('content'); ?>
+
   <div
     class="relative flex mt-28 mb-10 container w-1/2 mx-auto"
     data-twe-input-wrapper-init

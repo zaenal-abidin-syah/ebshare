@@ -14,6 +14,7 @@ class Dashboard extends BaseController
   public function index(): string
   {
     $data['title'] = 'Ebshare | Ebook';
+    $data['statistik'] = $this->model->allStatistik(session()->get('id'));
     $data['ebooks'] = $this->model->allEbook();
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('dashboard/index', $data);
@@ -32,8 +33,15 @@ class Dashboard extends BaseController
   }
   public function ebook(){
     $data['title'] = 'Ebshare | Ebook';
-    $data['ebooks'] = $this->model->allEbook();
+    $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
+    $data['pager'] = $this->model->pager;
     return view('dashboard/ebook', $data);
+  }
+  public function add(){
+    $data['title'] = 'Ebshare | Tambah Ebook';
+    // $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
+    $data['kategori'] = $this->kategoriModel->allKategori();
+    return view('dashboard/addEbook', $data);
   }
 }
