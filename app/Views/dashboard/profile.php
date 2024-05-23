@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <div class="relative w-full mx-auto mt-60 ">
         <div class="relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
-          <div class="flex flex-wrap -mx-3">
+          <!-- <div class="flex flex-wrap -mx-3">
             <div class="flex-none w-auto max-w-full px-3">
               <div class="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
                 <img src="../assets/img/team-1.jpg" alt="profile_image" class="w-full shadow-2xl rounded-xl" />
@@ -38,11 +38,11 @@
                 </ul>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="w-full p-6 mx-auto">
-        <div class="flex flex-wrap -mx-3">
+        <!-- <div class="flex flex-wrap -mx-3">
           <div class="w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-0">
             <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0">
@@ -188,5 +188,5 @@
             </div>
           </div>
 
-        </div>
+        </div> -->
       <?= $this->endSection() ?>

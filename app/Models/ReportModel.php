@@ -15,10 +15,9 @@ class ReportModel extends Model
   public function allReport(){
     $report = $this->select()
                 ->join('ebook_statistik', 'ebook.id = ebook_statistik.id_ebook')
-                ->join('kategori', 'kategori.id = ebook.id_kategori')
-                ->get();
+                ->join('kategori', 'kategori.id = ebook.id_kategori');
 
-    return $report->getResultArray();
+    return $report;
   }
   public function ebookGroupByKategoryReport(){
     $report = $this->selectSum('ebook_statistik.jumlah_unduhan')

@@ -16,6 +16,9 @@ class UserModel extends Model
     'email'        => 'required',
     'password'     => 'required'
 ];
+  public function allUser(){
+    return $this;
+  }
 
   public function register($data){
 

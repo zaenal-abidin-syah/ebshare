@@ -22,7 +22,9 @@
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
-                      <i class="ni leading-none ni-money-coins text-lg relative top-3.5 text-white"></i>
+                      <!-- <i class="ni leading-none ni-money-coins text-lg relative top-3.5 text-white"></i> -->
+                      <i class="fa fa-upload text-lg relative top-3 text-white" aria-hidden="true"></i>
+
                     </div>
                   </div>
                 </div>
@@ -46,7 +48,8 @@
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-red-600 to-orange-600">
-                      <i class="ni leading-none ni-world text-lg relative top-3.5 text-white"></i>
+                      <!-- <i class="ni leading-none ni-world text-lg relative top-3.5 text-white"></i> -->
+                      <i class="fa fa-download text-lg relative top-3 text-white" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
@@ -70,7 +73,8 @@
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-500 to-teal-400">
-                      <i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i>
+                      <!-- <i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i> -->
+                      <i class="fa fa-comments text-lg relative top-3 text-white" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
@@ -94,7 +98,8 @@
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500">
-                      <i class="ni leading-none ni-cart text-lg relative top-3.5 text-white"></i>
+                      <!-- <i class="ni leading-none ni-cart text-lg relative top-3.5 text-white"></i> -->
+                      <i class="fa fa-heart text-lg relative top-3 text-white" aria-hidden="true"></i>
                     </div>
                   </div>
                 </div>
@@ -104,7 +109,7 @@
         </div>
 
         <!-- cards row 2 -->
-        <div class="flex flex-wrap mt-6 -mx-3">
+        <!-- <div class="flex flex-wrap mt-6 -mx-3">
           <div class="w-full max-w-full px-3 mt-0 lg:w-7/12 lg:flex-none">
             <div class="border-black/12.5 dark:bg-slate-850 dark:shadow-dark-xl shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
               <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
@@ -124,7 +129,7 @@
 
           <div class="w-full max-w-full px-3 lg:w-5/12 lg:flex-none">
             <div slider class="relative w-full h-full overflow-hidden rounded-2xl">
-              <!-- slide 1 -->
+              
               <div slide class="absolute w-full h-full transition-all duration-500">
                 <img class="object-cover h-full" src="../assets/img/carousel-1.jpg" alt="carousel image" />
                 <div class="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
@@ -136,7 +141,7 @@
                 </div>
               </div>
 
-              <!-- slide 2 -->
+             
               <div slide class="absolute w-full h-full transition-all duration-500">
                 <img class="object-cover h-full" src="../assets/img/carousel-2.jpg" alt="carousel image" />
                 <div class="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
@@ -148,7 +153,7 @@
                 </div>
               </div>
 
-              <!-- slide 3 -->
+              
               <div slide class="absolute w-full h-full transition-all duration-500">
                 <img class="object-cover h-full" src="../assets/img/carousel-3.jpg" alt="carousel image" />
                 <div class="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
@@ -160,16 +165,15 @@
                 </div>
               </div>
 
-              <!-- Control buttons -->
               <button btn-next class="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-right active:scale-110 top-6 right-4"></button>
               <button btn-prev class="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-left active:scale-110 top-6 right-16"></button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- cards row 3 -->
 
-        <div class="flex flex-wrap mt-6 -mx-3">
+        <!-- <div class="flex flex-wrap mt-6 -mx-3">
           <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
             <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl dark:bg-gray-950 border-black-125 rounded-2xl bg-clip-border">
               <div class="p-4 pb-0 mb-0 rounded-t-4">
@@ -376,7 +380,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 <?= $this->endSection() ?>
 
 
