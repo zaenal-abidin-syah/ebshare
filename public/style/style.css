@@ -912,6 +912,10 @@ video {
   margin-inline-start: 0.25rem;
 }
 
+.ms-2 {
+  margin-inline-start: 0.5rem;
+}
+
 .mt-0 {
   margin-top: 0px;
 }
@@ -962,10 +966,6 @@ video {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.ms-2 {
-  margin-inline-start: 0.5rem;
 }
 
 .box-content {
@@ -1289,12 +1289,12 @@ video {
   gap: 0.5rem;
 }
 
-.gap-8 {
-  gap: 2rem;
-}
-
 .gap-6 {
   gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .gap-x-0 {
@@ -1499,6 +1499,11 @@ video {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.border-purple-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(243 232 255 / var(--tw-border-opacity));
 }
 
 .border-b-transparent {
@@ -1846,6 +1851,11 @@ video {
   padding-bottom: 0.75rem;
 }
 
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -1854,11 +1864,6 @@ video {
 .py-\[0\.32rem\] {
   padding-top: 0.32rem;
   padding-bottom: 0.32rem;
-}
-
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
 }
 
 .pb-0 {
@@ -1971,10 +1976,6 @@ video {
 
 .pt-\[0\.37rem\] {
   padding-top: 0.37rem;
-}
-
-.pe-2 {
-  padding-inline-end: 0.5rem;
 }
 
 .text-left {
@@ -2217,10 +2218,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-black\/60 {
-  color: rgb(0 0 0 / 0.6);
 }
 
 .antialiased {
@@ -2693,10 +2690,6 @@ video {
   color: rgb(147 51 234 / var(--tw-text-opacity));
 }
 
-.hover\:text-black\/80:hover {
-  color: rgb(0 0 0 / 0.8);
-}
-
 .hover\:no-underline:hover {
   text-decoration-line: none;
 }
@@ -2794,10 +2787,6 @@ video {
 .focus\:text-purple-700:focus {
   --tw-text-opacity: 1;
   color: rgb(126 34 206 / var(--tw-text-opacity));
-}
-
-.focus\:text-black\/80:focus {
-  color: rgb(0 0 0 / 0.8);
 }
 
 .focus\:no-underline:focus {
@@ -3033,10 +3022,6 @@ video {
 .active\:text-purple-700:active {
   --tw-text-opacity: 1;
   color: rgb(126 34 206 / var(--tw-text-opacity));
-}
-
-.active\:text-black\/80:active {
-  color: rgb(0 0 0 / 0.8);
 }
 
 .active\:no-underline:active {
@@ -3423,14 +3408,14 @@ video {
     padding-right: 0.5rem;
   }
 
-  .lg\:py-4 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   .lg\:pb-4 {
