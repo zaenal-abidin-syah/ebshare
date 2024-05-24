@@ -138,15 +138,8 @@
               </div>
             </div>
           </div>
-        <!-- </li> -->
-              <!-- <a
-                class="text-neutral-100 transition duration-200 hover:text-neutral-200 hover:ease-in-out focus:text-neutral-300 active:text-neutral-400 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2"
-                href="< base_url('/kategori') ?>"
-                data-twe-nav-link-ref
-                >Kategori</a
-              > -->
-            </li>
-          </ul>
+          </li>
+        </ul>
           <!-- Left links -->
         </div>
 

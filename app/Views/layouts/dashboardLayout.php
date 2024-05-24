@@ -28,8 +28,8 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-    <script src="/script/script.js"></script>
-    <link href="/assets/css/dashboard.css" rel="stylesheet" />
+    <script src="<?= base_url('/') ?>/script/script.js"></script>
+    <link href="<?= base_url('/') ?>/assets/css/dashboard.css" rel="stylesheet" />
   </head>
   <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default leading-[1.6] bg-gray-50 text-slate-500">
     <div class="absolute w-full bg-purple-500 dark:hidden min-h-75"></div>
@@ -191,11 +191,10 @@
       </nav>
       <div class="w-full px-6 py-6 mx-auto">
 
-      <!-- end Navbar -->
-
-      <?= $this->renderSection('content') ?>
-
-
+        <!-- end Navbar -->
+        
+        <?= $this->renderSection('content') ?>
+        
       <footer class="pt-4">
           <div class="w-full px-6 mx-auto">
             <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
@@ -232,15 +231,18 @@
       </div>
       <!-- end cards -->
     </main>
+  
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="<?= base_url('/') ?>/assets/js/plugins/chartjs.min.js"></script>
+<!-- plugin for scrollbar  -->
+<script src="<?= base_url('/') ?>/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<!-- main script file  -->
+<!-- <script src="/assets/js/argon-dashboard-tailwind.js?v=1.0.1'>"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script>
+
   </body>
   <!-- plugin for charts  -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <script src="/assets/js/plugins/chartjs.min.js" async></script>
-  <!-- plugin for scrollbar  -->
-  <script src="/assets/js/plugins/perfect-scrollbar.min.js" async></script>
-  <!-- main script file  -->
-  <script src="/assets/js/argon-dashboard-tailwind.js?v=1.0.1" async></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script>
 </html>

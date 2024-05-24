@@ -18,6 +18,7 @@
                 >Upload File</label
               >
               <input
+                onchange="handleFile()"
                 class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal leading-[2.15] text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:text-white  file:dark:text-white"
                 id="file"
                 type="file" />
@@ -47,19 +48,9 @@
               <?php } ?>
             </select>
             </div>
-            <div class="mb-4 w-8/12">
+            <div class="mb-8 w-8/12">
               <label for="tags" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tags</label> 
-              <div class="w-full mx-auto" x-data="{
-                tags: [],
-                addTag(tag) {
-                  if (tag.trim() !== '') {
-                    this.tags.puspx-3 py-2h(tag.trim());
-                  }
-                },
-                removeTag(index) {
-                  this.tags.splice(index, 1);
-                }
-              }">
+              
               <!-- Tag Input -->
               <div class="w-full rounded-xl items-center" x-data="{ newTag: '', tags: [] }">
               <input x-model="newTag" @keydown.enter.prevent="
@@ -73,19 +64,19 @@
                   <template x-for="(tag, index) in tags" :key="index">
                     <div class="inline-flex items-center gap-x-0.5 rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-700/10"> 
                       <span x-text="tag"></span> 
-                      <button @click="tags.splice(index, 1)" class="ml-2"> 
+                      <button type="button" @click="tags.splice(index, 1)" class="ml-2"> 
                         <svg class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg> 
                       </button> 
                     </div>
                   </template> 
-                </div>
+                <!-- </div> -->
                 </div>
               </div> 
             </div>
-            <div class="mb-4 w-8/12">
-            <button
+            <div class="mb-4 mt-16 w-8/12">
+          <button
               type="submit"
               class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
               data-twe-ripple-init
@@ -103,15 +94,51 @@
     </div>
   </div>
 </div>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 <script>
   // $(document).ready((){
   //   $('.myform').on('submit', (e){
   //     e.preventDefault();
-  //     $.ajax({
+  //     // $.ajax({
 
-  //     })
+  //     // })
   //   })
   // })
+  async function handleFile(){
+    const fileInput = document.getElementById('file');
+    const file = fileInput.files[0];
+
+    if(file){
+      const reader = new FileReader();
+      reader.onload = async function (event){
+        console.log(event);
+        const arrayBuffer = event.target.result;
+        // const arrayBuffer = event.target.result;
+        console.log('Array Buffer:', arrayBuffer);
+        console.log('File Size:', arrayBuffer.byteLength);
+        // console.log('File name:', arrayBuffer.name);
+        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        console.log({title : pdfDoc.getTitle});
+        console.log({size : pdfDoc.getSize});
+        console.log({pages : pdfDoc.getPages});
+        
+        // const metadata = pdfDoc.getMetadata();
+        // console.log(metadata);
+        
+        // console.log({arrayBuffer});
+        try {
+          const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+          const metadata = pdfDoc.getInfo();
+          console.log(metadata);
+        } catch (error) {
+          console.log('error : ', error);
+        }
+      }
+      reader.readAsArrayBuffer(file);
+    }
+
+  }
+
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <?= $this->endSection() ?>

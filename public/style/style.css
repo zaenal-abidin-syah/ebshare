@@ -968,6 +968,14 @@ video {
   margin-top: auto;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
 .box-content {
   box-sizing: content-box;
 }
