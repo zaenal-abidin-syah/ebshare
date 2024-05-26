@@ -69,7 +69,7 @@
                   <template x-for="(tag, index) in tags" :key="index">
                     <div class="inline-flex items-center gap-x-0.5 rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-700/10"> 
                       <span x-text="tag"></span> 
-                      <button type="button" @click="tags.splice(index, 1)" class="ml-2"> 
+                      <button type="button" @click="tags.splice(index, 1) ;removeTag(index)" class="ml-2"> 
                         <svg class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg> 
@@ -125,6 +125,14 @@
       console.log(tag.value);
     }
     });
+  function removeTag(index){
+    const tag = document.getElementById('tag');
+    // console.log({ old: tag.value})
+    tagArray = tag.value.split(',');
+    tagArray.splice(index, 1);
+    // console.log({ new: tag.value})
+    tag.value = tagArray.join(',')
+  }
 
   async function handleFile(){
     const fileInput = document.getElementById('file');

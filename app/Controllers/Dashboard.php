@@ -67,13 +67,7 @@ class Dashboard extends BaseController
     $data['pager'] = $this->reportModel->pager;
     return view('dashboard/tables', $data);
   }
-  public function ebook(){
-    $data['title'] = 'Ebshare | Ebook';
-    $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
-    $data['kategori'] = $this->kategoriModel->allKategori();
-    $data['pager'] = $this->model->pager;
-    return view('dashboard/ebook', $data);
-  }
+
   public function user(){
     $data['title'] = 'Ebshare | User';
     $data['users'] = $this->userModel->allUser()->paginate(10);
@@ -118,6 +112,14 @@ class Dashboard extends BaseController
     $this->detailUserModel->updateUser($id_detail, $dataDetailUser);
     session()->setFlashdata('message', 'Berhasil Update User Detail!');
     return redirect()->to(base_url('dashboard/user/detail/').$id_user);
+  }
+
+  public function ebook(){
+    $data['title'] = 'Ebshare | Ebook';
+    $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
+    $data['kategori'] = $this->kategoriModel->allKategori();
+    $data['pager'] = $this->model->pager;
+    return view('dashboard/ebook', $data);
   }
 
   public function addEbook(){
@@ -183,6 +185,68 @@ class Dashboard extends BaseController
     $this->statistikModel->where('id_ebook', $id)->delete();
     $this->model->where('id', $id)->delete();
     return redirect()->to(base_url('/dashboard/ebook'));
+  }
+  public function editEbook($id){
+    $data['title'] = 'Ebshare | Edit Ebook';
+    $data['ebook'] = $this->model->ebookById($id);
+    $data['kategori'] = $this->kategoriModel->allKategori();
+    return view('/dashboard/editEbook', $data);
+  }
+  public function updateEbook(){
+    // print_r($this->request->getVar());
+    $data['id'] = $this->request->getPost('id_ebook');
+    // $data['judul'] = $this->request->getPost('judul');
+    // $data['penulis'] = $this->request->getPost('penulis');
+    // $data['penerbit'] = $this->request->getPost('penerbit');
+    // $data['deskripsi'] = $this->request->getPost('deskripsi');
+    // $data['id_kategori'] = $this->request->getPost('kategori');
+    // $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
+    $tags = explode(',', $this->request->getPost('tag'));
+    // if (!$this->model->update_data($data)) {
+    //   $data['errors'] = $this->model->errors();
+    //   $data['kategori'] = $this->kategoriModel->allKategori();
+    //   // print($data['error']);
+    //   return view('/dashboard/ebook/edit', $data);
+    // }
+    foreach ($this->ebookTagModel->where('id_ebook', $data['id'])->join('tag', 'ebook_tag.id_tag = tag.id')->get()->getResultArray() as $ebookTag) {
+      session()->setFlashdata('tagDatabase', $ebookTag['nama_tag']);
+      session()->setFlashdata('tagInput', $tags);
+      
+      if (in_array($ebookTag['nama_tag'], $tags ) == null ){
+        echo 'tag di hapus'.$ebookTag['nama_tag'];
+        $this->ebookTagModel->where('id_ebook', $data['id'])->where('id_tag', $ebookTag['id_tag'])->delete();
+        // echo 'hapus => '.$ebookTag['nama_tag'];
+      }
+    }
+    
+    foreach ($tags as $tag) {
+
+      $tag = trim($tag);
+      // echo 'Tag  ==>'.$tag;
+      
+      # code...
+      if ($this->tagModel->where('nama_tag', $tag)->first() == null){
+        $this->tagModel->tambah(['nama_tag' => $tag]);
+        $id_tag = $this->tagModel->insertID();
+        echo 'tag di tambah'.$tag;
+      }
+      else{
+        $id_tag = $this->tagModel->select('id')->where('nama_tag', $tag)->get()->getResultArray()['0'];
+        echo 'tag sudah ada'.$tag;
+
+
+      }
+      if($this->ebookTagModel->where('id_tag', $id_tag)->where('id_ebook', $data['id'])->first() == null){
+        echo 'ebook tag di tambah'.$tag;
+        $this->ebookTagModel->tambah(['id_ebook' => $data['id'], 'id_tag' => $id_tag]);
+      }else{
+        echo 'ebook tag tidak ditambah'.$tag;
+      }
+      
+    }
+    
+    // session()->setFlashdata('message', 'Ebook Berhasil di Ubah !');
+    // return redirect()->to(base_url('/dashboard/ebook'));
   }
 
   public function upload()

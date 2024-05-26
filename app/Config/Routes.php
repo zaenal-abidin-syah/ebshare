@@ -29,6 +29,7 @@ $routes->get('/dashboard/user/delete/(:any)', 'Dashboard::deleteUser/$1');
 $routes->get('/dashboard/ebook', 'Dashboard::ebook');
 $routes->get('/dashboard/ebook/add', 'Dashboard::addEbook');
 $routes->post('/dashboard/ebook/add', 'Dashboard::createEbook');
-$routes->get('/dashboard/ebook/edit', 'Dashboard::editEbook');
+$routes->get('/dashboard/ebook/edit/(:any)', 'Dashboard::editEbook/$1');
+$routes->post('/dashboard/ebook/update', 'Dashboard::updateEbook');
 $routes->get('/dashboard/ebook/delete/(:any)', 'Dashboard::deleteEbook/$1');
 $routes->get('/report', 'Report::index');

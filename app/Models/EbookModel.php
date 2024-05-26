@@ -49,6 +49,18 @@ class EbookModel extends Model
   public function ebookByYear($year){
     return $this->where('tahun_terbit', $year)->get()->getResultArray();
   }
+  public function ebookById($id=false){
+    
+    return $this->select('ebook.*, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
+          ->join('ebook_tag et', 'et.id_ebook = ebook.id')
+          ->join('kategori k', 'k.id = ebook.id_kategori')
+          ->join('tag t', 't.id = et.id_tag')
+          ->where('ebook.id', $id)
+          ->groupBy('ebook.id')
+          ->get()
+          ->getResultArray()[0];
+    
+  }
   public function allEbook($id=false){
     if($id){
       return $this->select('ebook.*, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
