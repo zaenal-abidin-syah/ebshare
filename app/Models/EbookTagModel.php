@@ -10,5 +10,9 @@ class EbookTagModel extends Model
   protected $primaryKey = 'id';
 
   protected $useAutoIncrement = true;
+  protected $allowedFields = ['id_ebook', 'id_tag'];
+  public function tambah($data){
+    return $this->insert($data);
+  }
 
 }

@@ -5,22 +5,23 @@
 
   <div class="flex flex-wrap -mx-3">
     <div class="flex-none w-full max-w-full px-3">
-      <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+      <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl rounded-2xl bg-clip-border">
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
           <h6 class="dark:text-white">My Ebooks</h6>
           </div>
-          <form class="myform" action="<?= base_url('/dashboard/ebook/add') ?>" method="post">
+          <form class="myform" action="<?= base_url('/dashboard/ebook/add') ?>" method="post" enctype="multipart/form-data">
           <div class="flex flex-col items-center px-0 pt-0 pb-2">
             <div class="mb-3">
               <label
                 for="file"
-                class="mb-2 inline-block text-neutral-500 dark:text-neutral-400"
+                class="mb-2 inline-block text-neutral-500"
                 >Upload File</label
               >
               <input
                 onchange="handleFile()"
-                class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal leading-[2.15] text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:text-white  file:dark:text-white"
+                class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal leading-[2.15] text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none"
                 id="file"
+                name="file"
                 type="file" />
             </div>
             <div class="mb-4 w-8/12">
@@ -34,6 +35,10 @@
             <div class="mb-4 w-8/12">
               <label for="penerbit" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Penerbit</label>
               <input type="text" id="penerbit" name="penerbit" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
+            </div>
+            <div class="mb-4 w-8/12">
+              <label for="tahun_terbit" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tahun Terbit</label>
+              <input type="text" id="tahun_terbit" name="tahun_terbit" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
             </div>
             <div class="mb-4 w-8/12">
               <label for="deskripsi" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Deskripsi</label>
@@ -52,8 +57,8 @@
               <label for="tags" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tags</label> 
               
               <!-- Tag Input -->
-              <div class="w-full rounded-xl items-center" x-data="{ newTag: '', tags: [] }">
-              <input x-model="newTag" @keydown.enter.prevent="
+              <div class="data-tag w-full rounded-xl items-center" x-data="{ newTag: '', tags: [] }">
+              <input id="triger-tag" x-model="newTag" @keydown.enter.prevent="
                 if (newTag.trim() !== '') {
                     tags.push(newTag.trim());
                     newTag = '';
@@ -75,10 +80,16 @@
                 </div>
               </div> 
             </div>
+          <div>
+            <input type="hidden" name='type' id='type'>
+            <input type="hidden" name='size' id='size'>
+            <input type="hidden" name='tag' id='tag'>
+
+          </div>
             <div class="mb-4 mt-16 w-8/12">
           <button
               type="submit"
-              class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+              class="submit inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-[1.5] text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
               data-twe-ripple-init
               data-twe-ripple-color="light">
               Submit
@@ -97,47 +108,42 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <script>
-  // $(document).ready((){
-  //   $('.myform').on('submit', (e){
-  //     e.preventDefault();
-  //     // $.ajax({
 
-  //     // })
-  //   })
+  const triger = document.getElementById('triger-tag');
+  // triger.addEventListener('change', () => {
+  //   console.log({ datatag : dataTag.value});
   // })
+  triger.addEventListener('keydown', function(event) {
+    // console.log({ datatag : dataTag});
+    if (event.key === 'Enter' && triger.value.trim() !== '') {
+      const tag = document.getElementById('tag');
+      if (tag.value.length !== 0){
+        tag.value = tag.value + ',' + triger.value
+      }else{
+        tag.value = triger.value
+      }
+      console.log(tag.value);
+    }
+    });
+
   async function handleFile(){
     const fileInput = document.getElementById('file');
     const file = fileInput.files[0];
+    console.log({name : file.name});
+    console.log({size : file.size});
+    console.log({type : file.type});
 
-    if(file){
-      const reader = new FileReader();
-      reader.onload = async function (event){
-        console.log(event);
-        const arrayBuffer = event.target.result;
-        // const arrayBuffer = event.target.result;
-        console.log('Array Buffer:', arrayBuffer);
-        console.log('File Size:', arrayBuffer.byteLength);
-        // console.log('File name:', arrayBuffer.name);
-        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-        console.log({title : pdfDoc.getTitle});
-        console.log({size : pdfDoc.getSize});
-        console.log({pages : pdfDoc.getPages});
-        
-        // const metadata = pdfDoc.getMetadata();
-        // console.log(metadata);
-        
-        // console.log({arrayBuffer});
-        try {
-          const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-          const metadata = pdfDoc.getInfo();
-          console.log(metadata);
-        } catch (error) {
-          console.log('error : ', error);
-        }
-      }
-      reader.readAsArrayBuffer(file);
-    }
-
+    const judul = document.getElementById('judul');
+    // type = file.name.split('.');
+    // judul.value = type[type.length - 1]
+    judul.value = file.name;
+    // type = file.name.split('.');
+    // type = type[type.length - 1]
+    // const name = document.getElementById('name');
+    const type = document.getElementById('type');
+    type.value = file.type
+    const size = document.getElementById('size');
+    size.value = file.size
   }
 
 </script>

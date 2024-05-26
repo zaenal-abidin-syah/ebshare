@@ -12,7 +12,7 @@
 
                 <a type="button"
                   href="<?= base_url('/dashboard/ebook/add') ?>"
-                  class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 cursor-pointer"
+                  class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 cursor-pointer"
                   >
                   Add
                 </a>
@@ -37,7 +37,7 @@
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <div class="flex px-2 py-1">
                             <div>
-                              <img src="../assets/img/team-2.jpg" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl" alt="user1" />
+                              <img src="../assets/img/team-2.jpg" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200-in-out h-9 w-9 rounded-xl" alt="user1" />
                             </div>
                             <div class="flex flex-col justify-center">
                               <h6 class="mb-0 text-sm leading-normal dark:text-white"><?= $ebook['judul'] ?></h6>

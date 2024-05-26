@@ -11,7 +11,16 @@ class EbookModel extends Model
   protected $primaryKey = 'id';
 
   protected $useAutoIncrement = true;
-  protected $allowedFields = ['title', 'path', 'id_author', 'id_kategori'];
+  protected $allowedFields = ['judul', 'penulis', 'penerbit', 'ukuran', 'tahun_terbit', 'type', 'deskripsi' , 'path', 'id_user', 'id_kategori'];
+  // protected $allowedFields = ['username', 'email', 'password', 'role'];
+  protected $validationRules = [
+    'judul'     => 'required',
+    'penulis'        => 'required',
+    'penerbit'     => 'required',
+    'ukuran'  => 'required',
+    'tahun_terbit' => 'required',
+    'type' => 'required'
+  ];
 // all ebook
 // ebook by kategori
 // ebook by keyword
@@ -85,7 +94,7 @@ class EbookModel extends Model
   }
 
   public function tambah($data){
-    return $this->insert($data);
+    return $this->insert($data, false);
   }
   public function update_data($data){
     return $this->save($data);
