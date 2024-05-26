@@ -94,8 +94,8 @@
             </div>
           </div>
         </div>
-        <!-- < base_url('/dashboard/ebook/delete/'.$ebook['id']) ?> -->
-        <!-- Button trigger modal -->
+
+        
 <div id="modelConfirm" class="fixed hidden z-[1000] inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
   <div class="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md">
 
@@ -137,7 +137,7 @@
     document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden')
     deleteButton = document.querySelector('.deleteHref');
     base_url = "<?= base_url('') ?>" ;
-    deleteButton.href = base_url + 'delete/' + id_ebook    
+    deleteButton.href = base_url + 'dashboard/ebook/delete/' + id_ebook    
   }
 
   window.closeModal = function(modalId) {

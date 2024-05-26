@@ -19,6 +19,12 @@ class UserModel extends Model
   public function allUser(){
     return $this;
   }
+  public function detailUser($id){
+    return $this->select('user.username, user.id, user.email, user.role, user.tanggal_bergabung, ud.id id_detail, ud.no_telepon, ud.alamat, ud.kota, ud.provinsi, ud.negara')->join('user_detail ud', 'ud.id_user = user.id')->where('user.id', $id)->get()->getResultArray()[0];
+  }
+  public function updateUser($id, $data){
+    return $this->update($id, $data);
+  }
 
   public function register($data){
 

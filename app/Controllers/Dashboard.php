@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\EbookModel;
 use App\Models\ReportModel;
 use App\Models\UserModel;
+use App\Models\DetailUserModel;
 use App\Models\KategoriModel;
 use App\Models\StatistikModel;
 use App\Models\EbookTagModel;
@@ -14,6 +15,7 @@ class Dashboard extends BaseController
   // task = pagination
   public function __construct(){
     $this->model = new EbookModel();
+    $this->detailUserModel = new DetailUserModel();
     $this->userModel = new UserModel();
     $this->reportModel = new ReportModel();
     $this->kategoriModel = new KategoriModel();
@@ -31,9 +33,30 @@ class Dashboard extends BaseController
   }
   public function profile(){
     $data['title'] = 'Ebshare | Ebook';
-    $data['ebooks'] = $this->model->allEbook();
-    $data['kategori'] = $this->kategoriModel->allKategori();
+    $data['profile'] = $this->userModel->detailUser(session()->get('id'));
     return view('dashboard/profile', $data);
+  }
+  public function editProfile($id){
+    $data['title'] = 'Ebshare | Edit Profile';
+    $data['detail'] = $this->userModel->detailUser($id);
+    return view('dashboard/editProfile', $data);
+  }
+  public function updateProfile(){
+    $id_user = $this->request->getPost('id_user');
+    
+    $dataUser['username'] = $this->request->getPost('username');
+    $dataUser['email'] = $this->request->getPost('email');
+
+    $id_detail = $this->request->getPost('id_detail');
+    $dataDetailUser['no_telepon'] = $this->request->getPost('no_telepon');
+    $dataDetailUser['alamat'] = $this->request->getPost('alamat');
+    $dataDetailUser['kota'] = $this->request->getPost('kota');
+    $dataDetailUser['provinsi'] = $this->request->getPost('provinsi');
+    $dataDetailUser['negara'] = $this->request->getPost('negara');
+    $this->userModel->updateUser($id_user, $dataUser);
+    $this->detailUserModel->updateUser($id_detail, $dataDetailUser);
+    session()->setFlashdata('message', 'Berhasil Update Profile!');
+    return redirect()->to(base_url('dashboard/profile'));
   }
 
   public function table()
@@ -59,13 +82,51 @@ class Dashboard extends BaseController
     // return view('test', $data);
     return view('dashboard/user', $data);
   }
-  public function add(){
+  public function deleteUser($id){
+    foreach($this->model->where('id_user', $id)->get()->getResultArray() as $id_ebook){
+      
+      $this->ebookTagModel->where('id_ebook', $id_ebook['id'])->delete();
+      $this->statistikModel->where('id_ebook', $id_ebook['id'])->delete();
+    };  
+    $this->model->where('id_user', $id)->delete();
+    $this->userModel->where('id', $id)->delete();
+    return redirect()->to(base_url('/dashboard/user'));
+  }
+  public function detailUser($id){
+    $data['title'] = 'Ebshare | Detail Ebook';
+    $data['detail'] = $this->userModel->detailUser($id);
+    return view('dashboard/detailUser', $data);
+  }
+  public function editUser($id){
+    $data['title'] = 'Ebshare | Edit Ebook';
+    $data['detail'] = $this->userModel->detailUser($id);
+    return view('dashboard/editUser', $data);
+  }
+  public function updateUser(){
+    $id_user = $this->request->getPost('id_user');
+    
+    $dataUser['username'] = $this->request->getPost('username');
+    $dataUser['email'] = $this->request->getPost('email');
+
+    $id_detail = $this->request->getPost('id_detail');
+    $dataDetailUser['no_telepon'] = $this->request->getPost('no_telepon');
+    $dataDetailUser['alamat'] = $this->request->getPost('alamat');
+    $dataDetailUser['kota'] = $this->request->getPost('kota');
+    $dataDetailUser['provinsi'] = $this->request->getPost('provinsi');
+    $dataDetailUser['negara'] = $this->request->getPost('negara');
+    $this->userModel->updateUser($id_user, $dataUser);
+    $this->detailUserModel->updateUser($id_detail, $dataDetailUser);
+    session()->setFlashdata('message', 'Berhasil Update User Detail!');
+    return redirect()->to(base_url('dashboard/user/detail/').$id_user);
+  }
+
+  public function addEbook(){
     $data['title'] = 'Ebshare | Tambah Ebook';
     // $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('dashboard/addEbook', $data);
   }
-  public function create(){
+  public function createEbook(){
     // print_r($this->request->getFile());
     // print_r($this->request->getFile('file'));
     $file = $this->request->getFile('file');
@@ -117,7 +178,7 @@ class Dashboard extends BaseController
     session()->setFlashdata('message', 'Ebook Berhasil di tambahkan !');
     return redirect()->to(base_url('/dashboard/ebook'));
   }
-  public function delete($id){
+  public function deleteEbook($id){
     $this->ebookTagModel->where('id_ebook', $id)->delete();
     $this->statistikModel->where('id_ebook', $id)->delete();
     $this->model->where('id', $id)->delete();
