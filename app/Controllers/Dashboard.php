@@ -119,8 +119,8 @@ class Dashboard extends BaseController
   }
   public function delete($id){
     $this->ebookTagModel->where('id_ebook', $id)->delete();
-    $this->model->where('id', $id)->delete();
     $this->statistikModel->where('id_ebook', $id)->delete();
+    $this->model->where('id', $id)->delete();
     return redirect()->to(base_url('/dashboard/ebook'));
   }
 
