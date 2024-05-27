@@ -61,7 +61,7 @@
                         </td>
                         <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                           <?php 
-                          $tags = explode(',', $ebook['tag']);
+                          $tags = $ebook['tag'] != '' ? explode(',', $ebook['tag']) : [];
                           foreach ($tags as $tag) { ?>
                             <span class="bg-gradient-to-tl from-purple-500 to-blue-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white"><?= $tag ?></span>
                             <?php } ?>
@@ -73,6 +73,7 @@
                           <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400"><?= $ebook['tahun_terbit'] ?></span>
                         </td>
                         <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <a href="<?= base_url('/dashboard/ebook/detail/'.$ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-sky-500 to-indigo-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Detail </a>
                           <a href="<?= base_url('/dashboard/ebook/edit/'.$ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-lime-500 to-cyan-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Edit </a>
                           <button
                             type="button"

@@ -14,6 +14,9 @@ class Dashboard extends BaseController
 {
   // task = pagination
   public function __construct(){
+    if(!session()->get('login')){
+      return redirect()->to(base_url('/login'));
+    }
     $this->model = new EbookModel();
     $this->detailUserModel = new DetailUserModel();
     $this->userModel = new UserModel();
@@ -23,8 +26,11 @@ class Dashboard extends BaseController
     $this->ebookTagModel = new EbookTagModel();
     $this->tagModel = new TagModel();
   }
-  public function index(): string
+  public function index()
   {
+    if(!session()->get('login')){
+      return redirect()->to(base_url('/login'));
+    }
     $data['title'] = 'Ebshare | Ebook';
     $data['statistik'] = $this->model->allStatistik(session()->get('id'));
     $data['ebooks'] = $this->model->allEbook();
@@ -195,27 +201,21 @@ class Dashboard extends BaseController
   public function updateEbook(){
     // print_r($this->request->getVar());
     $data['id'] = $this->request->getPost('id_ebook');
-    // $data['judul'] = $this->request->getPost('judul');
-    // $data['penulis'] = $this->request->getPost('penulis');
-    // $data['penerbit'] = $this->request->getPost('penerbit');
-    // $data['deskripsi'] = $this->request->getPost('deskripsi');
-    // $data['id_kategori'] = $this->request->getPost('kategori');
-    // $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
+    $data['judul'] = $this->request->getPost('judul');
+    $data['penulis'] = $this->request->getPost('penulis');
+    $data['penerbit'] = $this->request->getPost('penerbit');
+    $data['deskripsi'] = $this->request->getPost('deskripsi');
+    $data['id_kategori'] = $this->request->getPost('kategori');
+    $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
     $tags = explode(',', $this->request->getPost('tag'));
-    // if (!$this->model->update_data($data)) {
-    //   $data['errors'] = $this->model->errors();
-    //   $data['kategori'] = $this->kategoriModel->allKategori();
-    //   // print($data['error']);
-    //   return view('/dashboard/ebook/edit', $data);
-    // }
+    if (!$this->model->update_data($data)) {
+      $data['errors'] = $this->model->errors();
+      $data['kategori'] = $this->kategoriModel->allKategori();
+      return view('/dashboard/ebook/edit', $data);
+    }
     foreach ($this->ebookTagModel->where('id_ebook', $data['id'])->join('tag', 'ebook_tag.id_tag = tag.id')->get()->getResultArray() as $ebookTag) {
-      session()->setFlashdata('tagDatabase', $ebookTag['nama_tag']);
-      session()->setFlashdata('tagInput', $tags);
-      
       if (in_array($ebookTag['nama_tag'], $tags ) == null ){
-        echo 'tag di hapus'.$ebookTag['nama_tag'];
         $this->ebookTagModel->where('id_ebook', $data['id'])->where('id_tag', $ebookTag['id_tag'])->delete();
-        // echo 'hapus => '.$ebookTag['nama_tag'];
       }
     }
     
@@ -228,26 +228,25 @@ class Dashboard extends BaseController
       if ($this->tagModel->where('nama_tag', $tag)->first() == null){
         $this->tagModel->tambah(['nama_tag' => $tag]);
         $id_tag = $this->tagModel->insertID();
-        echo 'tag di tambah'.$tag;
       }
       else{
         $id_tag = $this->tagModel->select('id')->where('nama_tag', $tag)->get()->getResultArray()['0'];
-        echo 'tag sudah ada'.$tag;
-
-
       }
       if($this->ebookTagModel->where('id_tag', $id_tag)->where('id_ebook', $data['id'])->first() == null){
-        echo 'ebook tag di tambah'.$tag;
         $this->ebookTagModel->tambah(['id_ebook' => $data['id'], 'id_tag' => $id_tag]);
-      }else{
-        echo 'ebook tag tidak ditambah'.$tag;
       }
       
     }
     
-    // session()->setFlashdata('message', 'Ebook Berhasil di Ubah !');
-    // return redirect()->to(base_url('/dashboard/ebook'));
+    session()->setFlashdata('message', 'Ebook Berhasil di Ubah !');
+    return redirect()->to(base_url('/dashboard/ebook'));
   }
+  public function detailEbook($id){
+    $data['title'] = 'Ebshare | Detail Ebook';
+    $data['ebook'] = $this->model->ebookById($id);
+    return view('dashboard/detailEbook', $data);
+  }
+
 
   public function upload()
   {

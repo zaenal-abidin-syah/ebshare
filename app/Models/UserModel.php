@@ -20,7 +20,7 @@ class UserModel extends Model
     return $this;
   }
   public function detailUser($id){
-    return $this->select('user.username, user.id, user.email, user.role, user.tanggal_bergabung, ud.id id_detail, ud.no_telepon, ud.alamat, ud.kota, ud.provinsi, ud.negara')->join('user_detail ud', 'ud.id_user = user.id')->where('user.id', $id)->get()->getResultArray()[0];
+    return $this->select('user.username, user.id, user.email, user.role, user.tanggal_bergabung, ud.id id_detail, ud.no_telepon, ud.alamat, ud.kota, ud.provinsi, ud.negara')->join('user_detail ud', 'ud.id_user = user.id', 'left')->where('user.id', $id)->get()->getResultArray()[0];
   }
   public function updateUser($id, $data){
     return $this->update($id, $data);
@@ -49,11 +49,6 @@ class UserModel extends Model
       // print_r($u['id']);
     }
     return $user;
-    // $this->updateBatch($user, 'id');
-    // foreach ($data as $row) {
-    //   $builder->where('id', $row['id'])->update($row);
-  // }
-    // $this->save();
   }
 
 }

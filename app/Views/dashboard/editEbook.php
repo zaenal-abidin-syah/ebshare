@@ -44,7 +44,7 @@
               <label for="tags" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tags</label> 
               
               <!-- Tag Input -->
-              <div class="data-tag w-full rounded-xl items-center" x-data='{ newTag: "", tags: <?= json_encode(explode(',', $ebook['tag'])) ?> }'>
+              <div class="data-tag w-full rounded-xl items-center" x-data='{ newTag: "", tags: <?= $ebook['tag'] != '' ? json_encode(explode(',', $ebook['tag'])) : "[]"  ?>  }'>
               <input id="triger-tag" x-model="newTag" @keydown.enter.prevent="
               
                 if (newTag.trim() !== '') {
@@ -89,6 +89,7 @@
     </div>
   </div>
 </div>
+
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <!-- JSON.Parse('<= json_encode(explode(',', $ebook['tag'])) ?>' -->
 <script>

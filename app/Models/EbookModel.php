@@ -51,10 +51,11 @@ class EbookModel extends Model
   }
   public function ebookById($id=false){
     
-    return $this->select('ebook.*, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
+    return $this->select('ebook.judul, ebook.penulis, ebook.penerbit, ebook.id, ebook.id_user, ebook.ukuran, ebook.tahun_terbit, ebook.deskripsi, ebook.type, ebook.id_kategori, u.username, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
           ->join('ebook_tag et', 'et.id_ebook = ebook.id')
           ->join('kategori k', 'k.id = ebook.id_kategori')
           ->join('tag t', 't.id = et.id_tag')
+          ->join('user u', 'ebook.id_user = u.id')
           ->where('ebook.id', $id)
           ->groupBy('ebook.id')
           ->get()
@@ -66,14 +67,14 @@ class EbookModel extends Model
       return $this->select('ebook.*, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
             ->join('ebook_tag et', 'et.id_ebook = ebook.id')
             ->join('kategori k', 'k.id = ebook.id_kategori')
-            ->join('tag t', 't.id = et.id_tag')
+            ->join('tag t', 't.id = et.id_tag', 'left')
             ->where('ebook.id_user', $id)
             ->groupBy('ebook.id');
     }else{
       return $this->select('ebook.*, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
             ->join('ebook_tag et', 'et.id_ebook = ebook.id')
             ->join('kategori k', 'k.id = ebook.id_kategori')
-            ->join('tag t', 't.id = et.id_tag')
+            ->join('tag t', 't.id = et.id_tag', 'left')
             ->groupBy('ebook.id');
     }
     
@@ -114,30 +115,4 @@ class EbookModel extends Model
   public function delete_data($id){
     return $this->delete($id);
 }
-
-
-// public function create($judul, $path, $author, $kategori){
-//     $data = [
-//         'title' => $judul,
-//         'path' => $path,
-//         'id_author'    => $author,
-//         'id_kategori'    => $kategori,
-//     ];
-    
-//     // Inserts data and returns inserted row's primary key
-//     return $this->insert($data);
-// }
-// public function find_all() {
-//     // Lakukan join antara tabel ebook, author, dan kategori
-//     return $this->select('ebook.*, author.nama_author, kategori.nama_kategori')
-//                 ->join('author', 'author.id_author = ebook.id_author')
-//                 ->join('kategori', 'kategori.id_kategori = ebook.id_kategori')->findAll();
-// }
-
-// public function update_data($data){
-//     return $this->save($data);
-// }
-// public function delete_data($id){
-//     return $this->delete(['id', $id]);
-// }
 }
