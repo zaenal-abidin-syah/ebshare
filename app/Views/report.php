@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
   <!-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.tailwindcss.css"> -->
 
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg bg-primary mb-5 py-2">
     <div class="container">
@@ -32,20 +34,20 @@
       </div>
     </div>
   </nav>
-<?php 
-// foreach ($dataByKategori as $key ) { 
-//     print_r($key['jumlah_unduhan']);
-//     // print_r(json_encode($key['jumlah_unduhan']));
-//  }; 
-?>
+  <?php
+  // foreach ($dataByKategori as $key ) { 
+  //     print_r($key['jumlah_unduhan']);
+  //     // print_r(json_encode($key['jumlah_unduhan']));
+  //  }; 
+  ?>
   <div class="container mb-4">
     <h2>Laporan Jumlah Unduhan, Komenter dan Favorite setiap Buku</h2>
   </div>
 
   <div class="container">
-  <table id="allEbookReport" class="table table-striped" style="width:100%">
-    <thead>
-      <tr>
+    <table id="allEbookReport" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
           <th>Judul</th>
           <th>Penulis</th>
           <th>Penerbit</th>
@@ -54,22 +56,22 @@
           <th>Jumlah Favorite</th>
           <th>Jumlah Komentar</th>
           <th>Rata-rata Rating</th>
-      </tr>
-    </thead>
-    
-    <?php foreach ($coba as $key ) { ?>
-      <tr>
-        <td><?php echo $key['judul']; ?></td>
-        <td><?php echo $key['penulis']; ?></td>
-        <td><?php echo $key['penerbit']; ?></td>
-        <td><?php echo $key['nama_kategori']; ?></td>
-        <td><?php echo $key['jumlah_unduhan']; ?></td>
-        <td><?php echo $key['jumlah_favorite']; ?></td>
-        <td><?php echo $key['jumlah_komentar']; ?></td>
-        <td><?php echo $key['rating_rata_rata']; ?></td>
-      </tr>
-    <?php } ?>
-  </table>
+        </tr>
+      </thead>
+
+      <?php foreach ($coba as $key) { ?>
+        <tr>
+          <td><?php echo $key['judul']; ?></td>
+          <td><?php echo $key['penulis']; ?></td>
+          <td><?php echo $key['penerbit']; ?></td>
+          <td><?php echo $key['nama_kategori']; ?></td>
+          <td><?php echo $key['jumlah_unduhan']; ?></td>
+          <td><?php echo $key['jumlah_favorite']; ?></td>
+          <td><?php echo $key['jumlah_komentar']; ?></td>
+          <td><?php echo $key['rating_rata_rata']; ?></td>
+        </tr>
+      <?php } ?>
+    </table>
   </div>
   <div class="container my-4">
     <h2>Grafik Jumlah Unduhan, Komentar dan Favorite setiap Buku</h2>
@@ -84,25 +86,25 @@
   </div>
 
   <div class="container">
-  <table id="reportByKategoriReport" class="table table-striped" style="width:100%">
-    <thead>
-      <tr>
+    <table id="reportByKategoriReport" class="table table-striped" style="width:100%">
+      <thead>
+        <tr>
           <th>Kategori</th>
           <th>Jumlah Unduhan</th>
           <th>Jumlah Favorite</th>
           <th>Jumlah Komentar</th>
-      </tr>
-    </thead>
-    
-    <?php foreach ($dataByKategori as $key ) { ?>
-      <tr>
-        <td><?php echo $key['nama_kategori']; ?></td>
-        <td><?php echo $key['jumlah_unduhan']; ?></td>
-        <td><?php echo $key['jumlah_favorite']; ?></td>
-        <td><?php echo $key['jumlah_komentar']; ?></td>
-      </tr>
-    <?php } ?>
-  </table>
+        </tr>
+      </thead>
+
+      <?php foreach ($dataByKategori as $key) { ?>
+        <tr>
+          <td><?php echo $key['nama_kategori']; ?></td>
+          <td><?php echo $key['jumlah_unduhan']; ?></td>
+          <td><?php echo $key['jumlah_favorite']; ?></td>
+          <td><?php echo $key['jumlah_komentar']; ?></td>
+        </tr>
+      <?php } ?>
+    </table>
   </div>
   <div class="container my-4">
     <h2>Grafik Jumlah Unduhan, Komentar dan Favorite setiap Kategori Buku</h2>
@@ -116,39 +118,39 @@
   <script>
     new DataTable('#allEbookReport');
     new DataTable('#reportByKategoriReport');
-    
+
 
     const ctx = document.getElementById('grafik1');
     const dataLabel = []
     const dataContentUnduhan = []
     const dataContentFavorite = []
     const dataContentKomentar = []
-    <?php foreach ($coba as $key ) { ?>
-        dataLabel.push(<?= json_encode($key['judul']) ?>);
-        dataContentUnduhan.push(<?= json_encode($key['jumlah_unduhan']) ?>);
-        dataContentFavorite.push(<?= json_encode($key['jumlah_favorite']) ?>);
-        dataContentKomentar.push(<?= json_encode($key['jumlah_komentar']) ?>);
-    <?php }?> 
+    <?php foreach ($coba as $key) { ?>
+      dataLabel.push(<?= json_encode($key['judul']) ?>);
+      dataContentUnduhan.push(<?= json_encode($key['jumlah_unduhan']) ?>);
+      dataContentFavorite.push(<?= json_encode($key['jumlah_favorite']) ?>);
+      dataContentKomentar.push(<?= json_encode($key['jumlah_komentar']) ?>);
+    <?php } ?>
     new Chart(ctx, {
       type: 'bar',
       data: {
         labels: dataLabel,
         datasets: [{
-          label: 'Jumlah Unduhan',
-          data: dataContentUnduhan,
-          borderWidth: 1
-        },
-        {
-          label: 'Jumlah Favorite',
-          data: dataContentFavorite,
-          borderWidth: 1
-        },
-        {
-          label: 'Jumlah Komentar',
-          data: dataContentKomentar,
-          borderWidth: 1
-        }
-      ]
+            label: 'Jumlah Unduhan',
+            data: dataContentUnduhan,
+            borderWidth: 1
+          },
+          {
+            label: 'Jumlah Favorite',
+            data: dataContentFavorite,
+            borderWidth: 1
+          },
+          {
+            label: 'Jumlah Komentar',
+            data: dataContentKomentar,
+            borderWidth: 1
+          }
+        ]
       },
       options: {
         scales: {
@@ -164,32 +166,32 @@
     const dataContentUnduhan2 = []
     const dataContentFavorite2 = []
     const dataContentKomentar2 = []
-    <?php foreach ($dataByKategori as $key ) { ?>
-        dataLabel2.push(<?= json_encode($key['nama_kategori']) ?>);
-        dataContentUnduhan2.push(<?= json_encode($key['jumlah_unduhan']) ?>);
-        dataContentFavorite2.push(<?= json_encode($key['jumlah_favorite']) ?>);
-        dataContentKomentar2.push(<?= json_encode($key['jumlah_komentar']) ?>);
-    <?php }?> 
+    <?php foreach ($dataByKategori as $key) { ?>
+      dataLabel2.push(<?= json_encode($key['nama_kategori']) ?>);
+      dataContentUnduhan2.push(<?= json_encode($key['jumlah_unduhan']) ?>);
+      dataContentFavorite2.push(<?= json_encode($key['jumlah_favorite']) ?>);
+      dataContentKomentar2.push(<?= json_encode($key['jumlah_komentar']) ?>);
+    <?php } ?>
     new Chart(ctx2, {
       type: 'bar',
       data: {
         labels: dataLabel2,
         datasets: [{
-          label: 'Jumlah Unduhan',
-          data: dataContentUnduhan2,
-          borderWidth: 1
-        },
-        {
-          label: 'Jumlah Favorite',
-          data: dataContentFavorite2,
-          borderWidth: 1
-        },
-        {
-          label: 'Jumlah Komentar',
-          data: dataContentKomentar,
-          borderWidth: 1
-        }
-      ]
+            label: 'Jumlah Unduhan',
+            data: dataContentUnduhan2,
+            borderWidth: 1
+          },
+          {
+            label: 'Jumlah Favorite',
+            data: dataContentFavorite2,
+            borderWidth: 1
+          },
+          {
+            label: 'Jumlah Komentar',
+            data: dataContentKomentar,
+            borderWidth: 1
+          }
+        ]
       },
       options: {
         scales: {
@@ -201,4 +203,5 @@
     });
   </script>
 </body>
+
 </html>

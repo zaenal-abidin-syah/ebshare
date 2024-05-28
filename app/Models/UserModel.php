@@ -13,8 +13,8 @@ class UserModel extends Model
   protected $allowedFields = ['username', 'email', 'password', 'role'];
   protected $validationRules = [
     'username'     => 'required|max_length[16]',
-    'email'        => 'required',
-    'password'     => 'required'
+    'email'        => 'required|valid_email',
+    'password'     => 'required|min_length[8]'
 ];
   public function allUser(){
     return $this;

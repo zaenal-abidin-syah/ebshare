@@ -19,7 +19,7 @@
                 <form action="<?= base_url('dashboard/user/update') ?>" method="post" class="max-w-[90%] flex flex-col justify-start items-center">
                   <div class="mb-4 w-8/12">
                     <label for="username" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Username</label>
-                    <input type="text"  value="<?= $detail['username'] ?>" id="username" name="username" class="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
+                    <input type="text" value="<?= $detail['username'] ?>" id="username" name="username" class="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
                   </div>
                   <div class="mb-4 w-8/12">
                     <label for="email" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Email</label>
@@ -48,13 +48,9 @@
                   <input type="hidden" name="id_user" value="<?= $detail['id'] ?>">
                   <input type="hidden" name="id_detail" value="<?= $detail['id_detail'] ?>">
                   <div class="mb-4 w-8/12">
-                    <button
-                      type="submit"
-                      class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-[1.5] text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 "
-                      data-twe-ripple-init
-                      data-twe-ripple-color="light">
+                    <button type="submit" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-[1.5] text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 " data-twe-ripple-init data-twe-ripple-color="light">
                       Save
-                    </button> 
+                    </button>
                   </div>
                 </form>
               </div>
