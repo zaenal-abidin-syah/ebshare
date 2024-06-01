@@ -72,7 +72,7 @@
         <i class="fa fa-book text-8xl mb-2 text-purple-500" aria-hidden="true"></i>
       </span>
     </div>
-    <h5 class="mb-6 font-bold text-purple-500 text-3xl"><?= $statistik[0]['ebooks'] ?></h5>
+    <h5 class="mb-6 font-bold text-purple-500 text-3xl"><?= $statistik['ebooks'] ?></h5>
     <h6 class="mb-0 font-normal text-2xl dark:text-neutral-50">Ebooks</h6>
     <div class="absolute right-0 top-0 hidden h-full min-h-[1em] w-px self-stretch border-t-0 bg-gradient-to-tr from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400 lg:block"></div>
   </div>
@@ -98,7 +98,7 @@
         <i class="fa fa-user-circle text-8xl mb-2 text-purple-500" aria-hidden="true"></i>
       </span>
     </div>
-    <h5 class="mb-6 font-bold text-purple-500 text-3xl"><?= $statistik[0]['user'] ?></h5>
+    <h5 class="mb-6 font-bold text-purple-500 text-3xl"><?= $statistik['user'] ?></h5>
     <h6 class="mb-0 font-normal text-2xl dark:text-neutral-50">User</h6>
     <div class="absolute right-0 top-0 hidden h-full min-h-[1em] w-px self-stretch border-t-0 bg-gradient-to-tr from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400 lg:block"></div>
   </div>
@@ -120,7 +120,7 @@
         <i class="fa fa-download text-8xl mb-2 text-purple-500" aria-hidden="true"></i>
       </span>
     </div>
-    <h5 class="mb-6 font-bold text-purple-500 text-3xl"><?= $statistik[0]['jumlah_unduhan'] ?></h5>
+    <h5 class="mb-6 font-bold text-purple-500 text-3xl"><?= $statistik['jumlah_unduhan'] ?></h5>
     <h6 class="mb-0 font-normal text-2xl dark:text-neutral-50">Unduhan</h6>
     <div class="absolute right-0 top-0 hidden h-full min-h-[1em] w-px self-stretch border-t-0 bg-gradient-to-tr from-transparent via-neutral-500 to-transparent opacity-25 dark:via-neutral-400 lg:block"></div>
   </div>
@@ -142,7 +142,7 @@
         <i class="fa fa-comments text-8xl mb-2 text-purple-500" aria-hidden="true"></i>
       </span>
     </div>
-    <h5 class="mb-6 font-bold text-purple-500 text-3xl"><?= $statistik[0]['jumlah_komentar'] ?></h5>
+    <h5 class="mb-6 font-bold text-purple-500 text-3xl"><?= $statistik['jumlah_komentar'] ?></h5>
     <h6 class="mb-0 font-normal text-2xl dark:text-neutral-50">Komentar</h6>
   </div>
 </div>

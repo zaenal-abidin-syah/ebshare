@@ -5,10 +5,12 @@ namespace App\Controllers;
 use App\Models\EbookModel;
 use App\Models\KategoriModel;
 use App\Models\TagModel;
+
 class Ebook extends BaseController
 {
   // task = pagination
-  public function __construct(){
+  public function __construct()
+  {
     $this->model = new EbookModel();
     $this->kategoriModel = new KategoriModel();
     $this->tagModel = new TagModel;
@@ -16,20 +18,59 @@ class Ebook extends BaseController
 
   public function index(): string
   {
+    $ebooks = $this->model->allEbook();
+    if ($this->request->getGet('search')) {
+      $ebooks->havingLike('judul', $this->request->getGet('search'));
+      $ebooks->orHavingLike('deskripsi', '%' . $this->request->getGet('search') . '%');
+      $ebooks->orHavingLike('tag', '%' . $this->request->getGet('search') . '%');
+    }
+    if ($this->request->getGet('kategori') != '') {
+      $ebooks->where('id_kategori', $this->request->getGet('kategori'));
+    }
     $data = [
       'title' => 'Ebshare | Ebook',
-      'ebooks' => $this->model->allEbook()->paginate(12),
+      'ebooks' => $ebooks->paginate(12),
       'kategori' => $this->kategoriModel->allKategori(),
       'tag' => $this->tagModel->allTag(),
+      'search' => $this->request->getGet('search'),
       'pager' => $this->model->pager
-  ];
+    ];
     return view('ebook', $data);
   }
-  public function add(){
+  public function detailEbook($id)
+  {
+    $data['title'] = 'Ebshare | Detail Ebook';
+    $data['ebook'] = $this->model->ebookById($id);
+    $data['kategori'] = $this->kategoriModel->allKategori();
+
+    return view('detailEbook', $data);
+  }
+  public function download($id)
+  {
+    $ebook = $this->model->where('id', $id)->select('judul, path')->first();
+    $judul = $ebook['judul'];
+    $path = $ebook['path'];
+    $extension = pathinfo($path, PATHINFO_EXTENSION);
+    $namaFile = $judul . '.' . $extension;
+    // print_r($namaFile);
+
+    // return $this->response->download($path, null)->inline()->setFileName($namaFile);
+
+
+    // print_r($ebook);
+    // $mimeType = mime_content_type($path);
+    // return $this->response
+    //   // ->setContentType($mimeType)
+    //   ->setHeader('Content-Disposition', 'inline; filename="' . basename($judul) . '"')
+    //   ->setBody(file_get_contents($path));
+    return $this->response->download($path, null)->inline()->setHeader('Content-Disposition', 'inline; filename="' . basename($namaFile) . '"');
+  }
+  public function add()
+  {
     $data = [
       'title' => 'Ebshare | Tambah Ebook',
       'kategori' => $this->kategoriModel->get()->getResultArray()
-  ];
+    ];
     return view('addEbook', $data);
   }
   public function addEbook(): string
@@ -50,7 +91,7 @@ class Ebook extends BaseController
       $data['errors'] = $this->model->errors();
       $data['kategori'] = $this->modelKategori->findAll();
       return view('addEbook', $data);
-    }else{
+    } else {
       return redirect()->to(base_url('/ebook'));
     }
     // return view('addEbook', $data);

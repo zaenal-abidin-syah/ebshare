@@ -11,10 +11,12 @@ class TagModel extends Model
 
   protected $useAutoIncrement = true;
   protected $allowedFields = ['nama_tag'];
-  public function allTag(){
+  public function allTag()
+  {
     return $this->get()->getResultArray();
   }
-  public function tambah($tag){
+  public function tambah($tag)
+  {
     return $this->insert($tag);
   }
 }

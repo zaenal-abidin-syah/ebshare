@@ -11,7 +11,8 @@ class KategoriModel extends Model
 
   protected $useAutoIncrement = true;
 
-  public function allKategori(){
+  public function allKategori()
+  {
     return $this->get()->getResultArray();
   }
 }

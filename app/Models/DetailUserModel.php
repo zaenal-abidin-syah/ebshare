@@ -13,7 +13,8 @@ class DetailUserModel extends Model
   protected $allowedFields = ['no_telepon', 'alamat', 'kota', 'provinsi', 'negara'];
 
 
-  public function updateUser($id, $data){
+  public function updateUser($id, $data)
+  {
     return $this->update($id, $data);
   }
 }

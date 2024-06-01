@@ -10,11 +10,14 @@ use App\Models\KategoriModel;
 use App\Models\StatistikModel;
 use App\Models\EbookTagModel;
 use App\Models\TagModel;
+use Imagick;
+
 class Dashboard extends BaseController
 {
   // task = pagination
-  public function __construct(){
-    if(!session()->get('login')){
+  public function __construct()
+  {
+    if (!session()->get('login')) {
       return redirect()->to(base_url('/login'));
     }
     $this->model = new EbookModel();
@@ -25,31 +28,38 @@ class Dashboard extends BaseController
     $this->statistikModel = new StatistikModel();
     $this->ebookTagModel = new EbookTagModel();
     $this->tagModel = new TagModel();
+    // $this->image = \Config\Services::image('imagick');
   }
   public function index()
   {
-    if(!session()->get('login')){
+    if (!session()->get('login')) {
       return redirect()->to(base_url('/login'));
     }
+    $id = (session()->get('role') == '0') ? session()->get('id') : False;
     $data['title'] = 'Ebshare | Ebook';
-    $data['statistik'] = $this->model->allStatistik(session()->get('id'));
+    $data['statistik'] = $this->model->allStatistik($id);
+    $data['statistikPerMonth'] = $this->model->allStatistik($id);
+
     $data['ebooks'] = $this->model->allEbook();
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('dashboard/index', $data);
   }
-  public function profile(){
+  public function profile()
+  {
     $data['title'] = 'Ebshare | Ebook';
     $data['profile'] = $this->userModel->detailUser(session()->get('id'));
     return view('dashboard/profile', $data);
   }
-  public function editProfile($id){
+  public function editProfile($id)
+  {
     $data['title'] = 'Ebshare | Edit Profile';
     $data['detail'] = $this->userModel->detailUser($id);
     return view('dashboard/editProfile', $data);
   }
-  public function updateProfile(){
+  public function updateProfile()
+  {
     $id_user = $this->request->getPost('id_user');
-    
+
     $dataUser['username'] = $this->request->getPost('username');
     $dataUser['email'] = $this->request->getPost('email');
 
@@ -74,7 +84,8 @@ class Dashboard extends BaseController
     return view('dashboard/tables', $data);
   }
 
-  public function user(){
+  public function user()
+  {
     $data['title'] = 'Ebshare | User';
     $data['users'] = $this->userModel->allUser()->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
@@ -82,29 +93,33 @@ class Dashboard extends BaseController
     // return view('test', $data);
     return view('dashboard/user', $data);
   }
-  public function deleteUser($id){
-    foreach($this->model->where('id_user', $id)->get()->getResultArray() as $id_ebook){
-      
+  public function deleteUser($id)
+  {
+    foreach ($this->model->where('id_user', $id)->get()->getResultArray() as $id_ebook) {
+
       $this->ebookTagModel->where('id_ebook', $id_ebook['id'])->delete();
       $this->statistikModel->where('id_ebook', $id_ebook['id'])->delete();
-    };  
+    };
     $this->model->where('id_user', $id)->delete();
     $this->userModel->where('id', $id)->delete();
     return redirect()->to(base_url('/dashboard/user'));
   }
-  public function detailUser($id){
+  public function detailUser($id)
+  {
     $data['title'] = 'Ebshare | Detail Ebook';
     $data['detail'] = $this->userModel->detailUser($id);
     return view('dashboard/detailUser', $data);
   }
-  public function editUser($id){
+  public function editUser($id)
+  {
     $data['title'] = 'Ebshare | Edit Ebook';
     $data['detail'] = $this->userModel->detailUser($id);
     return view('dashboard/editUser', $data);
   }
-  public function updateUser(){
+  public function updateUser()
+  {
     $id_user = $this->request->getPost('id_user');
-    
+
     $dataUser['username'] = $this->request->getPost('username');
     $dataUser['email'] = $this->request->getPost('email');
 
@@ -117,10 +132,11 @@ class Dashboard extends BaseController
     $this->userModel->updateUser($id_user, $dataUser);
     $this->detailUserModel->updateUser($id_detail, $dataDetailUser);
     session()->setFlashdata('message', 'Berhasil Update User Detail!');
-    return redirect()->to(base_url('dashboard/user/detail/').$id_user);
+    return redirect()->to(base_url('dashboard/user/detail/') . $id_user);
   }
 
-  public function ebook(){
+  public function ebook()
+  {
     $data['title'] = 'Ebshare | Ebook';
     $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
@@ -128,13 +144,65 @@ class Dashboard extends BaseController
     return view('dashboard/ebook', $data);
   }
 
-  public function addEbook(){
+  public function addEbook()
+  {
     $data['title'] = 'Ebshare | Tambah Ebook';
     // $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('dashboard/addEbook', $data);
   }
-  public function createEbook(){
+  public function test()
+  {
+    // print_r($this->request->getFile('file'));
+    // $image = new \Imagick();
+    // $file = $this->request->getFile('file');
+    // if ($file !== null && $file->isValid() && !$file->hasMoved()) {
+
+    //   $newName = $file->getRandomName();
+    //   $file->move(WRITEPATH . 'uploads', $newName);
+    //   $data['path'] = WRITEPATH . 'uploads/' . $newName;
+    //   // print_r($data);
+    // } else {
+    //   // error
+    //   echo 'file error';
+    // }
+    // $image = \Config\Services::image();
+    // $image = \Config\Services::image('imagick');
+    // $format = $image->queryFormats();
+    // $image->setResolution(300, 300);
+    // $image->readImage
+    // $image->withFile(WRITEPATH . 'uploads/' . '1716697516_d2e15b97e76f38282267.pdf');
+    // $image->save(WRITEPATH . 'uploads/', 'halo.jpg');
+
+
+    // print_r(phpinfo());
+    // print_r($image);
+    $image = new Imagick();
+    $image->readImage(WRITEPATH . 'uploads/' . '1716634938_f8881a871136ab39e45c.pdf[0]');
+    $image->writeImage(WRITEPATH . 'uploads/' . 'halo.jpg');
+
+
+    // $imagick->readImage('mytest.pdf');
+    // $imagick->writeImage('output.jpg');
+    // print_r(WRITEPATH . 'uploads/' . '1716697516_d2e15b97e76f38282267.pdf' . '[0]');
+    // $image->setResolution(300, 600);
+
+    // $pathImage = WRITEPATH . 'uploads/' . '1716697516_d2e15b97e76f38282267.pdf';
+    // if (file_exists($pathImage)) {
+    //   print_r('file is Exist!!!!!!!!!!');
+    //   $image->readImage(WRITEPATH . 'uploads/' . '1716697516_d2e15b97e76f38282267.pdf');
+    // }
+    // print_r($pathImage);
+    // $image->setImageFormat('jpg');
+    // $image->writeImage(WRITEPATH . 'uploads/', 'halo.jpg');
+    // $imagick = new Imagick();
+    // echo $imagick->getVersion();
+
+
+    // print_r(phpversion());
+  }
+  public function createEbook()
+  {
     // print_r($this->request->getFile());
     // print_r($this->request->getFile('file'));
     $file = $this->request->getFile('file');
@@ -143,12 +211,17 @@ class Dashboard extends BaseController
       $newName = $file->getRandomName();
       $file->move(WRITEPATH . 'uploads', $newName);
       $data['path'] = WRITEPATH . 'uploads/' . $newName;
+      $image = new Imagick();
+      $image->readImage($data['path'] . '[0]');
+      $imagePath = WRITEPATH . 'uploads/' . explode('.', $newName)[0] . '.jpg';
+      $image->writeImage($imagePath);
+      $data['img'] = $imagePath;
       // print_r($data);
     } else {
       // error
       echo 'file error';
     }
-    
+
     $data['judul'] = $this->request->getPost('judul');
     $data['penulis'] = $this->request->getPost('penulis');
     $data['penerbit'] = $this->request->getPost('penerbit');
@@ -160,8 +233,8 @@ class Dashboard extends BaseController
     $data['ukuran'] = $this->request->getPost('size');
 
     // print_r($data);
-    
-    $tags = explode(',', $this->request->getPost('tag'));
+
+    $tags = explode(',', $this->request->getPost('tag') ?? '');
     // print_r($this->model->tambah($data));
     if (!$this->model->tambah($data)) {
       $data['errors'] = $this->model->errors();
@@ -175,10 +248,10 @@ class Dashboard extends BaseController
 
     foreach ($tags as $tag) {
       # code...
-      if ($this->tagModel->where('nama_tag', $tag)->first() == null){
+      if ($this->tagModel->where('nama_tag', $tag)->first() == null) {
         $this->tagModel->tambah(['nama_tag' => $tag]);
         $id_tag = $this->tagModel->insertID();
-      }else{
+      } else {
         $id_tag = $this->tagModel->select('id')->where('nama_tag', $tag)->get()->getResultArray()['0'];
       }
       $this->ebookTagModel->tambah(['id_ebook' => $id_ebook, 'id_tag' => $id_tag]);
@@ -186,62 +259,74 @@ class Dashboard extends BaseController
     session()->setFlashdata('message', 'Ebook Berhasil di tambahkan !');
     return redirect()->to(base_url('/dashboard/ebook'));
   }
-  public function deleteEbook($id){
+  public function deleteEbook($id)
+  {
     $this->ebookTagModel->where('id_ebook', $id)->delete();
     $this->statistikModel->where('id_ebook', $id)->delete();
     $this->model->where('id', $id)->delete();
     return redirect()->to(base_url('/dashboard/ebook'));
   }
-  public function editEbook($id){
+  public function editEbook($id)
+  {
     $data['title'] = 'Ebshare | Edit Ebook';
     $data['ebook'] = $this->model->ebookById($id);
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('/dashboard/editEbook', $data);
   }
-  public function updateEbook(){
+  public function updateEbook()
+  {
     // print_r($this->request->getVar());
     $data['id'] = $this->request->getPost('id_ebook');
-    $data['judul'] = $this->request->getPost('judul');
+    $judul = $this->request->getPost('judul');
     $data['penulis'] = $this->request->getPost('penulis');
     $data['penerbit'] = $this->request->getPost('penerbit');
     $data['deskripsi'] = $this->request->getPost('deskripsi');
     $data['id_kategori'] = $this->request->getPost('kategori');
     $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
-    $tags = explode(',', $this->request->getPost('tag'));
+    $tags = explode(',', $this->request->getPost('tag') ?? '');
+
+    // $inputString = $this->request->getPost('inputString');
+
+    // Pola reguler untuk karakter yang ingin dihilangkan
+    $pattern = '/[^a-zA-Z0-9.,\s]/';
+
+    // Hilangkan karakter tersebut dari string
+    $data['judul'] = preg_replace($pattern, ' ', $judul);
+
+
     if (!$this->model->update_data($data)) {
       $data['errors'] = $this->model->errors();
       $data['kategori'] = $this->kategoriModel->allKategori();
       return view('/dashboard/ebook/edit', $data);
     }
     foreach ($this->ebookTagModel->where('id_ebook', $data['id'])->join('tag', 'ebook_tag.id_tag = tag.id')->get()->getResultArray() as $ebookTag) {
-      if (in_array($ebookTag['nama_tag'], $tags ) == null ){
+      if (in_array($ebookTag['nama_tag'], $tags) == null) {
         $this->ebookTagModel->where('id_ebook', $data['id'])->where('id_tag', $ebookTag['id_tag'])->delete();
       }
     }
-    
+
     foreach ($tags as $tag) {
 
       $tag = trim($tag);
       // echo 'Tag  ==>'.$tag;
-      
+
       # code...
-      if ($this->tagModel->where('nama_tag', $tag)->first() == null){
+      if ($this->tagModel->where('nama_tag', $tag)->first() == null) {
         $this->tagModel->tambah(['nama_tag' => $tag]);
         $id_tag = $this->tagModel->insertID();
-      }
-      else{
+      } else {
         $id_tag = $this->tagModel->select('id')->where('nama_tag', $tag)->get()->getResultArray()['0'];
       }
-      if($this->ebookTagModel->where('id_tag', $id_tag)->where('id_ebook', $data['id'])->first() == null){
+      if ($this->ebookTagModel->where('id_tag', $id_tag)->where('id_ebook', $data['id'])->first() == null) {
         $this->ebookTagModel->tambah(['id_ebook' => $data['id'], 'id_tag' => $id_tag]);
       }
-      
     }
-    
+
     session()->setFlashdata('message', 'Ebook Berhasil di Ubah !');
     return redirect()->to(base_url('/dashboard/ebook'));
   }
-  public function detailEbook($id){
+  public function detailEbook($id)
+  {
     $data['title'] = 'Ebshare | Detail Ebook';
     $data['ebook'] = $this->model->ebookById($id);
     return view('dashboard/detailEbook', $data);
@@ -271,12 +356,12 @@ class Dashboard extends BaseController
 
       // Mengembalikan respon download dengan header yang benar dan menampilkan file secara inline
       return $this->response
-          ->setContentType($mimeType)
-          ->setHeader('Content-Disposition', 'inline; filename="' . basename($filePath) . '"')
-          ->setBody(file_get_contents($filePath));
+        ->setContentType($mimeType)
+        ->setHeader('Content-Disposition', 'inline; filename="' . basename($filePath) . '"')
+        ->setBody(file_get_contents($filePath));
       // return $this->response->download($filePath, null)->inline();
     } else {
-       echo "File not found.";
+      echo "File not found.";
     }
   }
 }

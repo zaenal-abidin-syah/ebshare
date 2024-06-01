@@ -10,5 +10,4 @@ class StatistikModel extends Model
   protected $primaryKey = 'id';
 
   protected $useAutoIncrement = true;
-
 }

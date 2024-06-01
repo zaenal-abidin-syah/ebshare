@@ -34,6 +34,8 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'login'         => \App\Filters\LoginFilter::class,
+        'admin'         => \App\Filters\AdminFilter::class
     ];
 
     /**
@@ -69,6 +71,7 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
+            'login' => ['except' => ['/', '/ebook', '/login']]
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
@@ -103,5 +106,7 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        'admin' => ['before' => ['/dashboard/ebooksuser', '/dashboard/ebooksuser/*', '/dashboard/user', '/dashboard/user/*']]
+    ];
 }

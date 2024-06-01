@@ -15,29 +15,35 @@ class UserModel extends Model
     'username'     => 'required|max_length[16]',
     'email'        => 'required|valid_email',
     'password'     => 'required|min_length[8]'
-];
-  public function allUser(){
+  ];
+  public function allUser()
+  {
     return $this;
   }
-  public function detailUser($id){
+  public function detailUser($id)
+  {
     return $this->select('user.username, user.id, user.email, user.role, user.tanggal_bergabung, ud.id id_detail, ud.no_telepon, ud.alamat, ud.kota, ud.provinsi, ud.negara')->join('user_detail ud', 'ud.id_user = user.id', 'left')->where('user.id', $id)->get()->getResultArray()[0];
   }
-  public function updateUser($id, $data){
+  public function updateUser($id, $data)
+  {
     return $this->update($id, $data);
   }
 
-  public function register($data){
+  public function register($data)
+  {
 
     return $this->save($data);
   }
-  public function verify($data){
+  public function verify($data)
+  {
     $this->where('username', $data['username']);
     $this->where('password', $data['password']);
     return $this->first();
   }
-  public function changePass(){
+  public function changePass()
+  {
     $user = $this->select('id, password')->get()->getResultArray();
-    
+
     foreach ($user as $u) {
       // $data[id]
       print('======pass');
@@ -45,10 +51,9 @@ class UserModel extends Model
       print('======id');
       print($u['id']);
       // $this->where('id', $u["id"])->update(['password' => hash('sha256', $u['password'])]);
-      $this->save(['id' => $u['id'], 'password' => hash('sha256', $u['password']) ]);
+      $this->save(['id' => $u['id'], 'password' => hash('sha256', $u['password'])]);
       // print_r($u['id']);
     }
     return $user;
   }
-
 }
