@@ -10,4 +10,10 @@ class StatistikModel extends Model
   protected $primaryKey = 'id';
 
   protected $useAutoIncrement = true;
+  protected $allowedFields = ['id_ebook', 'jumlah_unduhan', 'jumlah_favorite', 'jumlah_komentar', 'rating_rata_rata'];
+
+  public function tambah($data)
+  {
+    return $this->insert($data, false);
+  }
 }

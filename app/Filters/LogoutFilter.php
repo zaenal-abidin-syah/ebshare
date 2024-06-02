@@ -6,11 +6,11 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class UserFilter implements FilterInterface
+class LogoutFilter implements FilterInterface
 {
   public function before(RequestInterface $request, $arguments = null)
   {
-    if (session()->get('role')) {
+    if (session()->get('login')) {
       return redirect()->to(base_url('/dashboard'));
     }
     // Do something here

@@ -91,31 +91,32 @@
 
   <?php if ($ebooks) {
     foreach ($ebooks as $key => $ebook) { ?>
-      <div class="flex flex-col rounded-lg basis-[30%] bg-white text-surface shadow-purple-50 dark:bg-surface-dark dark:text-white lg:basis-[15%] md:basis-[20%] sm:rounded-s-none">
+      <div class="flex flex-col justify-between rounded-lg basis-[30%] shadow-2xl bg-white text-surface shadow-purple-700 lg:basis-[15%] md:basis-[20%] sm:rounded-s-none">
         <a href="#!">
-          <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/city/043.webp" alt="Los Angeles Skyscrapers" />
+          <img class="rounded-t-lg" src="<?= $ebook['img'] != '' ? base_url($ebook['img']) : base_url('img/ebook/default-pdf.png')  ?>" alt="Los Angeles Skyscrapers" />
         </a>
-        <div class="p-6">
-          <h5 id="judul-<?= $key ?>" class="mb-2 text-xl font-medium leading-tight">
+        <div class="p-6 min-h-[10%]">
+          <h5 id="judul-<?= $key ?>" class=" text-xl font-medium leading-tight">
             <?= $ebook['judul'] ?>
           </h5>
-          <p id="penulis-<?= $key ?>">
+          <p class="text-lg italic text-slate-600" id="penulis-<?= $key ?>">
             <?= $ebook['penulis'] ?>
           </p>
-          <p id="deskripsi-<?= $key ?>" class="mb-4 text-base">
-            <?= $ebook['deskripsi'] ?>
+          <p id="tag-<?= $key ?>" class="my-4 text-base">
+            <!-- <= $ebook['deskripsi'] ?> -->
+            <?php
+            $tags = $ebook['tag'] != '' ? explode(',', $ebook['tag']) : [];
+            foreach ($tags as $tag) { ?>
+              <span class="bg-gradient-to-tl from-purple-500 to-blue-400 px-2.5 text-xs rounded-md py-2 inline-block whitespace-nowrap text-center align-baseline leading-none text-white"><?= $tag ?></span>
+            <?php } ?>
+
           </p>
 
-        </div>
-        <div class="mt-auto border-t-2 border-neutral-100 px-6 py-3 text-center text-surface/75 dark:border-white/10 dark:text-neutral-300">
-          <a href="<?= base_url('ebook/detail/' . $ebook['id']) ?>" class="button-modal inline-block rounded bg-purple-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-purple-700 transition duration-150 ease-in-out hover:bg-purple-600 hover:shadow-purple-400 focus:bg-purple-500 focus:shadow-purple-400 focus:outline-none focus:ring-0 active:bg-purple-700 active:shadow-purple-500 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
-            Details
-          </a>
-          <!-- <a class="button-modal inline-block rounded bg-purple-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-purple-700 transition duration-150 ease-in-out hover:bg-purple-600 hover:shadow-purple-400 focus:bg-purple-500 focus:shadow-purple-400 focus:outline-none focus:ring-0 active:bg-purple-700 active:shadow-purple-500 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong" data-ripple-light="true" data-twe-toggle="modal" data-twe-target="#exampleModal" data-ebook="<?= $key ?>">
-            Details
-          </a> -->
-
-          <!-- <small>Last updated 3 mins ago</small> -->
+          <div class="mt-auto border-t-2 border-neutral-100 px-6 py-3 text-center text-surface/75 dark:border-white/10 dark:text-neutral-300">
+            <a href="<?= base_url('ebook/detail/' . $ebook['id']) ?>" class="button-modal inline-block rounded bg-purple-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-purple-700 transition duration-150 ease-in-out hover:bg-purple-600 hover:shadow-purple-400 focus:bg-purple-500 focus:shadow-purple-400 focus:outline-none focus:ring-0 active:bg-purple-700 active:shadow-purple-500 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+              Details
+            </a>
+          </div>
         </div>
       </div>
     <?php }

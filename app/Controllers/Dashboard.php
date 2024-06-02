@@ -191,6 +191,7 @@ class Dashboard extends BaseController
       return view('/dashboard/ebook/add', $data);
     }
     $id_ebook = $this->model->insertID();
+    $this->statistikModel->tambah(['id_ebook' => $id_ebook]);
     // print_r($id_ebook);
     // return redirect()->to(base_url('/dashboard/ebook'));
 

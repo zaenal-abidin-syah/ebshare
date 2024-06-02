@@ -35,6 +35,7 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
         'login'         => \App\Filters\LoginFilter::class,
+        'logout'         => \App\Filters\LogoutFilter::class,
         'admin'         => \App\Filters\AdminFilter::class
     ];
 
@@ -107,6 +108,7 @@ class Filters extends BaseFilters
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
-        'admin' => ['before' => ['/dashboard/ebooksuser', '/dashboard/ebooksuser/*', '/dashboard/user', '/dashboard/user/*']]
+        'admin' => ['before' => ['/dashboard/ebooksuser', '/dashboard/ebooksuser/*', '/dashboard/user', '/dashboard/user/*']],
+        'logout' => ['before' => ['/login']]
     ];
 }
