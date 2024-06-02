@@ -17,9 +17,6 @@ class Dashboard extends BaseController
   // task = pagination
   public function __construct()
   {
-    if (!session()->get('login')) {
-      return redirect()->to(base_url('/login'));
-    }
     $this->model = new EbookModel();
     $this->detailUserModel = new DetailUserModel();
     $this->userModel = new UserModel();
@@ -32,9 +29,6 @@ class Dashboard extends BaseController
   }
   public function index()
   {
-    if (!session()->get('login')) {
-      return redirect()->to(base_url('/login'));
-    }
     $id = (session()->get('role') == '0') ? session()->get('id') : False;
     $data['title'] = 'Ebshare | Ebook';
     $data['statistik'] = $this->model->allStatistik($id);
@@ -151,56 +145,7 @@ class Dashboard extends BaseController
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('dashboard/addEbook', $data);
   }
-  public function test()
-  {
-    // print_r($this->request->getFile('file'));
-    // $image = new \Imagick();
-    // $file = $this->request->getFile('file');
-    // if ($file !== null && $file->isValid() && !$file->hasMoved()) {
 
-    //   $newName = $file->getRandomName();
-    //   $file->move(WRITEPATH . 'uploads', $newName);
-    //   $data['path'] = WRITEPATH . 'uploads/' . $newName;
-    //   // print_r($data);
-    // } else {
-    //   // error
-    //   echo 'file error';
-    // }
-    // $image = \Config\Services::image();
-    // $image = \Config\Services::image('imagick');
-    // $format = $image->queryFormats();
-    // $image->setResolution(300, 300);
-    // $image->readImage
-    // $image->withFile(WRITEPATH . 'uploads/' . '1716697516_d2e15b97e76f38282267.pdf');
-    // $image->save(WRITEPATH . 'uploads/', 'halo.jpg');
-
-
-    // print_r(phpinfo());
-    // print_r($image);
-    $image = new Imagick();
-    $image->readImage(WRITEPATH . 'uploads/' . '1716634938_f8881a871136ab39e45c.pdf[0]');
-    $image->writeImage(WRITEPATH . 'uploads/' . 'halo.jpg');
-
-
-    // $imagick->readImage('mytest.pdf');
-    // $imagick->writeImage('output.jpg');
-    // print_r(WRITEPATH . 'uploads/' . '1716697516_d2e15b97e76f38282267.pdf' . '[0]');
-    // $image->setResolution(300, 600);
-
-    // $pathImage = WRITEPATH . 'uploads/' . '1716697516_d2e15b97e76f38282267.pdf';
-    // if (file_exists($pathImage)) {
-    //   print_r('file is Exist!!!!!!!!!!');
-    //   $image->readImage(WRITEPATH . 'uploads/' . '1716697516_d2e15b97e76f38282267.pdf');
-    // }
-    // print_r($pathImage);
-    // $image->setImageFormat('jpg');
-    // $image->writeImage(WRITEPATH . 'uploads/', 'halo.jpg');
-    // $imagick = new Imagick();
-    // echo $imagick->getVersion();
-
-
-    // print_r(phpversion());
-  }
   public function createEbook()
   {
     // print_r($this->request->getFile());
@@ -213,16 +158,19 @@ class Dashboard extends BaseController
       $data['path'] = WRITEPATH . 'uploads/' . $newName;
       $image = new Imagick();
       $image->readImage($data['path'] . '[0]');
-      $imagePath = WRITEPATH . 'uploads/' . explode('.', $newName)[0] . '.jpg';
+      $imagePath = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
       $image->writeImage($imagePath);
-      $data['img'] = $imagePath;
+      $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
       // print_r($data);
     } else {
       // error
       echo 'file error';
     }
+    $pattern = '/[^a-zA-Z0-9.,\s]/';
 
-    $data['judul'] = $this->request->getPost('judul');
+    // Hilangkan karakter tersebut dari string
+    $data['judul'] = preg_replace($pattern, ' ', $this->request->getPost('judul'));
+
     $data['penulis'] = $this->request->getPost('penulis');
     $data['penerbit'] = $this->request->getPost('penerbit');
     $data['deskripsi'] = $this->request->getPost('deskripsi');

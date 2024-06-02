@@ -1,1 +1,5 @@
 npx tailwindcss -i ./public/input.css -o ./public/style/style.css --watch
+
+
+imagic policy
+ln -s

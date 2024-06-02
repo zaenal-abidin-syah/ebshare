@@ -198,7 +198,7 @@
 </div>
 
 
-<script>
+<!-- <script>
   const buttonModal = document.querySelectorAll(".button-modal");
   const ebooks = JSON.parse('<?= json_encode($ebooks) ?>')
   // console.log(ebooks);
@@ -219,6 +219,6 @@
       modalDeskripsi.textContent = 'deskripsi       :' + ebooks[dataEbook]['deskripsi']
     })
   });
-</script>
+</script> -->
 
 <?= $this->endSection(); ?>

@@ -117,7 +117,7 @@
 
 
     const judul = document.getElementById('judul');
-    judul.value = file.name;
+    judul.value = file.name.split('.')[0];
     const type = document.getElementById('type');
     type.value = file.type
     const size = document.getElementById('size');

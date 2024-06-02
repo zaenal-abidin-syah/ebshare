@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\EbookModel;
 use App\Models\KategoriModel;
 use App\Models\UserModel;
+
 class Home extends BaseController
 {
-  public function __construct(){
+  public function __construct()
+  {
     $this->model = new EbookModel();
     $this->userModel = new UserModel();
     $this->kategoriModel = new KategoriModel();
@@ -18,7 +21,6 @@ class Home extends BaseController
     $data['statistik'] = $this->model->allStatistik();
     $data['ebook_kategori'] = $this->model->countEbookByKategori();
     $data['kategori'] = $this->kategoriModel->allKategori();
-    $data['password'] = $this->userModel->get()->getResultArray();
 
     return view('home', $data);
   }

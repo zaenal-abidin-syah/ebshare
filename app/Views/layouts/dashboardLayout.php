@@ -233,11 +233,12 @@
 
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <script src="<?= base_url('/') ?>assets/js/plugins/chartjs.min.js"></script>
+  <!-- <script src="<?= base_url('/') ?>assets/js/plugins/chartjs.min.js"></script> -->
+
   <!-- plugin for scrollbar  -->
   <script src="<?= base_url('/') ?>assets/js/plugins/perfect-scrollbar.min.js"></script>
   <!-- main script file  -->
-  <!-- <script src="/assets/js/argon-dashboard-tailwind.js?v=1.0.1'>"></script> -->
+  <script src="<?= base_url('/') ?>assets/js/argon-dashboard-tailwind.js?v=1.0.1'>"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script> -->

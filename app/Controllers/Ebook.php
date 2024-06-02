@@ -20,9 +20,16 @@ class Ebook extends BaseController
   {
     $ebooks = $this->model->allEbook();
     if ($this->request->getGet('search')) {
-      $ebooks->havingLike('judul', $this->request->getGet('search'));
-      $ebooks->orHavingLike('deskripsi', '%' . $this->request->getGet('search') . '%');
-      $ebooks->orHavingLike('tag', '%' . $this->request->getGet('search') . '%');
+      $query = explode(' ', $this->request->getGet('search'));
+      session()->setFlashdata('search', $query);
+      foreach ($query as $q) {
+        $havingClauses[] = "judul LIKE '%" . $q . "%'";
+        $havingClauses[] = "deskripsi LIKE '%" . $q . "%'";
+        $havingClauses[] = "tag LIKE '%" . $q . "%'";
+      }
+      if (!empty($havingClauses)) {
+        $ebooks->having(implode(' OR ', $havingClauses));
+      }
     }
     if ($this->request->getGet('kategori') != '') {
       $ebooks->where('id_kategori', $this->request->getGet('kategori'));
