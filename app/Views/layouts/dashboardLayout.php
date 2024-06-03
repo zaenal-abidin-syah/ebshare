@@ -19,6 +19,8 @@
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <!-- Main Styling -->
   <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/css/tw-elements.min.css" />
+
   <!-- <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/tw-elements/css/tw-elements.min.css" /> -->
@@ -233,7 +235,7 @@
 
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <!-- <script src="<?= base_url('/') ?>assets/js/plugins/chartjs.min.js"></script> -->
+  <!-- <script src="<= base_url('/') ?>assets/js/plugins/chartjs.min.js"></script> -->
 
   <!-- plugin for scrollbar  -->
   <script src="<?= base_url('/') ?>assets/js/plugins/perfect-scrollbar.min.js"></script>

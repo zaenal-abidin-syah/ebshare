@@ -6,6 +6,8 @@ use App\Models\EbookModel;
 use App\Models\KategoriModel;
 use App\Models\TagModel;
 use App\Models\FavoriteModel;
+use App\Models\RatingModel;
+use App\Models\StatistikModel;
 
 class Ebook extends BaseController
 {
@@ -15,7 +17,9 @@ class Ebook extends BaseController
     $this->model = new EbookModel();
     $this->kategoriModel = new KategoriModel();
     $this->tagModel = new TagModel();
+    $this->ratingModel = new RatingModel();
     $this->favoriteModel = new FavoriteModel();
+    $this->statistikModel = new StatistikModel();
   }
 
   public function index(): string
@@ -62,6 +66,7 @@ class Ebook extends BaseController
     $path = $ebook['path'];
     $extension = pathinfo($path, PATHINFO_EXTENSION);
     $namaFile = $judul . '.' . $extension;
+    $this->statistikModel->updateUnduhan(['id_ebook' => $id]);
     return $this->response->download($path, null)->inline()->setHeader('Content-Disposition', 'inline; filename="' . basename($namaFile) . '"');
   }
   public function favorite()
@@ -73,11 +78,27 @@ class Ebook extends BaseController
     // return response()->setJSON(['favorite' => $favoriteData]);
     if ($favoriteData) {
       $this->favoriteModel->removeFavorite($favoriteData['id']);
+      $this->statistikModel->updateFavorite(['id_ebook' => $data['id_ebook'], 'num' => -1]);
       return response()->setJSON(['favorite' => 'remove']);
     } else {
       $this->favoriteModel->addFavorite($data);
+      $this->statistikModel->updateFavorite(['id_ebook' => $data['id_ebook'], 'num' => 1]);
       return response()->setJSON(['favorite' => 'add']);
     }
+  }
+  public function rating()
+  {
+    $data['id_ebook'] = $this->request->getPost('id_ebook');
+    $data['id_user'] = session()->get('id');
+    $isRating = $this->ratingModel->isRating($data);
+    if ($isRating) {
+      $data['id'] = $isRating['id'];
+    }
+    $data['rating'] = $this->request->getPost('rating');
+    $this->ratingModel->updateRating($data);
+    $mean = $this->ratingModel->getMean($data['id_ebook']);
+    $this->statistikModel->updateRating(['id_ebook' => $data['id_ebook'], 'rata-rata' => $mean]);
+    // return response()->setJSON($this->request->getVar());
   }
   public function add()
   {

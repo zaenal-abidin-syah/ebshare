@@ -16,4 +16,22 @@ class StatistikModel extends Model
   {
     return $this->insert($data, false);
   }
+  public function updateFavorite($data)
+  {
+    return $this->set("jumlah_favorite", "jumlah_favorite+" . $data['num'], false)
+      ->where('id_ebook', $data['id_ebook'])
+      ->update();
+  }
+  public function updateUnduhan($data)
+  {
+    return $this->set("jumlah_unduhan", "jumlah_unduhan+1", false)
+      ->where('id_ebook', $data['id_ebook'])
+      ->update();
+  }
+  public function updateRating($data)
+  {
+    return $this->set("rating_rata_rata", $data['rata-rata'])
+      ->where('id_ebook', $data['id_ebook'])
+      ->update();
+  }
 }

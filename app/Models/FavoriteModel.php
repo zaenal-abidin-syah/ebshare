@@ -17,7 +17,7 @@ class FavoriteModel extends Model
   }
   public function addFavorite($data)
   {
-    return $this->save($data);
+    return $this->insert($data);
   }
   public function removeFavorite($id)
   {
