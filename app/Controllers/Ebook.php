@@ -55,6 +55,7 @@ class Ebook extends BaseController
     $data['title'] = 'Ebshare | Detail Ebook';
     $data['ebook'] = $this->model->ebookById($id);
     $data['favorite'] = $this->favoriteModel->isFavorite(['id_ebook' => $id, 'id_user' => session()->get('id')]);
+    $data['rating'] = $this->ratingModel->isRating(['id_ebook' => $id, 'id_user' => session()->get('id')])['rating'];
     $data['kategori'] = $this->kategoriModel->allKategori();
 
     return view('detailEbook', $data);
