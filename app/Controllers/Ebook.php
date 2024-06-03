@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\EbookModel;
 use App\Models\KategoriModel;
 use App\Models\TagModel;
+use App\Models\FavoriteModel;
 
 class Ebook extends BaseController
 {
@@ -13,7 +14,8 @@ class Ebook extends BaseController
   {
     $this->model = new EbookModel();
     $this->kategoriModel = new KategoriModel();
-    $this->tagModel = new TagModel;
+    $this->tagModel = new TagModel();
+    $this->favoriteModel = new FavoriteModel();
   }
 
   public function index(): string
@@ -48,6 +50,7 @@ class Ebook extends BaseController
   {
     $data['title'] = 'Ebshare | Detail Ebook';
     $data['ebook'] = $this->model->ebookById($id);
+    $data['favorite'] = $this->favoriteModel->isFavorite(['id_ebook' => $id, 'id_user' => session()->get('id')]);
     $data['kategori'] = $this->kategoriModel->allKategori();
 
     return view('detailEbook', $data);
@@ -59,18 +62,22 @@ class Ebook extends BaseController
     $path = $ebook['path'];
     $extension = pathinfo($path, PATHINFO_EXTENSION);
     $namaFile = $judul . '.' . $extension;
-    // print_r($namaFile);
-
-    // return $this->response->download($path, null)->inline()->setFileName($namaFile);
-
-
-    // print_r($ebook);
-    // $mimeType = mime_content_type($path);
-    // return $this->response
-    //   // ->setContentType($mimeType)
-    //   ->setHeader('Content-Disposition', 'inline; filename="' . basename($judul) . '"')
-    //   ->setBody(file_get_contents($path));
     return $this->response->download($path, null)->inline()->setHeader('Content-Disposition', 'inline; filename="' . basename($namaFile) . '"');
+  }
+  public function favorite()
+  {
+    $data['id_ebook'] = $this->request->getPost('favoriteId');
+    $data['id_user'] = session()->get('id');
+    // return response()->setJSON($data);
+    $favoriteData = $this->favoriteModel->isFavorite($data);
+    // return response()->setJSON(['favorite' => $favoriteData]);
+    if ($favoriteData) {
+      $this->favoriteModel->removeFavorite($favoriteData['id']);
+      return response()->setJSON(['favorite' => 'remove']);
+    } else {
+      $this->favoriteModel->addFavorite($data);
+      return response()->setJSON(['favorite' => 'add']);
+    }
   }
   public function add()
   {
@@ -80,6 +87,7 @@ class Ebook extends BaseController
     ];
     return view('addEbook', $data);
   }
+
   public function addEbook(): string
   {
     $data = [

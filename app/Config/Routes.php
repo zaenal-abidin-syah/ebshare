@@ -10,6 +10,7 @@ $routes->get('/', 'Home::index');
 $routes->get('/ebook', 'Ebook::index');
 $routes->get('/ebook/detail/(:any)', 'Ebook::detailEbook/$1');
 $routes->get('/ebook/download/(:any)', 'Ebook::download/$1');
+$routes->post('/ebook/favorite', 'Ebook::favorite');
 // $routes->get('/ebook/add', 'Ebook::add');
 // $routes->post('/ebook', 'Ebook::addEbook');
 $routes->get('/login', 'Auth::login');
