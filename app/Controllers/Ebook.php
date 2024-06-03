@@ -7,6 +7,8 @@ use App\Models\KategoriModel;
 use App\Models\TagModel;
 use App\Models\FavoriteModel;
 use App\Models\RatingModel;
+use App\Models\KomentarModel;
+use App\Models\UnduhanModel;
 use App\Models\StatistikModel;
 
 class Ebook extends BaseController
@@ -19,6 +21,8 @@ class Ebook extends BaseController
     $this->tagModel = new TagModel();
     $this->ratingModel = new RatingModel();
     $this->favoriteModel = new FavoriteModel();
+    $this->komentarModel = new KomentarModel();
+    $this->unduhanModel = new UnduhanModel();
     $this->statistikModel = new StatistikModel();
   }
 
@@ -67,7 +71,8 @@ class Ebook extends BaseController
     $path = $ebook['path'];
     $extension = pathinfo($path, PATHINFO_EXTENSION);
     $namaFile = $judul . '.' . $extension;
-    $this->statistikModel->updateUnduhan(['id_ebook' => $id]);
+    $this->unduhanModel->addUnduhan(['id_user' => session()->get('id'), 'id_ebook' => $id]);
+    $this->statistikModel->updateUnduhan($id);
     return $this->response->download($path, null)->inline()->setHeader('Content-Disposition', 'inline; filename="' . basename($namaFile) . '"');
   }
   public function favorite()
@@ -100,6 +105,14 @@ class Ebook extends BaseController
     $mean = $this->ratingModel->getMean($data['id_ebook']);
     $this->statistikModel->updateRating(['id_ebook' => $data['id_ebook'], 'rata-rata' => $mean]);
     // return response()->setJSON($this->request->getVar());
+  }
+  public function komentar()
+  {
+    $data['id_ebook'] = $this->request->getPost('id_ebook');
+    $data['komentar'] = $this->request->getPost('komentar');
+    $data['id_user'] = session()->get('id');
+    $this->komentarModel->addKomentar($data);
+    $this->statistikModel->updateKomentar($data['id_ebook']);
   }
   public function add()
   {

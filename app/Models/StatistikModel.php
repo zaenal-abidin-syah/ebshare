@@ -25,12 +25,18 @@ class StatistikModel extends Model
   public function updateUnduhan($data)
   {
     return $this->set("jumlah_unduhan", "jumlah_unduhan+1", false)
-      ->where('id_ebook', $data['id_ebook'])
+      ->where('id_ebook', $data)
       ->update();
   }
   public function updateRating($data)
   {
     return $this->set("rating_rata_rata", $data['rata-rata'])
+      ->where('id_ebook', $data['id_ebook'])
+      ->update();
+  }
+  public function updateKomentar($data)
+  {
+    return $this->set("jumlah_komentar", "jumlah_unduhan+1", false)
       ->where('id_ebook', $data['id_ebook'])
       ->update();
   }
