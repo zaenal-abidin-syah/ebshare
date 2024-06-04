@@ -24,19 +24,33 @@ $routes->get('/test', 'Test::test');
 $routes->get('/register', 'Auth::register');
 $routes->post('/register', 'Auth::registerUser');
 $routes->get('/dashboard', 'Dashboard::index');
+
 $routes->get('/dashboard/profile', 'Dashboard::profile');
 $routes->get('/dashboard/profile/edit/(:any)', 'Dashboard::editProfile/$1');
 $routes->post('/dashboard/profile/update', 'Dashboard::updateProfile');
+
 $routes->get('/dashboard/table', 'Dashboard::table');
+
 $routes->get('/dashboard/user', 'Dashboard::user');
 $routes->get('/dashboard/user/detail/(:any)', 'Dashboard::detailUser/$1');
 $routes->get('/dashboard/user/edit/(:any)', 'Dashboard::editUser/$1');
 $routes->post('/dashboard/user/update', 'Dashboard::updateUser');
 $routes->get('/dashboard/user/delete/(:any)', 'Dashboard::deleteUser/$1');
+
+$routes->get('/dashboard/myebook', 'Dashboard::myEbook');
+$routes->get('/dashboard/myebook/add', 'Dashboard::addMyEbook');
+// $routes->post('/dashboard/myebook/add', 'Dashboard::test');
+$routes->post('/dashboard/myebook/add', 'Dashboard::createMyEbook');
+$routes->get('/dashboard/myebook/detail/(:any)', 'Dashboard::detailMyEbook/$1');
+$routes->get('/dashboard/myebook/edit/(:any)', 'Dashboard::editMyEbook/$1');
+$routes->post('/dashboard/myebook/update', 'Dashboard::updateMyEbook');
+$routes->get('/dashboard/myebook/delete/(:any)', 'Dashboard::deleteMyEbook/$1');
+
+
 $routes->get('/dashboard/ebook', 'Dashboard::ebook');
-$routes->get('/dashboard/ebook/add', 'Dashboard::addEbook');
+// $routes->get('/dashboard/ebook/add', 'Dashboard::addEbook');
 // $routes->post('/dashboard/ebook/add', 'Dashboard::test');
-$routes->post('/dashboard/ebook/add', 'Dashboard::createEbook');
+// $routes->post('/dashboard/ebook/add', 'Dashboard::createEbook');
 $routes->get('/dashboard/ebook/detail/(:any)', 'Dashboard::detailEbook/$1');
 $routes->get('/dashboard/ebook/edit/(:any)', 'Dashboard::editEbook/$1');
 $routes->post('/dashboard/ebook/update', 'Dashboard::updateEbook');

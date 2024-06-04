@@ -143,21 +143,26 @@ class Dashboard extends BaseController
     $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
     $data['pager'] = $this->model->pager;
-    return view('dashboard/ebook', $data);
+    return view('dashboard/myEbook', $data);
   }
 
-  public function addEbook()
+  // public function addEbook()
+  // {
+  //   $data['title'] = 'Ebshare | Tambah Ebook';
+  //   // $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
+  //   $data['kategori'] = $this->kategoriModel->allKategori();
+  //   return view('dashboard/addEbook', $data);
+  // }
+  public function addMyEbook()
   {
     $data['title'] = 'Ebshare | Tambah Ebook';
     // $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
-    return view('dashboard/addEbook', $data);
+    return view('dashboard/addMyEbook', $data);
   }
 
-  public function createEbook()
+  public function createMyEbook()
   {
-    // print_r($this->request->getFile());
-    // print_r($this->request->getFile('file'));
     $file = $this->request->getFile('file');
     if ($file !== null && $file->isValid() && !$file->hasMoved()) {
 
@@ -196,7 +201,7 @@ class Dashboard extends BaseController
       $data['errors'] = $this->model->errors();
       $data['kategori'] = $this->kategoriModel->allKategori();
       // print($data['error']);
-      return view('/dashboard/ebook/add', $data);
+      return view('/dashboard/myebook/add', $data);
     }
     $id_ebook = $this->model->insertID();
     $this->statistikModel->tambah(['id_ebook' => $id_ebook]);
@@ -214,7 +219,7 @@ class Dashboard extends BaseController
       $this->ebookTagModel->tambah(['id_ebook' => $id_ebook, 'id_tag' => $id_tag]);
     }
     session()->setFlashdata('message', 'Ebook Berhasil di tambahkan !');
-    return redirect()->to(base_url('/dashboard/ebook'));
+    return redirect()->to(base_url('/dashboard/myebook'));
   }
   public function deleteEbook($id)
   {
@@ -223,12 +228,26 @@ class Dashboard extends BaseController
     $this->model->where('id', $id)->delete();
     return redirect()->to(base_url('/dashboard/ebook'));
   }
+  public function deleteMyEbook($id)
+  {
+    $this->ebookTagModel->where('id_ebook', $id)->delete();
+    $this->statistikModel->where('id_ebook', $id)->delete();
+    $this->model->where('id', $id)->delete();
+    return redirect()->to(base_url('/dashboard/myebook'));
+  }
   public function editEbook($id)
   {
     $data['title'] = 'Ebshare | Edit Ebook';
     $data['ebook'] = $this->model->ebookById($id);
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('/dashboard/editEbook', $data);
+  }
+  public function editMyEbook($id)
+  {
+    $data['title'] = 'Ebshare | Edit Ebook';
+    $data['ebook'] = $this->model->ebookById($id);
+    $data['kategori'] = $this->kategoriModel->allKategori();
+    return view('/dashboard/editMyEbook', $data);
   }
   public function updateEbook()
   {
@@ -282,13 +301,70 @@ class Dashboard extends BaseController
     session()->setFlashdata('message', 'Ebook Berhasil di Ubah !');
     return redirect()->to(base_url('/dashboard/ebook'));
   }
+  public function updateMyEbook()
+  {
+    // print_r($this->request->getVar());
+    $data['id'] = $this->request->getPost('id_ebook');
+    $judul = $this->request->getPost('judul');
+    $data['penulis'] = $this->request->getPost('penulis');
+    $data['penerbit'] = $this->request->getPost('penerbit');
+    $data['deskripsi'] = $this->request->getPost('deskripsi');
+    $data['id_kategori'] = $this->request->getPost('kategori');
+    $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
+    $tags = explode(',', $this->request->getPost('tag') ?? '');
+
+    // $inputString = $this->request->getPost('inputString');
+
+    // Pola reguler untuk karakter yang ingin dihilangkan
+    $pattern = '/[^a-zA-Z0-9.,\s]/';
+
+    // Hilangkan karakter tersebut dari string
+    $data['judul'] = preg_replace($pattern, ' ', $judul);
+
+
+    if (!$this->model->update_data($data)) {
+      $data['errors'] = $this->model->errors();
+      $data['kategori'] = $this->kategoriModel->allKategori();
+      return view('/dashboard/myebook/edit', $data);
+    }
+    foreach ($this->ebookTagModel->where('id_ebook', $data['id'])->join('tag', 'ebook_tag.id_tag = tag.id')->get()->getResultArray() as $ebookTag) {
+      if (in_array($ebookTag['nama_tag'], $tags) == null) {
+        $this->ebookTagModel->where('id_ebook', $data['id'])->where('id_tag', $ebookTag['id_tag'])->delete();
+      }
+    }
+
+    foreach ($tags as $tag) {
+
+      $tag = trim($tag);
+      // echo 'Tag  ==>'.$tag;
+
+      # code...
+      if ($this->tagModel->where('nama_tag', $tag)->first() == null) {
+        $this->tagModel->tambah(['nama_tag' => $tag]);
+        $id_tag = $this->tagModel->insertID();
+      } else {
+        $id_tag = $this->tagModel->select('id')->where('nama_tag', $tag)->get()->getResultArray()['0'];
+      }
+      if ($this->ebookTagModel->where('id_tag', $id_tag)->where('id_ebook', $data['id'])->first() == null) {
+        $this->ebookTagModel->tambah(['id_ebook' => $data['id'], 'id_tag' => $id_tag]);
+      }
+    }
+
+    session()->setFlashdata('message', 'Ebook Berhasil di Ubah !');
+    return redirect()->to(base_url('/dashboard/myebook'));
+  }
   public function detailEbook($id)
   {
     $data['title'] = 'Ebshare | Detail Ebook';
     $data['ebook'] = $this->model->ebookById($id);
     return view('dashboard/detailEbook', $data);
   }
-
+  public function detailMyEbook($id)
+  {
+    $data['title'] = 'Ebshare | Detail Ebook';
+    $data['ebook'] = $this->model->ebookById($id);
+    return view('dashboard/detailMyEbook', $data);
+  }
 
   public function upload()
   {

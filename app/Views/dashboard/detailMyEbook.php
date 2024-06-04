@@ -7,7 +7,7 @@
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
           <div class="flex justify-between mx-[15%] items-center px-5 pt-0 pb-2">
             <h6 class="">Detail Ebook</h6>
-            <a type="button" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-[1.5] text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 " href="<?= base_url('dashboard/ebook/edit/') . $ebook['id'] ?>" data-twe-ripple-init data-twe-ripple-color="light">
+            <a type="button" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-[1.5] text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 " href="<?= base_url('dashboard/myebook/edit/') . $ebook['id'] ?>" data-twe-ripple-init data-twe-ripple-color="light">
               Edit
             </a>
           </div>

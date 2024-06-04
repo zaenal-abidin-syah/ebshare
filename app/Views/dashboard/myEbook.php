@@ -6,8 +6,11 @@
     <div class="flex-none w-full max-w-full px-3">
       <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-          <h6>Ebooks</h6>
+          <h6>My Ebooks</h6>
 
+          <a type="button" href="<?= base_url('/dashboard/myebook/add') ?>" class="inline-block my-5 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 cursor-pointer">
+            Add
+          </a>
           <?php if (session()->get('message')) { ?>
             <div class="w-full my-4 items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-700 dark:bg-green-950 dark:text-success-500/80" role="alert" id="alert-static-success" data-twe-alert-init>
               <?= session()->get('message') ?>
@@ -61,8 +64,8 @@
                       <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400"><?= $ebook['tahun_terbit'] ?></span>
                     </td>
                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                      <a href="<?= base_url('/dashboard/ebook/detail/' . $ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-sky-500 to-indigo-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Detail </a>
-                      <a href="<?= base_url('/dashboard/ebook/edit/' . $ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-lime-500 to-cyan-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Edit </a>
+                      <a href="<?= base_url('/dashboard/myebook/detail/' . $ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-sky-500 to-indigo-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Detail </a>
+                      <a href="<?= base_url('/dashboard/myebook/edit/' . $ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-lime-500 to-cyan-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Edit </a>
                       <button type="button" onclick="openModal('modelConfirm', '<?= $ebook['id'] ?>')" class="text-xs mx-1 text-white bg-gradient-to-tl from-red-500 to-yellow-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold">
                         Delete
                       </button>
@@ -116,7 +119,7 @@
     document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden')
     deleteButton = document.querySelector('.deleteHref');
     base_url = "<?= base_url('') ?>";
-    deleteButton.href = base_url + 'dashboard/ebook/delete/' + id_ebook
+    deleteButton.href = base_url + 'dashboard/myebook/delete/' + id_ebook
   }
 
   window.closeModal = function(modalId) {
