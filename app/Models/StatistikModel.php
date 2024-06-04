@@ -34,10 +34,10 @@ class StatistikModel extends Model
       ->where('id_ebook', $data['id_ebook'])
       ->update();
   }
-  public function updateKomentar($data)
+  public function updateKomentar($id_ebook)
   {
-    return $this->set("jumlah_komentar", "jumlah_unduhan+1", false)
-      ->where('id_ebook', $data['id_ebook'])
+    return $this->set("jumlah_komentar", "jumlah_komentar+1", false)
+      ->where('id_ebook', $id_ebook)
       ->update();
   }
 }

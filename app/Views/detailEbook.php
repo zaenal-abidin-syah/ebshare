@@ -333,25 +333,14 @@
     $('.form-komentar').on('submit', function(e) {
       e.preventDefault();
       let komentar = $('#comment').val();
-      console.log({
-        komentar
-      });
-      // $.ajax({
-      //   url: '<= base_url('ebook/komentar') ?>',
-      //   type: 'POST',
-      //   data: {
-      //     favoriteId
-      //   },
-      //   success: function(response) {
-      //     if (response.favorite === 'add') {
-      //       button.removeClass('text-white');
-      //       button.addClass('text-slate-900');
-      //     } else {
-      //       button.addClass('text-white');
-      //       button.removeClass('text-slate-900');
-      //     }
-      //   }
-      // })
+      $.ajax({
+        url: '<?= base_url('ebook/komentar ') ?>',
+        type: 'POST',
+        data: {
+          komentar,
+          id_ebook: '<?= $ebook['id'] ?>'
+        }
+      })
 
     })
   });

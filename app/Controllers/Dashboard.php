@@ -132,6 +132,14 @@ class Dashboard extends BaseController
   public function ebook()
   {
     $data['title'] = 'Ebshare | Ebook';
+    $data['ebooks'] = $this->model->allEbook()->paginate(10);
+    $data['kategori'] = $this->kategoriModel->allKategori();
+    $data['pager'] = $this->model->pager;
+    return view('dashboard/ebook', $data);
+  }
+  public function myEbook()
+  {
+    $data['title'] = 'Ebshare | My Ebook';
     $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
     $data['pager'] = $this->model->pager;

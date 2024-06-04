@@ -59,7 +59,7 @@ class Ebook extends BaseController
     $data['title'] = 'Ebshare | Detail Ebook';
     $data['ebook'] = $this->model->ebookById($id);
     $data['favorite'] = $this->favoriteModel->isFavorite(['id_ebook' => $id, 'id_user' => session()->get('id')]);
-    $data['rating'] = $this->ratingModel->isRating(['id_ebook' => $id, 'id_user' => session()->get('id')])['rating'];
+    $data['rating'] =  $this->ratingModel->isRating(['id_ebook' => $id, 'id_user' => session()->get('id')])['rating'] ?? 0;
     $data['kategori'] = $this->kategoriModel->allKategori();
 
     return view('detailEbook', $data);
@@ -109,10 +109,11 @@ class Ebook extends BaseController
   public function komentar()
   {
     $data['id_ebook'] = $this->request->getPost('id_ebook');
-    $data['komentar'] = $this->request->getPost('komentar');
+    $data['content'] = $this->request->getPost('komentar');
     $data['id_user'] = session()->get('id');
     $this->komentarModel->addKomentar($data);
     $this->statistikModel->updateKomentar($data['id_ebook']);
+    return response()->setJSON($data);
   }
   public function add()
   {

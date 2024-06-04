@@ -72,7 +72,7 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
-            'login' => ['except' => ['/', '/ebook', '/ebook/*', '/login', '/register']]
+            'login' => ['except' => ['/', '/ebook', '/login', '/register']]
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
