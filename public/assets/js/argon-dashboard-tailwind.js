@@ -16,10 +16,10 @@
 */
 var page = window.location.pathname.split("/").pop().split(".")[0];
 var aux = window.location.pathname.split("/");
-var to_build = (aux.includes('pages') || aux.includes('docs') ?'../':'./');
-var root = window.location.pathname.split("/")
+var to_build = aux.includes("pages") || aux.includes("docs") ? "../" : "./";
+var root = window.location.pathname.split("/");
 if (!aux.includes("pages")) {
-  page = "dashboard";
+  page = "/dashboard";
 }
 
 loadStylesheet(to_build + "assets/css/perfect-scrollbar.css");
@@ -44,15 +44,17 @@ if (document.querySelector("[nav-pills]")) {
 
 if (document.querySelector("[dropdown-trigger]")) {
   loadJS(to_build + "assets/js/dropdown.js", true);
-
 }
 
 if (document.querySelector("[fixed-plugin]")) {
   loadJS(to_build + "assets/js/fixed-plugin.js", true);
 }
 
-if (document.querySelector("[navbar-main]") || document.querySelector("[navbar-profile]")) {
-  if(document.querySelector("[navbar-main]")){
+if (
+  document.querySelector("[navbar-main]") ||
+  document.querySelector("[navbar-profile]")
+) {
+  if (document.querySelector("[navbar-main]")) {
     loadJS(to_build + "assets/js/navbar-sticky.js", true);
   }
   if (document.querySelector("aside")) {

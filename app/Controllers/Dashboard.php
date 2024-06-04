@@ -10,7 +10,9 @@ use App\Models\KategoriModel;
 use App\Models\StatistikModel;
 use App\Models\EbookTagModel;
 use App\Models\TagModel;
+use Kiwilan\Ebook\Ebook;
 use Imagick;
+use PhpParser\Node\Stmt\Foreach_;
 
 class Dashboard extends BaseController
 {
@@ -159,6 +161,65 @@ class Dashboard extends BaseController
     // $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('dashboard/addMyEbook', $data);
+  }
+  public function test()
+  {
+    $file = $this->request->getFile('file');
+    // print_r($file);
+    if ($file !== null && $file->isValid() && !$file->hasMoved()) {
+
+      $newName = $file->getRandomName();
+      $file->move(WRITEPATH . 'uploads', $newName);
+      $data['path'] = WRITEPATH . 'uploads/' . $newName;
+      $ebook = Ebook::read($data['path']);
+      // $ebook->getPath(); // string => path to ebook
+      // print_r($ebook->getMetadata());
+      // return response()->setJSON(
+      //   $ebook->getMetadata()
+      // );
+      // foreach ($ebook->getAuthors() as $author) {
+      //   print_r("author =" . $author);
+      // }
+
+      // return response()->setJSON([
+      //   'filename' => $ebook->getFilename(),
+      //   'ext' => $ebook->getExtension(),
+      //   'pages' => $ebook->getPagesCount(),
+      //   'publisher' => $ebook->getPublisher(),
+      //   'title' => $ebook->getTitle(),
+      //   'author' => $ebook->getAuthors(),
+      //   'bautho' => $ebook->getAuthorMain(),
+      //   'desc' => $ebook->getDescription(),
+      //   'cover' => $ebook->hasCover(),
+      //   'extra' => $ebook->getExtras()
+
+      // ]);
+      // print_r(); // BookAuthor[] (`name`: string, `role`: string)
+      // print_r(); // ?BookAuthor => First BookAuthor (`name`: string, `role`: string)
+      // print_r(); // ?string
+      // print_r($ebook->getDescriptionHtml());
+      if ($ebook->hasCover()) {
+        $cover = $ebook->getCover();
+        $coverPath = $cover->getPath(); // ?string => path to cover
+        $coverContents = $cover->getContents($toBase64 = false);
+        // print_r($coverPath);
+        // print_r($coverContent);
+        $coverSavePath = WRITEPATH . 'uploads/img/ebook/' . basename($coverPath);
+        file_put_contents($coverSavePath, $coverContents);
+      } else {
+        print_r('tidak ada cover');
+      }
+
+      // $image = new Imagick();
+      // $image->readImage($data['path'] . '[0]');
+      // $imagePath = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
+      // $image->writeImage($imagePath);
+      // $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
+      // print_r($data);
+    } else {
+      // error
+      echo 'file error';
+    }
   }
 
   public function createMyEbook()

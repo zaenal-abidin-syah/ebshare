@@ -13,12 +13,12 @@
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Nucleo Icons -->
-  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="<?= base_url() ?>/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="<?= base_url() ?>/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Popper -->
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <!-- Main Styling -->
-  <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/style/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/css/tw-elements.min.css" />
 
   <!-- <link
@@ -236,10 +236,20 @@
   <!-- <script src="<= base_url('/') ?>assets/js/plugins/chartjs.min.js"></script> -->
 
   <!-- plugin for scrollbar  -->
+  <script>
+    page = "/dashboard";
+  </script>
   <script src="<?= base_url('/') ?>assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="<?= base_url('/') ?>assets/js/dropdown.js"></script>
+  <!-- <script src="<= base_url('/') ?>assets/js/fixed-plugin.js"></script> -->
+  <script src="<?= base_url('/') ?>assets/js/nav-pills.js"></script>
+  <!-- <script src="<= base_url('/') ?>assets/js/navbar-collapse.js"></script> -->
+  <script src="<?= base_url('/') ?>assets/js/navbar-sticky.js"></script>
+  <script src="<?= base_url('/') ?>assets/js/sidenav-burger.js"></script>
+  <script src="<?= base_url('/') ?>assets/js/tooltips.js"></script>
   <!-- main script file  -->
-  <script src="<?= base_url('/') ?>assets/js/argon-dashboard-tailwind.js?v=1.0.1'>"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="<= base_url('/') ?>assets/js/argon-dashboard-tailwind.js?v=1.0.1'>"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" integrity="sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/tw-elements/js/tw-elements.umd.min.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script> -->
