@@ -8,9 +8,14 @@
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
           <h6>My Ebooks</h6>
 
-          <a type="button" href="<?= base_url('/dashboard/myebook/add') ?>" class="inline-block my-5 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 cursor-pointer">
+
+
+          <!-- <a type="button" href="<?= base_url('/dashboard/myebook/add') ?>" class="inline-block  rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 cursor-pointer">
             Add
-          </a>
+          </a> -->
+          <button type="button" class="inline-block my-5 rounded bg-primary px-6 py-2 text-xs font-medium uppercase leading-normal text-white shadow-primary-3  hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2" data-twe-toggle="modal" data-twe-target="#exampleModal" data-twe-ripple-init data-twe-ripple-color="light">
+            <i class="fa fa-upload"></i>
+          </button>
           <?php if (session()->get('message')) { ?>
             <div class="w-full my-4 items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-700 dark:bg-green-950 dark:text-success-500/80" role="alert" id="alert-static-success" data-twe-alert-init>
               <?= session()->get('message') ?>
@@ -64,7 +69,7 @@
                       <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400"><?= $ebook['tahun_terbit'] ?></span>
                     </td>
                     <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                      <a href="<?= base_url('/dashboard/myebook/detail/' . $ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-sky-500 to-indigo-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Detail </a>
+                      <a href="<?= base_url('/dashboard/myebook/detail/' . $ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-sky-500 to-purple-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Detail </a>
                       <a href="<?= base_url('/dashboard/myebook/edit/' . $ebook['id']) ?>" class="text-xs mx-1 text-white bg-gradient-to-tl from-lime-500 to-cyan-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold"> Edit </a>
                       <button type="button" onclick="openModal('modelConfirm', '<?= $ebook['id'] ?>')" class="text-xs mx-1 text-white bg-gradient-to-tl from-red-500 to-yellow-400 inline-block whitespace-nowrap rounded-full px-[0.7em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold">
                         Delete
@@ -112,7 +117,38 @@
   </div>
 </div>
 
+<div data-twe-modal-init class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div data-twe-modal-dialog-ref class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[50%]">
+    <div class="pointer-events-auto relative flex w-full flex-col rounded-md border-none  bg-clip-padding text-current outline-none dark:bg-surface-dark">
+      <div class="w-full h-full flex bg-transparent">
+        <div class="extraOutline p-4 bg-white w-max bg-whtie m-auto rounded-lg">
+          <div class="file_upload p-5 relative border-4 border-dotted border-gray-300 rounded-lg" style="width: 450px">
+            <svg class="text-purple-500 w-24 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <div class="input_field flex flex-col w-max mx-auto text-center">
+              <form class="myform" action="<?= base_url('/dashboard/myebook/add') ?>" method="post" enctype="multipart/form-data">
+                <label>
+                  <input name="file" id="file" class="text-sm cursor-pointer w-36 hidden" type="file" multiple />
+                  <div class="text bg-purple-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-purple-500">Select</div>
+                </label>
+              </form>
+              <div class="title text-purple-500 uppercase">or drop files here</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
+  const fileInput = document.getElementById("file");
+
+  fileInput.addEventListener("change", function() {
+    // Submit formulir saat file dipilih
+    this.closest("form").submit();
+  });
   window.openModal = function(modalId, id_ebook) {
     console.log(modalId);
     document.getElementById(modalId).style.display = 'block'

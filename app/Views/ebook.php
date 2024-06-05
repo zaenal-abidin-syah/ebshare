@@ -201,7 +201,7 @@
 
 <!-- <script>
   const buttonModal = document.querySelectorAll(".button-modal");
-  const ebooks = JSON.parse('<?= json_encode($ebooks) ?>')
+  const ebooks = JSON.parse('<= json_encode($ebooks) ?>')
   // console.log(ebooks);
 
   buttonModal.forEach((button) => {

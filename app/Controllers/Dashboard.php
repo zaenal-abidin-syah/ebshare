@@ -12,7 +12,9 @@ use App\Models\EbookTagModel;
 use App\Models\TagModel;
 use Kiwilan\Ebook\Ebook;
 use Imagick;
-use PhpParser\Node\Stmt\Foreach_;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+
 
 class Dashboard extends BaseController
 {
@@ -159,19 +161,131 @@ class Dashboard extends BaseController
   {
     $data['title'] = 'Ebshare | Tambah Ebook';
     // $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
+    $file = $this->request->getFile('file');
+    $ebook_extension = ['pdf', 'epub'];
+    $doc_extension = ['docx', 'doc', 'odt'];
     $data['kategori'] = $this->kategoriModel->allKategori();
-    return view('dashboard/addMyEbook', $data);
+    // return view('dashboard/addMyEbook', $data);
+
+    if ($file !== null && $file->isValid() && !$file->hasMoved()) {
+
+      if (in_array($file->getExtension(), $ebook_extension)) {
+        $newName = $file->getRandomName();
+        $file->move(WRITEPATH . 'uploads', $newName);
+        $data['path'] = WRITEPATH . 'uploads/' . $newName;
+        $ebook = Ebook::read($data['path']);
+        $pattern = '/[^a-zA-Z0-9.,\-\s]/';
+        $data['judul'] = preg_replace($pattern, ' ', $ebook->getTitle());
+
+        $data['penulis'] = $ebook->getAuthors();
+        $data['penerbit'] = $ebook->getPublisher();
+        $data['deskripsi'] = $ebook->getDescription();
+        $data['type'] = $ebook->getExtension();
+        $data['tahun_terbit'] = $ebook->getPublishDate();
+        $data['ukuran'] = $ebook->getSize();
+        $data['pages'] = $ebook->getPagesCount();
+        // return response()->setJSON([
+        //   'filename' => $ebook->getFilename(),
+        //   'ext' => $ebook->getExtension(),
+        //   'pages' => $ebook->getPagesCount(),
+        //   'publisher' => $ebook->getPublisher(),
+        //   'title' => $ebook->getTitle(),
+        //   'author' => $ebook->getAuthors(),
+        //   'bautho' => $ebook->getAuthorMain(),
+        //   'desc' => $ebook->getDescription(),
+        //   'cover' => $ebook->hasCover(),
+        //   'extra' => $ebook->getExtras()
+
+        // ]);
+      } else if (in_array($file->getExtension(), $doc_extension)) {
+        $newName = $file->getRandomName();
+        $file->move(WRITEPATH . 'uploads', $newName);
+        $data['path'] = WRITEPATH . 'uploads/' . $newName;
+        $docFile = IOFactory::load($data['path']);
+
+
+        // Get document properties
+        print_r($docFile->getDocumentProperties());
+      }
+
+      // $newName = $file->getRandomName();
+      // $file->move(WRITEPATH . 'uploads', $newName);
+      // $data['path'] = WRITEPATH . 'uploads/' . $newName;
+      // $image = new Imagick();
+      // $image->readImage($data['path'] . '[0]');
+      // $imagePath = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
+      // $image->writeImage($imagePath);
+      // $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
+      // print_r($data);
+    } else {
+      // error
+      echo 'file error';
+    }
+    // $pattern = '/[^a-zA-Z0-9.,\s]/';
+
+    // Hilangkan karakter tersebut dari string
+    // $data['judul'] = preg_replace($pattern, ' ', $this->request->getPost('judul'));
+
+    // $data['penulis'] = $this->request->getPost('penulis');
+    // $data['penerbit'] = $this->request->getPost('penerbit');
+    // $data['deskripsi'] = $this->request->getPost('deskripsi');
+    // $data['id_kategori'] = $this->request->getPost('kategori');
+    // $data['id_user'] = session()->get('id');
+    // $data['type'] = $this->request->getPost('type');
+    // $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
+    // $data['ukuran'] = $this->request->getPost('size');
+    return view('test', $data);
   }
   public function test()
   {
+
     $file = $this->request->getFile('file');
-    // print_r($file);
+    // print_r($file->getExtension());
+    // print_r();
+    $ebook_extension = ['pdf', 'epub'];
+    $doc_extension = ['docx', 'doc', 'odt'];
+
     if ($file !== null && $file->isValid() && !$file->hasMoved()) {
 
-      $newName = $file->getRandomName();
-      $file->move(WRITEPATH . 'uploads', $newName);
-      $data['path'] = WRITEPATH . 'uploads/' . $newName;
-      $ebook = Ebook::read($data['path']);
+      if (in_array($file->getExtension(), $ebook_extension)) {
+        $newName = $file->getRandomName();
+        $file->move(WRITEPATH . 'uploads', $newName);
+        $data['path'] = WRITEPATH . 'uploads/' . $newName;
+        $ebook = Ebook::read($data['path']);
+        return response()->setJSON([
+          'filename' => $ebook->getFilename(),
+          'ext' => $ebook->getExtension(),
+          'pages' => $ebook->getPagesCount(),
+          'publisher' => $ebook->getPublisher(),
+          'title' => $ebook->getTitle(),
+          'author' => $ebook->getAuthors(),
+          'bautho' => $ebook->getAuthorMain(),
+          'desc' => $ebook->getDescription(),
+          'cover' => $ebook->hasCover(),
+          'extra' => $ebook->getExtras()
+
+        ]);
+      } else if (in_array($file->getExtension(), $doc_extension)) {
+        $newName = $file->getRandomName();
+        $file->move(WRITEPATH . 'uploads', $newName);
+        $data['path'] = WRITEPATH . 'uploads/' . $newName;
+        // print_r('hello');
+        // $docFile = PhpWord::r;
+        $docFile = IOFactory::load($data['path']);
+
+
+        // Get document properties
+        print_r($docFile->getDocumentProperties());
+        // foreach ($docFile->getTitles() as $title) {
+        //   print_r($title);
+        // }
+        // echo "Title: " .  . "\n";
+        // echo "Creator: " . $docFile->getCreator() . "\n";
+        // echo "Description: " . $docFile->getDescription() . "\n";
+        // echo "Last Modified By: " . $docFile->getLastModifiedBy() . "\n";
+        // echo "Created: " . $docFile->getCreated() . "\n";
+        // echo "Modified: " . $docFile->getModified() . "\n";
+      }
       // $ebook->getPath(); // string => path to ebook
       // print_r($ebook->getMetadata());
       // return response()->setJSON(
@@ -181,34 +295,21 @@ class Dashboard extends BaseController
       //   print_r("author =" . $author);
       // }
 
-      // return response()->setJSON([
-      //   'filename' => $ebook->getFilename(),
-      //   'ext' => $ebook->getExtension(),
-      //   'pages' => $ebook->getPagesCount(),
-      //   'publisher' => $ebook->getPublisher(),
-      //   'title' => $ebook->getTitle(),
-      //   'author' => $ebook->getAuthors(),
-      //   'bautho' => $ebook->getAuthorMain(),
-      //   'desc' => $ebook->getDescription(),
-      //   'cover' => $ebook->hasCover(),
-      //   'extra' => $ebook->getExtras()
-
-      // ]);
       // print_r(); // BookAuthor[] (`name`: string, `role`: string)
       // print_r(); // ?BookAuthor => First BookAuthor (`name`: string, `role`: string)
       // print_r(); // ?string
       // print_r($ebook->getDescriptionHtml());
-      if ($ebook->hasCover()) {
-        $cover = $ebook->getCover();
-        $coverPath = $cover->getPath(); // ?string => path to cover
-        $coverContents = $cover->getContents($toBase64 = false);
-        // print_r($coverPath);
-        // print_r($coverContent);
-        $coverSavePath = WRITEPATH . 'uploads/img/ebook/' . basename($coverPath);
-        file_put_contents($coverSavePath, $coverContents);
-      } else {
-        print_r('tidak ada cover');
-      }
+      // if ($ebook->hasCover()) {
+      //   $cover = $ebook->getCover();
+      //   $coverPath = $cover->getPath(); // ?string => path to cover
+      //   $coverContents = $cover->getContents($toBase64 = false);
+      //   // print_r($coverPath);
+      //   // print_r($coverContent);
+      //   $coverSavePath = WRITEPATH . 'uploads/img/ebook/' . basename($coverPath);
+      //   file_put_contents($coverSavePath, $coverContents);
+      // } else {
+      //   print_r('tidak ada cover');
+      // }
 
       // $image = new Imagick();
       // $image->readImage($data['path'] . '[0]');
@@ -224,17 +325,49 @@ class Dashboard extends BaseController
 
   public function createMyEbook()
   {
+    $ebook_extension = ['pdf', 'epub'];
+    $doc_extension = ['docx', 'doc', 'odt'];
     $file = $this->request->getFile('file');
+
     if ($file !== null && $file->isValid() && !$file->hasMoved()) {
 
-      $newName = $file->getRandomName();
-      $file->move(WRITEPATH . 'uploads', $newName);
-      $data['path'] = WRITEPATH . 'uploads/' . $newName;
-      $image = new Imagick();
-      $image->readImage($data['path'] . '[0]');
-      $imagePath = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
-      $image->writeImage($imagePath);
-      $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
+      if (in_array($file->getExtension(), $ebook_extension)) {
+        $newName = $file->getRandomName();
+        $file->move(WRITEPATH . 'uploads', $newName);
+        $data['path'] = WRITEPATH . 'uploads/' . $newName;
+        $ebook = Ebook::read($data['path']);
+        // return response()->setJSON([
+        //   'filename' => $ebook->getFilename(),
+        //   'ext' => $ebook->getExtension(),
+        //   'pages' => $ebook->getPagesCount(),
+        //   'publisher' => $ebook->getPublisher(),
+        //   'title' => $ebook->getTitle(),
+        //   'author' => $ebook->getAuthors(),
+        //   'bautho' => $ebook->getAuthorMain(),
+        //   'desc' => $ebook->getDescription(),
+        //   'cover' => $ebook->hasCover(),
+        //   'extra' => $ebook->getExtras()
+
+        // ]);
+      } else if (in_array($file->getExtension(), $doc_extension)) {
+        $newName = $file->getRandomName();
+        $file->move(WRITEPATH . 'uploads', $newName);
+        $data['path'] = WRITEPATH . 'uploads/' . $newName;
+        $docFile = IOFactory::load($data['path']);
+
+
+        // Get document properties
+        print_r($docFile->getDocumentProperties());
+      }
+
+      // $newName = $file->getRandomName();
+      // $file->move(WRITEPATH . 'uploads', $newName);
+      // $data['path'] = WRITEPATH . 'uploads/' . $newName;
+      // $image = new Imagick();
+      // $image->readImage($data['path'] . '[0]');
+      // $imagePath = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
+      // $image->writeImage($imagePath);
+      // $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
       // print_r($data);
     } else {
       // error

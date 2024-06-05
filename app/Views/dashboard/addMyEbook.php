@@ -7,7 +7,7 @@
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
           <h6 class="dark:text-white">My Ebooks</h6>
         </div>
-        <form class="myform" action="<?= base_url('/dashboard/myebook/add') ?>" method="post" enctype="multipart/form-data">
+        <form class="myform" action="<?= base_url('/dashboard/myebook/create') ?>" method="post" enctype="multipart/form-data">
           <div class="flex flex-col items-center px-0 pt-0 pb-2">
             <div class="mb-3">
               <label for="file" class="mb-2 inline-block text-neutral-500">Upload File</label>
