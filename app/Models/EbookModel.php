@@ -53,6 +53,10 @@ class EbookModel extends Model
   {
     return $this->where('tahun_terbit', $year)->get()->getResultArray();
   }
+  public function isUsersEbook($data)
+  {
+    return $this->where($data)->first();
+  }
   public function ebookById($id = false)
   {
 

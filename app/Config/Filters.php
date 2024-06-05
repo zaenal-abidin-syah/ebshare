@@ -36,7 +36,8 @@ class Filters extends BaseFilters
         'performance'   => PerformanceMetrics::class,
         'login'         => \App\Filters\LoginFilter::class,
         'logout'         => \App\Filters\LogoutFilter::class,
-        'admin'         => \App\Filters\AdminFilter::class
+        'admin'         => \App\Filters\AdminFilter::class,
+        'ebooks_permision'         => \App\Filters\EbooksPermisionFilter::class
     ];
 
     /**
@@ -73,6 +74,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             'login' => ['except' => ['/', '/ebook', '/login', '/register']]
+
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
@@ -109,6 +111,7 @@ class Filters extends BaseFilters
      */
     public array $filters = [
         'admin' => ['before' => ['/dashboard/ebook', '/dashboard/ebook/*', '/dashboard/user', '/dashboard/user/*']],
-        'logout' => ['before' => ['/login']]
+        'logout' => ['before' => ['/login']],
+        'ebooks_permision' => ['before' => ['/dashboard/myebook/detail/*', '/dashboard/myebook/edit/*']]
     ];
 }
