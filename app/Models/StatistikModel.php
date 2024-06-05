@@ -40,4 +40,10 @@ class StatistikModel extends Model
       ->where('id_ebook', $id_ebook)
       ->update();
   }
+  public function getRating($id)
+  {
+    return $this->select('rating_rata_rata rating')
+      ->where($id)
+      ->first();
+  }
 }

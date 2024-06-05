@@ -21,7 +21,7 @@
           <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div class="overflow-hidden">
-                <table class="min-w-[90%] mx-auto text-left text-sm font-light text-surface">
+                <table class="min-w-[90%] max-w-[95%] mx-auto text-left text-sm font-light text-surface">
                   <thead class="border-b border-neutral-200 bg-white font-medium">
                     <tr>
                       <th scope="col" class="px-8 w-[20%] py-6"></th>
@@ -58,12 +58,32 @@
                       <td class="whitespace-nowrap px-8 py-6"><?= $ebook['username'] ?></td>
                     </tr>
                     <tr class="border-b border-neutral-200 bg-black/[0.02]">
+                      <td class="whitespace-nowrap px-8 py-6">Tanggal Upload</td>
+                      <td class="whitespace-nowrap px-8 py-6"><?= $ebook['tanggal'] ?></td>
+                    </tr>
+                    <tr class="border-b border-neutral-200 bg-black/[0.02]">
                       <td class="whitespace-nowrap px-8 py-6">Kategori</td>
                       <td class="whitespace-nowrap px-8 py-6"><?= $ebook['nama_kategori'] ?></td>
                     </tr>
                     <tr class="border-b border-neutral-200 bg-white ">
                       <td class="whitespace-nowrap px-8 py-6">Tag</td>
-                      <td class="whitespace-nowrap px-8 py-6"><?= $ebook['tag'] ?></td>
+                      <td class="whitespace-nowrap px-8 py-6">
+                        <?php
+                        $tags = $ebook['tag'] != '' ? explode(',', $ebook['tag']) : [];
+                        foreach ($tags as $tag) { ?>
+                          <span class="bg-gradient-to-tl from-purple-500 to-blue-400 px-2.5 text-xs rounded-md py-2 inline-block whitespace-nowrap text-center align-baseline mx-1 leading-none text-white"><?= $tag ?></span>
+                        <?php } ?>
+                      </td>
+                    </tr>
+                    <tr class="border-b border-neutral-200 bg-black/[0.02]">
+                      <td class="whitespace-nowrap px-8 py-6">Rating</td>
+                      <td class="whitespace-nowrap px-8 py-6">
+                        <?= $rating['rating'] ?> <i class="fa fa-star text-yellow-400 ml-2"></i>
+                      </td>
+                    </tr>
+                    <tr class="border-b border-neutral-200 bg-black/[0.02]">
+                      <td class="whitespace-nowrap px-8 py-6">Deskripsi</td>
+                      <td class="px-8 py-6"><?= $ebook['deskripsi'] ?></td>
                     </tr>
                   </tbody>
                 </table>
@@ -75,4 +95,5 @@
     </div>
   </div>
 </div>
+
 <?= $this->endSection() ?>

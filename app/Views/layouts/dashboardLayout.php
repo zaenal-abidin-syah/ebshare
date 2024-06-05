@@ -17,6 +17,8 @@
   <link href="<?= base_url() ?>/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Popper -->
   <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
   <!-- Main Styling -->
   <link rel="stylesheet" href="<?= base_url() ?>/style/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/css/tw-elements.min.css" />
@@ -232,7 +234,6 @@
   </main>
 
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <!-- <script src="<= base_url('/') ?>assets/js/plugins/chartjs.min.js"></script> -->
 
   <!-- plugin for scrollbar  -->

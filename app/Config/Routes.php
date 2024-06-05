@@ -44,6 +44,7 @@ $routes->post('/dashboard/myebook/create', 'Dashboard::createMyEbook');
 $routes->get('/dashboard/myebook/detail/(:any)', 'Dashboard::detailMyEbook/$1');
 $routes->get('/dashboard/myebook/edit/(:any)', 'Dashboard::editMyEbook/$1');
 $routes->post('/dashboard/myebook/update', 'Dashboard::updateMyEbook');
+$routes->post('/dashboard/myebook/cleanup', 'Dashboard::cleanUp');
 $routes->get('/dashboard/myebook/delete/(:any)', 'Dashboard::deleteMyEbook/$1');
 
 

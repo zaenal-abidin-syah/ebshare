@@ -57,6 +57,10 @@
                         <td class="whitespace-nowrap px-8 py-6"><?= $ebook['username'] ?></td>
                       </tr>
                       <tr class="border-b border-neutral-200 bg-black/[0.02]">
+                        <td class="whitespace-nowrap px-8 py-6">Tanggal Upload</td>
+                        <td class="whitespace-nowrap px-8 py-6"><?= $ebook['tanggal'] ?></td>
+                      </tr>
+                      <tr class="border-b border-neutral-200 bg-black/[0.02]">
                         <td class="whitespace-nowrap px-8 py-6">Kategori</td>
                         <td class="whitespace-nowrap px-8 py-6"><?= $ebook['nama_kategori'] ?></td>
                       </tr>
@@ -93,6 +97,10 @@
                             </div>
                           </div>
                         </td>
+                      </tr>
+                      <tr class="border-b border-neutral-200 bg-black/[0.02]">
+                        <td class="whitespace-nowrap px-8 py-6">Deskripsi</td>
+                        <td class="px-8 py-6"><?= $ebook['deskripsi'] ?></td>
                       </tr>
 
                     </tbody>

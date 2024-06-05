@@ -9,6 +9,7 @@ use App\Models\DetailUserModel;
 use App\Models\KategoriModel;
 use App\Models\StatistikModel;
 use App\Models\EbookTagModel;
+use App\Models\RatingModel;
 use App\Models\TagModel;
 use Kiwilan\Ebook\Ebook;
 use Imagick;
@@ -28,6 +29,7 @@ class Dashboard extends BaseController
     $this->kategoriModel = new KategoriModel();
     $this->statistikModel = new StatistikModel();
     $this->ebookTagModel = new EbookTagModel();
+    $this->ratingModel = new RatingModel();
     $this->tagModel = new TagModel();
     // $this->image = \Config\Services::image('imagick');
   }
@@ -149,14 +151,37 @@ class Dashboard extends BaseController
     $data['pager'] = $this->model->pager;
     return view('dashboard/myEbook', $data);
   }
+  public function getPages($path)
+  {
+    if (file_exists($path)) {
+      //open the path for reading
+      if ($handle = @fopen($path, "rb")) {
+        $count = 0;
+        $i = 0;
+        while (!feof($handle)) {
+          if ($i > 0) {
+            $contents .= fread($handle, 8152);
+          } else {
+            $contents = fread($handle, 1000);
+            if (preg_match("/\/N\s+([0-9]+)/", $contents, $found)) {
+              return $found[1];
+            }
+          }
+          $i++;
+        }
+        fclose($handle);
+        if (preg_match_all("/\/Type\s*\/Pages\s*.*\s*\/Count\s+([0-9]+)/", $contents, $capture, PREG_SET_ORDER)) {
+          foreach ($capture as $c) {
+            if ($c[1] > $count)
+              $count = $c[1];
+          }
+          return $count;
+        }
+      }
+    }
+    return 0;
+  }
 
-  // public function addEbook()
-  // {
-  //   $data['title'] = 'Ebshare | Tambah Ebook';
-  //   // $data['ebooks'] = $this->model->allEbook(session()->get('id'))->paginate(10);
-  //   $data['kategori'] = $this->kategoriModel->allKategori();
-  //   return view('dashboard/addEbook', $data);
-  // }
   public function addMyEbook()
   {
     $data['title'] = 'Ebshare | Tambah Ebook';
@@ -177,64 +202,60 @@ class Dashboard extends BaseController
         $pattern = '/[^a-zA-Z0-9.,\-\s]/';
         $data['judul'] = preg_replace($pattern, ' ', $ebook->getTitle());
 
-        $data['penulis'] = $ebook->getAuthors();
+        $data['penulis'] = [];
+        foreach ($ebook->getAuthors() as $author) {
+          $data['penulis'][] = $author->getName();
+          # code...
+        }
+        $data['penulis'] = implode(',', $data['penulis']);
         $data['penerbit'] = $ebook->getPublisher();
         $data['deskripsi'] = $ebook->getDescription();
         $data['type'] = $ebook->getExtension();
-        $data['tahun_terbit'] = $ebook->getPublishDate();
+        $data['tahun_terbit'] = $ebook->getPublishDate() ? $ebook->getPublishDate()->format('Y') : '';
         $data['ukuran'] = $ebook->getSize();
         $data['pages'] = $ebook->getPagesCount();
-        // return response()->setJSON([
-        //   'filename' => $ebook->getFilename(),
-        //   'ext' => $ebook->getExtension(),
-        //   'pages' => $ebook->getPagesCount(),
-        //   'publisher' => $ebook->getPublisher(),
-        //   'title' => $ebook->getTitle(),
-        //   'author' => $ebook->getAuthors(),
-        //   'bautho' => $ebook->getAuthorMain(),
-        //   'desc' => $ebook->getDescription(),
-        //   'cover' => $ebook->hasCover(),
-        //   'extra' => $ebook->getExtras()
+        session()->set('file_upload', $data['path']);
 
-        // ]);
+        $data['img'] = '/img/ebook/default-' . $ebook->getExtension() . '.png';
+        if ($ebook->hasCover()) {
+          $cover = $ebook->getCover();
+          // $coverPath = $cover->getPath(); // ?string => path to cover
+          $coverContents = $cover->getContents($toBase64 = false);
+          $img = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
+          session()->set('cover_upload', $data['img']);
+          file_put_contents($img, $coverContents);
+          $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
+        }
       } else if (in_array($file->getExtension(), $doc_extension)) {
         $newName = $file->getRandomName();
         $file->move(WRITEPATH . 'uploads', $newName);
         $data['path'] = WRITEPATH . 'uploads/' . $newName;
         $docFile = IOFactory::load($data['path']);
+        $docFile->getDocInfo();
+        $pattern = '/[^a-zA-Z0-9.,\-\s]/';
+        $data['judul'] = preg_replace($pattern, ' ', $docFile->getDocInfo()->getTitle() ?? '');
+        $data['penulis'] = $docFile->getDocInfo()->getCreator() ?? '';
+        $data['penerbit'] = $docFile->getDocInfo()->getCompany() ?? '';
+        $data['deskripsi'] = $docFile->getDocInfo()->getDescription() ?? '';
+        $data['type'] = $file->getClientExtension();
+        $data['tahun_terbit'] = $docFile->getDocInfo()->getCreated() ? date('Y', $docFile->getDocInfo()->getCreated()) : '';
+        $data['ukuran'] = $file->getSize();
+        $data['pages'] = $this->getPages($data['path']);
+        // $data['img'] = '';
+        $data['img'] = '/img/ebook/default-' . $file->getClientExtension() . '.png';
+
+
+        session()->set('file_upload', $data['path']);
 
 
         // Get document properties
-        print_r($docFile->getDocumentProperties());
+        // print_r($docFile->getDocumentProperties());
       }
-
-      // $newName = $file->getRandomName();
-      // $file->move(WRITEPATH . 'uploads', $newName);
-      // $data['path'] = WRITEPATH . 'uploads/' . $newName;
-      // $image = new Imagick();
-      // $image->readImage($data['path'] . '[0]');
-      // $imagePath = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
-      // $image->writeImage($imagePath);
-      // $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
-      // print_r($data);
     } else {
       // error
       echo 'file error';
     }
-    // $pattern = '/[^a-zA-Z0-9.,\s]/';
-
-    // Hilangkan karakter tersebut dari string
-    // $data['judul'] = preg_replace($pattern, ' ', $this->request->getPost('judul'));
-
-    // $data['penulis'] = $this->request->getPost('penulis');
-    // $data['penerbit'] = $this->request->getPost('penerbit');
-    // $data['deskripsi'] = $this->request->getPost('deskripsi');
-    // $data['id_kategori'] = $this->request->getPost('kategori');
-    // $data['id_user'] = session()->get('id');
-    // $data['type'] = $this->request->getPost('type');
-    // $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
-    // $data['ukuran'] = $this->request->getPost('size');
-    return view('test', $data);
+    return view('dashboard/addMyEbook', $data);
   }
   public function test()
   {
@@ -325,54 +346,6 @@ class Dashboard extends BaseController
 
   public function createMyEbook()
   {
-    $ebook_extension = ['pdf', 'epub'];
-    $doc_extension = ['docx', 'doc', 'odt'];
-    $file = $this->request->getFile('file');
-
-    if ($file !== null && $file->isValid() && !$file->hasMoved()) {
-
-      if (in_array($file->getExtension(), $ebook_extension)) {
-        $newName = $file->getRandomName();
-        $file->move(WRITEPATH . 'uploads', $newName);
-        $data['path'] = WRITEPATH . 'uploads/' . $newName;
-        $ebook = Ebook::read($data['path']);
-        // return response()->setJSON([
-        //   'filename' => $ebook->getFilename(),
-        //   'ext' => $ebook->getExtension(),
-        //   'pages' => $ebook->getPagesCount(),
-        //   'publisher' => $ebook->getPublisher(),
-        //   'title' => $ebook->getTitle(),
-        //   'author' => $ebook->getAuthors(),
-        //   'bautho' => $ebook->getAuthorMain(),
-        //   'desc' => $ebook->getDescription(),
-        //   'cover' => $ebook->hasCover(),
-        //   'extra' => $ebook->getExtras()
-
-        // ]);
-      } else if (in_array($file->getExtension(), $doc_extension)) {
-        $newName = $file->getRandomName();
-        $file->move(WRITEPATH . 'uploads', $newName);
-        $data['path'] = WRITEPATH . 'uploads/' . $newName;
-        $docFile = IOFactory::load($data['path']);
-
-
-        // Get document properties
-        print_r($docFile->getDocumentProperties());
-      }
-
-      // $newName = $file->getRandomName();
-      // $file->move(WRITEPATH . 'uploads', $newName);
-      // $data['path'] = WRITEPATH . 'uploads/' . $newName;
-      // $image = new Imagick();
-      // $image->readImage($data['path'] . '[0]');
-      // $imagePath = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
-      // $image->writeImage($imagePath);
-      // $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
-      // print_r($data);
-    } else {
-      // error
-      echo 'file error';
-    }
     $pattern = '/[^a-zA-Z0-9.,\s]/';
 
     // Hilangkan karakter tersebut dari string
@@ -384,8 +357,12 @@ class Dashboard extends BaseController
     $data['id_kategori'] = $this->request->getPost('kategori');
     $data['id_user'] = session()->get('id');
     $data['type'] = $this->request->getPost('type');
+    $data['path'] = $this->request->getPost('path');
     $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
-    $data['ukuran'] = $this->request->getPost('size');
+    $data['ukuran'] = $this->request->getPost('ukuran');
+    $data['img'] = $this->request->getPost('img');
+    $data['pages'] = $this->request->getPost('pages');
+    // return $this->response->setJSON($data);
 
     // print_r($data);
 
@@ -394,6 +371,7 @@ class Dashboard extends BaseController
     if (!$this->model->tambah($data)) {
       $data['errors'] = $this->model->errors();
       $data['kategori'] = $this->kategoriModel->allKategori();
+
       // print($data['error']);
       return view('/dashboard/myebook/add', $data);
     }
@@ -495,6 +473,17 @@ class Dashboard extends BaseController
     session()->setFlashdata('message', 'Ebook Berhasil di Ubah !');
     return redirect()->to(base_url('/dashboard/ebook'));
   }
+  public function cleanUp()
+  {
+    if (session()->get('file_upload') and file_exists(session()->get('file_upload'))) {
+      unlink(session()->get('file_upload'));
+      session()->remove('file_upload');
+    }
+    if (session()->get('cover_upload') and file_exists(session()->get('cover_upload'))) {
+      unlink(session()->get('cover_upload'));
+      session()->remove('cover_upload');
+    }
+  }
   public function updateMyEbook()
   {
     // print_r($this->request->getVar());
@@ -551,12 +540,14 @@ class Dashboard extends BaseController
   {
     $data['title'] = 'Ebshare | Detail Ebook';
     $data['ebook'] = $this->model->ebookById($id);
+    $data['rating'] =  $this->statistikModel->getRating(['id_ebook' => $id]);
     return view('dashboard/detailEbook', $data);
   }
   public function detailMyEbook($id)
   {
     $data['title'] = 'Ebshare | Detail Ebook';
     $data['ebook'] = $this->model->ebookById($id);
+    $data['rating'] =  $this->statistikModel->getRating(['id_ebook' => $id]);
     return view('dashboard/detailMyEbook', $data);
   }
 

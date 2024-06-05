@@ -60,7 +60,7 @@ class EbookModel extends Model
   public function ebookById($id = false)
   {
 
-    return $this->select('ebook.judul, ebook.penulis, ebook.penerbit, ebook.id, ebook.id_user, ebook.ukuran, ebook.tahun_terbit, ebook.deskripsi, ebook.type, ebook.id_kategori, u.username, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
+    return $this->select('ebook.judul, ebook.penulis, ebook.penerbit, ebook.id, ebook.id_user, ebook.ukuran, ebook.tahun_terbit, ebook.deskripsi, ebook.tanggal, ebook.type, ebook.id_kategori, u.username, k.nama_kategori, GROUP_CONCAT(t.nama_tag SEPARATOR ",") tag')
       ->join('ebook_tag et', 'et.id_ebook = ebook.id')
       ->join('kategori k', 'k.id = ebook.id_kategori')
       ->join('tag t', 't.id = et.id_tag')

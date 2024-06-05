@@ -9,29 +9,43 @@
         </div>
         <form class="myform" action="<?= base_url('/dashboard/myebook/create') ?>" method="post" enctype="multipart/form-data">
           <div class="flex flex-col items-center px-0 pt-0 pb-2">
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label for="file" class="mb-2 inline-block text-neutral-500">Upload File</label>
               <input onchange="handleFile()" class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal leading-[2.15] text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none" id="file" name="file" type="file" />
-            </div>
+            </div> -->
             <div class="mb-4 w-8/12">
               <label for="judul" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Judul</label>
-              <input type="text" id="judul" name="judul" class="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
+              <input type="text" id="judul" value="<?= $judul ?>" name="judul" class="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
             </div>
             <div class="mb-4 w-8/12">
               <label for="penulis" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Penulis</label>
-              <input type="text" id="penulis" name="penulis" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
+              <input type="text" id="penulis" value="<?= $penulis ?>" name="penulis" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
             </div>
             <div class="mb-4 w-8/12">
               <label for="penerbit" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Penerbit</label>
-              <input type="text" id="penerbit" name="penerbit" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
+              <input type="text" id="penerbit" value="<?= $penerbit ?>" name="penerbit" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
             </div>
             <div class="mb-4 w-8/12">
               <label for="tahun_terbit" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tahun Terbit</label>
-              <input type="text" id="tahun_terbit" name="tahun_terbit" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
+              <input type="text" id="tahun_terbit" value="<?= $tahun_terbit ?>" name="tahun_terbit" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
+            </div>
+            <div class="mb-4 w-8/12">
+              <label for="type" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Type</label>
+              <input type="text" id="type" value="<?= $type ?>" name="type" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" readonly />
+            </div>
+            <div class="mb-4 w-8/12">
+              <label for="ukuran" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Ukuran</label>
+              <input type="text" id="ukuran" value="<?= $ukuran ?>" name="ukuran" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" readonly />
+            </div>
+            <div class="mb-4 w-8/12">
+              <label for="pages" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Pages</label>
+              <input type="text" id="pages" value="<?= $pages ?>" name="pages" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" readonly />
             </div>
             <div class="mb-4 w-8/12">
               <label for="deskripsi" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Deskripsi</label>
-              <input type="text" id="deskripsi" name="deskripsi" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
+              <textarea type="text" id="deskripsi" name="deskripsi" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none">
+              <?= $deskripsi ?>
+              </textarea>
             </div>
 
             <div class="mb-4 w-8/12">
@@ -69,8 +83,9 @@
               </div>
             </div>
             <div>
-              <input type="hidden" name='type' id='type'>
-              <input type="hidden" name='size' id='size'>
+              <!-- <input type="hidden" value="<= $type ?>" name='type' id='type'> -->
+              <input type="hidden" value="<?= $path ?>" name='path' id='path'>
+              <input type="hidden" value="<?= $img ?>" name='img' id='img'>
               <input type="hidden" name='tag' id='tag'>
 
             </div>
@@ -89,6 +104,16 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <script>
+  $(window).on('beforeunload', function() {
+    $.ajax({
+      type: 'POST',
+      url: "<?= base_url('dashboard/myebook/cleanup') ?>",
+      // data: {
+      //   _token: '<= csrf_hash() ?>'
+      // },
+      // async: false
+    });
+  });
   const triger = document.getElementById('triger-tag');
 
   triger.addEventListener('keydown', function(event) {
