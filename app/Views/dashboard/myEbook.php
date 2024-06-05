@@ -127,12 +127,23 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
             <div class="input_field flex flex-col w-max mx-auto text-center">
-              <form class="myform" action="<?= base_url('/dashboard/myebook/add') ?>" method="post" enctype="multipart/form-data">
-                <label>
-                  <input name="file" id="file" class="text-sm cursor-pointer w-36 hidden" type="file" multiple />
-                  <div class="text bg-purple-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-purple-500">Select</div>
-                </label>
-              </form>
+              <?= form_open_multipart('/dashboard/myebook/add') ?>
+              <?= csrf_field() ?>
+              <label>
+                <?= form_upload(
+                  'file',
+                  '',
+                  [
+                    'id' => 'file',
+                    'class' => 'text-sm cursor-pointer w-36 hidden',
+                    'multiple' => ''
+                  ]
+                ) ?>
+                <div class="text bg-purple-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-purple-500">Select</div>
+              </label>
+              <?= form_close() ?>
+              <!-- <form class="myform" action="<= base_url('/dashboard/myebook/add') ?>" method="post" enctype="multipart/form-data">
+              </form> -->
               <div class="title text-purple-500 uppercase">or drop files here</div>
             </div>
           </div>

@@ -53,13 +53,13 @@
                       <td class="whitespace-nowrap px-8 py-6">Tahun Terbit</td>
                       <td class="whitespace-nowrap px-8 py-6"><?= $ebook['tahun_terbit'] ?></td>
                     </tr>
-                    <tr class="border-b border-neutral-200 bg-black/[0.02]">
-                      <td class="whitespace-nowrap px-8 py-6">Tanggal Upload</td>
-                      <td class="whitespace-nowrap px-8 py-6"><?= $ebook['tanggal'] ?></td>
-                    </tr>
                     <tr class="border-b border-neutral-200 bg-white ">
                       <td class="whitespace-nowrap px-8 py-6">Uploader</td>
                       <td class="whitespace-nowrap px-8 py-6"><?= $ebook['username'] ?></td>
+                    </tr>
+                    <tr class="border-b border-neutral-200 bg-black/[0.02]">
+                      <td class="whitespace-nowrap px-8 py-6">Tanggal Upload</td>
+                      <td class="whitespace-nowrap px-8 py-6"><?= $ebook['tanggal'] ?></td>
                     </tr>
                     <tr class="border-b border-neutral-200 bg-black/[0.02]">
                       <td class="whitespace-nowrap px-8 py-6">Kategori</td>

@@ -11,7 +11,7 @@ class EbookModel extends Model
   protected $primaryKey = 'id';
 
   protected $useAutoIncrement = true;
-  protected $allowedFields = ['judul', 'penulis', 'penerbit', 'ukuran', 'tahun_terbit', 'type', 'deskripsi', 'path', 'id_user', 'id_kategori', 'img', 'tanggal'];
+  protected $allowedFields = ['judul', 'penulis', 'penerbit', 'ukuran', 'tahun_terbit', 'type', 'deskripsi', 'path', 'id_user', 'id_kategori', 'img', 'tanggal', 'pages'];
   // protected $allowedFields = ['username', 'email', 'password', 'role'];
   protected $validationRules = [
     'judul'     => 'required',

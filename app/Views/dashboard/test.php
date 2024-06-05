@@ -9,99 +9,41 @@
         <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
           <h6 class="dark:text-white">Edit Ebook</h6>
         </div>
-        <?= form_open(
-          '/dashboard/myebook/update',
-          [
-            'class' => 'myform'
-          ],
-          [
-            'tag' => $ebook['tag'],
-            'id_ebook' => $ebook['id']
-          ]
-        ) ?>
+        <?php $attr = [
+          'class' => 'myform'
+        ] ?>
+        <?= form_open('/dashboard/myebook/update', $attr) ?>
         <?= csrf_field() ?>
+        <!-- <form class="myform" action="<= base_url('/dashboard/myebook/update') ?>" method="post"> -->
         <div class="flex flex-col items-center px-0 pt-0 pb-2">
           <div class="mb-4 w-8/12">
-            <label for="judul" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">
-              Judul
-            </label>
-            <?= form_input(
-              [
-                'type' => 'text',
-                'value' => $ebook['judul'],
-                'id' => 'judul',
-                'name' => 'judul',
-                'class' => 'focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none'
-              ]
-            ) ?>
+            <label for="judul" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Judul</label>
+            <input type="text" value="<?= $ebook['judul'] ?>" id="judul" name="judul" class="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
           </div>
           <div class="mb-4 w-8/12">
             <label for="penulis" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Penulis</label>
-            <?= form_input(
-              [
-                'type' => 'text',
-                'value' => $ebook['penulis'],
-                'id' => 'penulis',
-                'name' => 'penulis',
-                'class' => 'focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none'
-              ]
-            ) ?>
+            <input type="text" value="<?= $ebook['penulis'] ?>" id="penulis" name="penulis" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
           </div>
           <div class="mb-4 w-8/12">
             <label for="penerbit" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Penerbit</label>
-            <?= form_input(
-              [
-                'type' => 'text',
-                'value' => $ebook['penerbit'],
-                'id' => 'penerbit',
-                'name' => 'penerbit',
-                'class' => 'focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none'
-              ]
-            ) ?>
+            <input type="text" value="<?= $ebook['penerbit'] ?>" id="penerbit" name="penerbit" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
           </div>
           <div class="mb-4 w-8/12">
             <label for="tahun_terbit" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tahun Terbit</label>
-            <?= form_input(
-              [
-                'type' => 'text',
-                'value' => $ebook['tahun_terbit'],
-                'id' => 'tahun_terbit',
-                'name' => 'tahun_terbit',
-                'class' => 'focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none'
-              ]
-            ) ?>
-
+            <input type="text" value="<?= $ebook['tahun_terbit'] ?>" id="tahun_terbit" name="tahun_terbit" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
           </div>
           <div class="mb-4 w-8/12">
             <label for="deskripsi" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Deskripsi</label>
-            <?= form_textarea(
-              [
-                'value' => $ebook['deskripsi'],
-                'id' => 'deskripsi',
-                'name' => 'deskripsi',
-                'class' => 'focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none'
-              ]
-            ) ?>
+            <input type="textarea" value="<?= $ebook['deskripsi'] ?>" id="deskripsi" name="deskripsi" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />
           </div>
 
           <div class="mb-4 w-8/12">
             <label for="kategori" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Kategori</label>
-            <?php
-            $options = [];
-            foreach ($kategori as $k) {
-              $options[$k['id']] = $k['nama_kategori'];
-            }  ?>
-            <?= form_dropdown(
-              'kategori',
-              $options,
-              $ebook['id_kategori'],
-              [
-                'id' => 'kategori',
-                'name' => 'kategori',
-                'class' => 'focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal',
-                'data-twe-select-init' => ''
-              ]
-            ) ?>
+            <select id="kategori" name="kategori" data-twe-select-init class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal">
+              <?php foreach ($kategori as $a) { ?>
+                <option value="<?= $a['id'] ?>" <?= $a['id'] == $ebook['id_kategori'] ? 'selected' : '' ?>><?= $a['nama_kategori'] ?></option>
+              <?php } ?>
+            </select>
           </div>
           <div class="mb-8 w-8/12">
             <label for="tags" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Tags</label>
@@ -130,17 +72,17 @@
               </div>
             </div>
           </div>
+          <input type="hidden" name="tag" id="tag" value="<?= $ebook['tag'] ?>">
+          <input type="hidden" name="id_ebook" id="id_ebook" value="<?= $ebook['id'] ?>">
+
           <div class="mb-4 w-8/12">
-            <?= form_submit(
-              'submit',
-              'Submit',
-              [
-                'class' => "submit inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-[1.5] text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-              ]
-            ) ?>
+            <button type="submit" class="submit inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-[1.5] text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong" data-twe-ripple-init data-twe-ripple-color="light">
+              Submit
+            </button>
           </div>
         </div>
         <?= form_close() ?>
+        <!-- </form> -->
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@ class EbooksPermisionFilter implements FilterInterface
 {
   public function before(RequestInterface $request, $arguments = null)
   {
-    if (!session()->get('role')) {
+    if (session()->get('login')) {
       // session()->setFlashdata('test',  $request->getUri()->getSegment(4));
       $this->model = new EbookModel();
       $isUsersEbook = $this->model->isUsersEbook(['id' => $request->getUri()->getSegment(4), 'id_user' => session()->get('id')]);

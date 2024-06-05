@@ -31,6 +31,7 @@ class Dashboard extends BaseController
     $this->ebookTagModel = new EbookTagModel();
     $this->ratingModel = new RatingModel();
     $this->tagModel = new TagModel();
+    helper('form');
     // $this->image = \Config\Services::image('imagick');
   }
   public function index()
@@ -90,7 +91,6 @@ class Dashboard extends BaseController
     $data['users'] = $this->userModel->allUser()->paginate(10);
     $data['kategori'] = $this->kategoriModel->allKategori();
     $data['pager'] = $this->userModel->pager;
-    // return view('test', $data);
     return view('dashboard/user', $data);
   }
   public function deleteUser($id)
@@ -222,9 +222,9 @@ class Dashboard extends BaseController
           // $coverPath = $cover->getPath(); // ?string => path to cover
           $coverContents = $cover->getContents($toBase64 = false);
           $img = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
-          session()->set('cover_upload', $data['img']);
           file_put_contents($img, $coverContents);
           $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
+          session()->set('cover_upload', $data['img']);
         }
       } else if (in_array($file->getExtension(), $doc_extension)) {
         $newName = $file->getRandomName();
@@ -549,37 +549,5 @@ class Dashboard extends BaseController
     $data['ebook'] = $this->model->ebookById($id);
     $data['rating'] =  $this->statistikModel->getRating(['id_ebook' => $id]);
     return view('dashboard/detailMyEbook', $data);
-  }
-
-  public function upload()
-  {
-    $file = $this->request->getFile('file');
-    if ($file->isValid() && !$file->hasMoved()) {
-      $newName = $file->getRandomName();
-      $file->move(WRITEPATH . 'uploads', $newName);
-      echo "File has been uploaded: " . $newName;
-    } else {
-      echo "File upload failed.";
-    }
-  }
-
-  public function download()
-  {
-    // print_r($this->request->getGet('filename'));
-    $filename = $this->request->getGet('filename');
-
-    $filePath = WRITEPATH . 'uploads/' . $filename;
-    if (file_exists($filePath)) {
-      $mimeType = mime_content_type($filePath);
-
-      // Mengembalikan respon download dengan header yang benar dan menampilkan file secara inline
-      return $this->response
-        ->setContentType($mimeType)
-        ->setHeader('Content-Disposition', 'inline; filename="' . basename($filePath) . '"')
-        ->setBody(file_get_contents($filePath));
-      // return $this->response->download($filePath, null)->inline();
-    } else {
-      echo "File not found.";
-    }
   }
 }
