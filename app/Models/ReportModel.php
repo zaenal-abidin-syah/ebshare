@@ -31,6 +31,6 @@ class ReportModel extends Model
       ->groupBy('nama_kategori')
       ->get();
 
-    return $report->getResultArray();
+    return $report->getResultArray()[0];
   }
 }

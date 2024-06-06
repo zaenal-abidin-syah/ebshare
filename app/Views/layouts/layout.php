@@ -69,7 +69,7 @@
                     <?php
                     $i = 1;
                     foreach ($kategori as $k) { ?>
-                      <a href="<?= base_url('ebook/kategori/' . $k['id']) ?>" aria-current="true" class="block w-full border-b border-purple-100 px-6 py-2 text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:border-white/10 dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"><?= $k['nama_kategori'] ?></a>
+                      <a href="<?= base_url('ebook?kategori=' . $k['id']) ?>" aria-current="true" class="block w-full border-b border-purple-100 px-6 py-2 text-neutral-700 hover:bg-zinc-200/60 focus:bg-zinc-200/60 focus:outline-none active:bg-zinc-200/60 active:no-underline dark:border-white/10 dark:bg-surface-dark dark:text-white dark:hover:bg-neutral-800/25 dark:focus:bg-neutral-800/25 dark:active:bg-neutral-800/25"><?= $k['nama_kategori'] ?></a>
                       <?php if ($i % 5 === 0) { ?>
                   </div>
                   <div>

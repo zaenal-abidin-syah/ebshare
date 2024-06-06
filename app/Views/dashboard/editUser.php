@@ -17,6 +17,7 @@
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div class="overflow-hidden">
                 <form action="<?= base_url('dashboard/user/update') ?>" method="post" class="max-w-[90%] flex flex-col justify-start items-center">
+                  <?= csrf_field() ?>
                   <div class="mb-4 w-8/12">
                     <label for="username" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700">Username</label>
                     <input type="text" value="<?= $detail['username'] ?>" id="username" name="username" class="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-purple-500 focus:outline-none" />

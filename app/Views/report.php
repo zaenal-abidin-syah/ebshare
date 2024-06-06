@@ -96,14 +96,14 @@
         </tr>
       </thead>
 
-      <?php foreach ($dataByKategori as $key) { ?>
+      <!-- <php foreach ($dataByKategori as $key) { ?>
         <tr>
-          <td><?php echo $key['nama_kategori']; ?></td>
-          <td><?php echo $key['jumlah_unduhan']; ?></td>
-          <td><?php echo $key['jumlah_favorite']; ?></td>
-          <td><?php echo $key['jumlah_komentar']; ?></td>
+          <td><php echo $key['nama_kategori']; ?></td>
+          <td><php echo $key['jumlah_unduhan']; ?></td>
+          <td><php echo $key['jumlah_favorite']; ?></td>
+          <td><php echo $key['jumlah_komentar']; ?></td>
         </tr>
-      <?php } ?>
+      <php } ?> -->
     </table>
   </div>
   <div class="container my-4">
@@ -117,7 +117,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     new DataTable('#allEbookReport');
-    new DataTable('#reportByKategoriReport');
+    // new DataTable('#reportByKategoriReport');
 
 
     const ctx = document.getElementById('grafik1');
@@ -161,46 +161,46 @@
       }
     });
 
-    const ctx2 = document.getElementById('grafik2');
-    const dataLabel2 = []
-    const dataContentUnduhan2 = []
-    const dataContentFavorite2 = []
-    const dataContentKomentar2 = []
-    <?php foreach ($dataByKategori as $key) { ?>
-      dataLabel2.push(<?= json_encode($key['nama_kategori']) ?>);
-      dataContentUnduhan2.push(<?= json_encode($key['jumlah_unduhan']) ?>);
-      dataContentFavorite2.push(<?= json_encode($key['jumlah_favorite']) ?>);
-      dataContentKomentar2.push(<?= json_encode($key['jumlah_komentar']) ?>);
-    <?php } ?>
-    new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: dataLabel2,
-        datasets: [{
-            label: 'Jumlah Unduhan',
-            data: dataContentUnduhan2,
-            borderWidth: 1
-          },
-          {
-            label: 'Jumlah Favorite',
-            data: dataContentFavorite2,
-            borderWidth: 1
-          },
-          {
-            label: 'Jumlah Komentar',
-            data: dataContentKomentar,
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+    // const ctx2 = document.getElementById('grafik2');
+    // const dataLabel2 = []
+    // const dataContentUnduhan2 = []
+    // const dataContentFavorite2 = []
+    // const dataContentKomentar2 = []
+    // <php foreach ($dataByKategori as $key) { ?>
+    //   dataLabel2.push(<= json_encode($key['nama_kategori']) ?>);
+    //   dataContentUnduhan2.push(<= json_encode($key['jumlah_unduhan']) ?>);
+    //   dataContentFavorite2.push(<= json_encode($key['jumlah_favorite']) ?>);
+    //   dataContentKomentar2.push(<= json_encode($key['jumlah_komentar']) ?>);
+    // <php } ?>
+    // new Chart(ctx2, {
+    //   type: 'bar',
+    //   data: {
+    //     labels: dataLabel2,
+    //     datasets: [{
+    //         label: 'Jumlah Unduhan',
+    //         data: dataContentUnduhan2,
+    //         borderWidth: 1
+    //       },
+    //       {
+    //         label: 'Jumlah Favorite',
+    //         data: dataContentFavorite2,
+    //         borderWidth: 1
+    //       },
+    //       {
+    //         label: 'Jumlah Komentar',
+    //         data: dataContentKomentar,
+    //         borderWidth: 1
+    //       }
+    //     ]
+    //   },
+    //   options: {
+    //     scales: {
+    //       y: {
+    //         beginAtZero: true
+    //       }
+    //     }
+    //   }
+    // });
   </script>
 </body>
 
