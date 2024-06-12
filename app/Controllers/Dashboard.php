@@ -39,7 +39,7 @@ class Dashboard extends BaseController
     $id = (session()->get('role') == '0') ? session()->get('id') : False;
     $data['title'] = 'Ebshare | Ebook';
     $data['statistik'] = $this->model->allStatistik($id);
-    $data['statistikPerMonth'] = $this->model->allStatistik($id);
+    $data['statistikPerMonth'] = $this->model->allStatistikPerMonth($id);
 
     $data['ebooks'] = $this->model->allEbook();
     $data['kategori'] = $this->kategoriModel->allKategori();
@@ -255,92 +255,6 @@ class Dashboard extends BaseController
 
 
     // return view('test', $data);
-  }
-  public function test()
-  {
-
-    $file = $this->request->getFile('file');
-    // print_r($file->getExtension());
-    // print_r();
-    $ebook_extension = ['pdf', 'epub'];
-    $doc_extension = ['docx', 'doc', 'odt'];
-
-    if ($file !== null && $file->isValid() && !$file->hasMoved()) {
-
-      if (in_array($file->getExtension(), $ebook_extension)) {
-        $newName = $file->getRandomName();
-        $file->move(WRITEPATH . 'uploads', $newName);
-        $data['path'] = WRITEPATH . 'uploads/' . $newName;
-        $ebook = Ebook::read($data['path']);
-        return response()->setJSON([
-          'filename' => $ebook->getFilename(),
-          'ext' => $ebook->getExtension(),
-          'pages' => $ebook->getPagesCount(),
-          'publisher' => $ebook->getPublisher(),
-          'title' => $ebook->getTitle(),
-          'author' => $ebook->getAuthors(),
-          'bautho' => $ebook->getAuthorMain(),
-          'desc' => $ebook->getDescription(),
-          'cover' => $ebook->hasCover(),
-          'extra' => $ebook->getExtras()
-
-        ]);
-      } else if (in_array($file->getExtension(), $doc_extension)) {
-        $newName = $file->getRandomName();
-        $file->move(WRITEPATH . 'uploads', $newName);
-        $data['path'] = WRITEPATH . 'uploads/' . $newName;
-        // print_r('hello');
-        // $docFile = PhpWord::r;
-        $docFile = IOFactory::load($data['path']);
-
-
-        // Get document properties
-        print_r($docFile->getDocumentProperties());
-        // foreach ($docFile->getTitles() as $title) {
-        //   print_r($title);
-        // }
-        // echo "Title: " .  . "\n";
-        // echo "Creator: " . $docFile->getCreator() . "\n";
-        // echo "Description: " . $docFile->getDescription() . "\n";
-        // echo "Last Modified By: " . $docFile->getLastModifiedBy() . "\n";
-        // echo "Created: " . $docFile->getCreated() . "\n";
-        // echo "Modified: " . $docFile->getModified() . "\n";
-      }
-      // $ebook->getPath(); // string => path to ebook
-      // print_r($ebook->getMetadata());
-      // return response()->setJSON(
-      //   $ebook->getMetadata()
-      // );
-      // foreach ($ebook->getAuthors() as $author) {
-      //   print_r("author =" . $author);
-      // }
-
-      // print_r(); // BookAuthor[] (`name`: string, `role`: string)
-      // print_r(); // ?BookAuthor => First BookAuthor (`name`: string, `role`: string)
-      // print_r(); // ?string
-      // print_r($ebook->getDescriptionHtml());
-      // if ($ebook->hasCover()) {
-      //   $cover = $ebook->getCover();
-      //   $coverPath = $cover->getPath(); // ?string => path to cover
-      //   $coverContents = $cover->getContents($toBase64 = false);
-      //   // print_r($coverPath);
-      //   // print_r($coverContent);
-      //   $coverSavePath = WRITEPATH . 'uploads/img/ebook/' . basename($coverPath);
-      //   file_put_contents($coverSavePath, $coverContents);
-      // } else {
-      //   print_r('tidak ada cover');
-      // }
-
-      // $image = new Imagick();
-      // $image->readImage($data['path'] . '[0]');
-      // $imagePath = WRITEPATH . 'uploads/img/ebook/' . explode('.', $newName)[0] . '.jpg';
-      // $image->writeImage($imagePath);
-      // $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
-      // print_r($data);
-    } else {
-      // error
-      echo 'file error';
-    }
   }
 
   public function createMyEbook()

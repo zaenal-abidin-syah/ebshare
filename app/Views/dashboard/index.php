@@ -109,7 +109,7 @@
   </div>
 
   <!-- cards row 2 -->
-  <div class="flex md:flex-nowrap sm:flex-wrap mt-6 -mx-3">
+  <div class="flex lg:flex-nowrap xl:flex-nowrap md:flex-nowrap gap-4 flex-wrap sm:flex-wrap mt-6 -mx-3">
     <div class="w-full  md:w-4/12 max-w-full px-3 mt-0">
       <div class="border-black/12.5 shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
         <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
@@ -128,7 +128,7 @@
     <div class="w-full md:w-8/12 max-w-full px-3 mt-0">
       <div class="border-black/12.5 shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
         <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
-          <h6 class="capitalize">Sales overview</h6>
+          <h6 class="capitalize">Statistik Per Month</h6>
           <p class="mb-0 text-sm leading-normal">
             <!-- <i class="fa fa-arrow-up text-emerald-500"></i> -->
             <!-- <span class="font-semibold">4% more</span> in 2021 -->
@@ -136,7 +136,7 @@
         </div>
         <div class="flex-auto p-4">
           <div>
-            <canvas id="canvas2" height="510"></canvas>
+            <canvas id="canvas2" height="145"></canvas>
           </div>
         </div>
       </div>
@@ -181,5 +181,34 @@
         responsive: true,
       }
     });
+
+    const labels = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli'
+    ]
+    const data2 = {
+      labels: labels,
+      datasets: [{
+        label: 'My First Dataset',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    };
+
+    const ctx2 = document.getElementById('canvas2');
+    new Chart(ctx2, {
+      type: 'line',
+      data: data2,
+      options: {
+        Response: true,
+      }
+    })
   </script>
   <?= $this->endSection() ?>

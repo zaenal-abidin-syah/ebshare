@@ -113,6 +113,33 @@ class EbookModel extends Model
         ->get()->getResultArray()[0];
     }
   }
+  public function allStatistikPerMonth($id = false)
+  {
+    // $this->userModel = new UserModel();
+    // $builder = $this->userModel->selectCount('id');
+
+    if ($id) {
+      return $this->selectCount('ebook.id', 'ebooks')
+        ->selectSum('es.jumlah_unduhan')
+        ->selectSum('es.jumlah_komentar')
+        ->selectSum('es.jumlah_favorite')
+        ->where('ebook.id_user', $id)
+        ->join('ebook_statistik es', 'ebook.id = es.id_ebook')
+        ->get()->getResultArray()[0];
+    } else {
+      $db      = \Config\Database::connect();
+      $user = $db->table('user')->selectCount('id');
+
+      return $this->selectCount('ebook.id', 'ebooks')
+        ->selectSum('es.jumlah_unduhan')
+        ->selectSum('es.jumlah_komentar')
+        ->selectSum('es.jumlah_favorite')
+        ->selectSubquery($user, 'user')
+        ->join('ebook_statistik es', 'ebook.id = es.id_ebook')
+        ->get()->getResultArray()[0];
+    }
+  }
+
   public function userActivity($id = false)
   {
     // $this->userModel = new UserModel();
