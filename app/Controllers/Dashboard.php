@@ -191,7 +191,6 @@ class Dashboard extends BaseController
     $doc_extension = ['docx', 'doc', 'odt'];
     $data['kategori'] = $this->kategoriModel->allKategori();
     // return view('dashboard/addMyEbook', $data);
-    return response()->setJSON(WRITEPATH);
 
     if ($file !== null && $file->isValid() && !$file->hasMoved()) {
 
@@ -227,6 +226,7 @@ class Dashboard extends BaseController
           $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
           session()->set('cover_upload', $data['img']);
         }
+        return response()->setJSON($data);
       } else if (in_array($file->getExtension(), $doc_extension)) {
         $newName = $file->getRandomName();
         $file->move(WRITEPATH . 'uploads', $newName);
