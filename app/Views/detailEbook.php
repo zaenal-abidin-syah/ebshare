@@ -311,7 +311,7 @@
             id_ebook: <?= $ebook['id'] ?>,
             [csrf_token]: csrf_hash,
           },
-          success: function(data) {
+          success: function(response) {
             csrf_hash = response.csrf_hash;
           }
         });
@@ -335,10 +335,9 @@
           favoriteId
         },
         success: function(response) {
-          console.log({
-            response
-          });
+
           csrf_hash = response.csrf_hash;
+
           if (response.favorite === 'add') {
             button.removeClass('text-white');
             button.addClass('text-slate-900');
