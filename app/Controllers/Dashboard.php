@@ -255,7 +255,8 @@ class Dashboard extends BaseController
       // error
       echo 'file error';
     }
-    return view('dashboard/addMyEbook', $data);
+    // return view('dashboard/addMyEbook', $data);
+    return view('test', $data);
   }
   public function test()
   {
