@@ -52,25 +52,26 @@ class Auth extends BaseController
       'password' => $password,
       'email' => $email
     ];
-    $data['title'] = 'Ebshare | Register';
-    if ($this->model->validate($user)) {
-      // $this->model->register($user);
-      $user['password'] = hash('sha256', $password);
-      if ($this->model->register($user) === false) {
-        $data['error'] = $this->model->errors();
-        session()->setFlashdata('flash', 'Database error');
-        print_r($data['errors']);
-        // return view('/register', $data);
-      } else {
-        return redirect()->to(base_url(''));
-      }
-    } else {
-      $data['errors'] = $this->model->errors();
-      session()->setFlashdata('flash', 'Data error field');
-      print_r($data['errors']);
-      // return view('/register', $data);
-      // return redirect()->to(base_url('/register'))->withInput();
-    }
+    print_r($user);
+    // $data['title'] = 'Ebshare | Register';
+    // if ($this->model->validate($user)) {
+    //   // $this->model->register($user);
+    //   $user['password'] = hash('sha256', $password);
+    //   if ($this->model->register($user) === false) {
+    //     $data['error'] = $this->model->errors();
+    //     session()->setFlashdata('flash', 'Database error');
+    //     // print_r($data['errors']);
+    //     return view('register', $data);
+    //   } else {
+    //     return redirect()->to(base_url(''));
+    //   }
+    // } else {
+    //   $data['errors'] = $this->model->errors();
+    //   session()->setFlashdata('flash', 'Data error field');
+    //   print_r($data['errors']);
+    //   return view('register', $data);
+    //   // return redirect()->to(base_url('/register'))->withInput();
+    // }
   }
   public function logout()
   {
