@@ -80,7 +80,6 @@ class Filters extends BaseFilters
             // 'invalidchars',
         ],
         'after' => [
-            'login' => ['except' => ['/register']]
             // 'honeypot',
             // 'secureheaders',
         ],

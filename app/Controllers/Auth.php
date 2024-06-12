@@ -44,35 +44,28 @@ class Auth extends BaseController
   }
   public function registerUser()
   {
-    print_r($this->request->getVar());
-    // $username = $this->request->getPost('username');
-    // $password = $this->request->getPost('password');
-    // $email = $this->request->getPost('email');
-    // $user = [
-    //   'username' => $username,
-    //   'password' => $password,
-    //   'email' => $email
-    // ];
-    // print_r($user);
-    // $data['title'] = 'Ebshare | Register';
-    // if ($this->model->validate($user)) {
-    //   // $this->model->register($user);
-    //   $user['password'] = hash('sha256', $password);
-    //   if ($this->model->register($user) === false) {
-    //     $data['error'] = $this->model->errors();
-    //     session()->setFlashdata('flash', 'Database error');
-    //     // print_r($data['errors']);
-    //     return view('register', $data);
-    //   } else {
-    //     return redirect()->to(base_url(''));
-    //   }
-    // } else {
-    //   $data['errors'] = $this->model->errors();
-    //   session()->setFlashdata('flash', 'Data error field');
-    //   print_r($data['errors']);
-    //   return view('register', $data);
-    //   // return redirect()->to(base_url('/register'))->withInput();
-    // }
+    $username = $this->request->getPost('username');
+    $password = $this->request->getPost('password');
+    $email = $this->request->getPost('email');
+    $user = [
+      'username' => $username,
+      'password' => $password,
+      'email' => $email
+    ];
+    $data['title'] = 'Ebshare | Register';
+    if ($this->model->validate($user)) {
+      // $this->model->register($user);
+      $user['password'] = hash('sha256', $password);
+      if ($this->model->register($user) === false) {
+        $data['error'] = $this->model->errors();
+        return view('register', $data);
+      } else {
+        return redirect()->to(base_url(''));
+      }
+    } else {
+      $data['errors'] = $this->model->errors();
+      return view('register', $data);
+    }
   }
   public function logout()
   {
