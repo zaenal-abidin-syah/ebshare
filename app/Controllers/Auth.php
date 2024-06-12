@@ -45,7 +45,7 @@ class Auth extends BaseController
   public function registerUser()
   {
     $username = $this->request->getPost('username');
-    $password = $this->request->getPost('password') ?? '';
+    $password = $this->request->getPost('password');
     $email = $this->request->getPost('email');
     $user = [
       'username' => $username,
@@ -64,7 +64,8 @@ class Auth extends BaseController
       }
     } else {
       $data['errors'] = $this->model->errors();
-      return view('/register', $data);
+      print_r($data['errors']);
+      // return view('/register', $data);
       // return redirect()->to(base_url('/register'))->withInput();
     }
   }

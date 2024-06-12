@@ -885,10 +885,6 @@ video {
   margin-left: 0.5rem;
 }
 
-.ml-6 {
-  margin-left: 1.5rem;
-}
-
 .ml-auto {
   margin-left: auto;
 }
@@ -1225,10 +1221,6 @@ video {
 .min-w-max {
   min-width: -moz-max-content;
   min-width: max-content;
-}
-
-.max-w-2xl {
-  max-width: 42rem;
 }
 
 .max-w-64 {
@@ -3579,10 +3571,6 @@ video {
 
   .lg\:mb-0 {
     margin-bottom: 0px;
-  }
-
-  .lg\:ml-12 {
-    margin-left: 3rem;
   }
 
   .lg\:block {
