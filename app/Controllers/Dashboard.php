@@ -191,6 +191,7 @@ class Dashboard extends BaseController
     $doc_extension = ['docx', 'doc', 'odt'];
     $data['kategori'] = $this->kategoriModel->allKategori();
     // return view('dashboard/addMyEbook', $data);
+    return response()->setJSON(WRITEPATH);
 
     if ($file !== null && $file->isValid() && !$file->hasMoved()) {
 
@@ -204,7 +205,7 @@ class Dashboard extends BaseController
 
         $data['penulis'] = [];
         foreach ($ebook->getAuthors() as $author) {
-          $data['penulis'][] = $author->getName();
+          $data['penulis'][] = $author->getName() ? $author->getName()  : '';
           # code...
         }
         $data['penulis'] = implode(',', $data['penulis']);
