@@ -58,12 +58,14 @@ class Auth extends BaseController
       $user['password'] = hash('sha256', $password);
       if ($this->model->register($user) === false) {
         $data['error'] = $this->model->errors();
+        session()->setFlashdata('flash', 'Database error');
         return view('/register', $data);
       } else {
-        return redirect()->to(base_url());
+        return redirect()->to(base_url(''));
       }
     } else {
       $data['errors'] = $this->model->errors();
+      session()->setFlashdata('flash', 'Data error field');
       print_r($data['errors']);
       // return view('/register', $data);
       // return redirect()->to(base_url('/register'))->withInput();
