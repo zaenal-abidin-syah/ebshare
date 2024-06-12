@@ -59,7 +59,8 @@ class Auth extends BaseController
       if ($this->model->register($user) === false) {
         $data['error'] = $this->model->errors();
         session()->setFlashdata('flash', 'Database error');
-        return view('/register', $data);
+        print_r($data['errors']);
+        // return view('/register', $data);
       } else {
         return redirect()->to(base_url(''));
       }
