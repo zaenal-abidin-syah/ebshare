@@ -190,7 +190,7 @@
         data: {
           csrf_test_name: '<?= csrf_hash() ?>'
         },
-        // async: false
+        async: false
       });
     });
     const triger = document.getElementById('triger-tag');
@@ -203,7 +203,7 @@
         } else {
           tag.value = triger.value
         }
-        console.log(tag.value);
+        // console.log(tag.value);
       }
     });
 
@@ -215,17 +215,17 @@
       tag.value = tagArray.join(',')
     }
 
-    async function handleFile() {
-      const fileInput = document.getElementById('file');
-      const file = fileInput.files[0];
+    // async function handleFile() {
+    //   const fileInput = document.getElementById('file');
+    //   const file = fileInput.files[0];
 
 
-      const judul = document.getElementById('judul');
-      judul.value = file.name.split('.')[0];
-      const type = document.getElementById('type');
-      type.value = file.type
-      const size = document.getElementById('size');
-      size.value = file.size
-    }
+    //   const judul = document.getElementById('judul');
+    //   judul.value = file.name.split('.')[0];
+    //   const type = document.getElementById('type');
+    //   type.value = file.type
+    //   const size = document.getElementById('size');
+    //   size.value = file.size
+    // }
   </script>
   <?= $this->endSection() ?>

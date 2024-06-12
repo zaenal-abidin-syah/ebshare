@@ -82,14 +82,15 @@ class Ebook extends BaseController
     // return response()->setJSON($data);
     $favoriteData = $this->favoriteModel->isFavorite($data);
     // return response()->setJSON(['favorite' => $favoriteData]);
+
     if ($favoriteData) {
       $this->favoriteModel->removeFavorite($favoriteData['id']);
       $this->statistikModel->updateFavorite(['id_ebook' => $data['id_ebook'], 'num' => -1]);
-      return response()->setJSON(['favorite' => 'remove']);
+      return response()->setJSON(['csrf_hash' => csrf_hash(), 'favorite' => 'remove']);
     } else {
       $this->favoriteModel->addFavorite($data);
       $this->statistikModel->updateFavorite(['id_ebook' => $data['id_ebook'], 'num' => 1]);
-      return response()->setJSON(['favorite' => 'add']);
+      return response()->setJSON(['csrf_hash' => csrf_hash(), 'favorite' => 'add']);
     }
   }
   public function rating()
@@ -104,13 +105,14 @@ class Ebook extends BaseController
     $this->ratingModel->updateRating($data);
     $mean = $this->ratingModel->getMean($data['id_ebook']);
     $this->statistikModel->updateRating(['id_ebook' => $data['id_ebook'], 'rata-rata' => $mean]);
-    // return response()->setJSON($this->request->getVar());
+    return response()->setJSON(['csrf_hash' => csrf_hash()]);
   }
   public function komentar()
   {
     $data['id_ebook'] = $this->request->getPost('id_ebook');
     $data['content'] = $this->request->getPost('komentar');
     $data['id_user'] = session()->get('id');
+    $data['csrf_hash'] = csrf_hash();
     $this->komentarModel->addKomentar($data);
     $this->statistikModel->updateKomentar($data['id_ebook']);
     return response()->setJSON($data);

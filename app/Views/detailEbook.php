@@ -280,6 +280,8 @@
   </div>
 </div>
 <script>
+  let csrf_token = '<?= csrf_token() ?>';
+  let csrf_hash = '<?= csrf_hash() ?>';
   document.addEventListener("DOMContentLoaded", function() {
     const stars = document.querySelectorAll("#starsContainer svg");
 
@@ -306,7 +308,11 @@
           type: 'POST',
           data: {
             rating: rating + 1,
-            id_ebook: <?= $ebook['id'] ?>
+            id_ebook: <?= $ebook['id'] ?>,
+            [csrf_token]: csrf_hash,
+          },
+          success: function(data) {
+            csrf_hash = response.csrf_hash;
           }
         });
         updateRatingDisplay();
@@ -325,9 +331,14 @@
         url: '<?= base_url('ebook/favorite') ?>',
         type: 'POST',
         data: {
+          [csrf_token]: csrf_hash,
           favoriteId
         },
         success: function(response) {
+          console.log({
+            response
+          });
+          csrf_hash = response.csrf_hash;
           if (response.favorite === 'add') {
             button.removeClass('text-white');
             button.addClass('text-slate-900');
@@ -346,7 +357,11 @@
         type: 'POST',
         data: {
           komentar,
-          id_ebook: '<?= $ebook['id'] ?>'
+          id_ebook: '<?= $ebook['id'] ?>',
+          [csrf_token]: csrf_hash,
+        },
+        success: function(response) {
+          csrf_hash = response.csrf_hash;
         }
       })
 

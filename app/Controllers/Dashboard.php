@@ -205,7 +205,6 @@ class Dashboard extends BaseController
         $data['penulis'] = [];
         foreach ($ebook->getAuthors() as $author) {
           $data['penulis'][] = $author->getName() ? $author->getName()  : '';
-          # code...
         }
         $data['penulis'] = implode(',', $data['penulis']);
         $data['penerbit'] = $ebook->getPublisher();
@@ -216,6 +215,7 @@ class Dashboard extends BaseController
         $data['pages'] = $ebook->getPagesCount();
         session()->set('file_upload', $data['path']);
 
+        // return response()->setJSON($data);
         $data['img'] = '/img/ebook/default-' . $ebook->getExtension() . '.png';
         if ($ebook->hasCover()) {
           $cover = $ebook->getCover();
@@ -226,8 +226,6 @@ class Dashboard extends BaseController
           $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
           session()->set('cover_upload', $data['img']);
         }
-        // return response()->setJSON($data);
-        return view('dashboard/addMyEbook', $data);
       } else if (in_array($file->getExtension(), $doc_extension)) {
         $newName = $file->getRandomName();
         $file->move(WRITEPATH . 'uploads', $newName);
@@ -243,21 +241,18 @@ class Dashboard extends BaseController
         $data['tahun_terbit'] = $docFile->getDocInfo()->getCreated() ? date('Y', $docFile->getDocInfo()->getCreated()) : '';
         $data['ukuran'] = $file->getSize();
         $data['pages'] = $this->getPages($data['path']);
-        // $data['img'] = '';
         $data['img'] = '/img/ebook/default-' . $file->getClientExtension() . '.png';
-
 
         session()->set('file_upload', $data['path']);
         return view('dashboard/addMyEbook', $data);
-
-
-        // Get document properties
-        // print_r($docFile->getDocumentProperties());
       }
     } else {
       // error
       echo 'file error';
     }
+
+    return view('dashboard/addMyEbook', $data);
+
 
     // return view('test', $data);
   }
