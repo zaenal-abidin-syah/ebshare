@@ -15,4 +15,8 @@ class KomentarModel extends Model
   {
     return $this->save($data);
   }
+  public function getKomentarByEbook($id_ebook)
+  {
+    return $this->select('user.username user, komentar.content komentar, komentar.tanggal tanggal')->where('id_ebook', $id_ebook)->join('user', 'user.id = komentar.id_user')->get()->getResultArray();
+  }
 }

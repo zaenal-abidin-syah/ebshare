@@ -60,6 +60,7 @@ class Ebook extends BaseController
     $data['ebook'] = $this->model->ebookById($id);
     $data['favorite'] = $this->favoriteModel->isFavorite(['id_ebook' => $id, 'id_user' => session()->get('id')]);
     $data['rating'] =  $this->ratingModel->isRating(['id_ebook' => $id, 'id_user' => session()->get('id')])['rating'] ?? 0;
+    $data['komentar'] = $this->komentarModel->getKomentarByEbook($id);
     $data['kategori'] = $this->kategoriModel->allKategori();
 
     return view('detailEbook', $data);
@@ -112,10 +113,10 @@ class Ebook extends BaseController
     $data['id_ebook'] = $this->request->getPost('id_ebook');
     $data['content'] = $this->request->getPost('komentar');
     $data['id_user'] = session()->get('id');
-    $data['csrf_hash'] = csrf_hash();
     $this->komentarModel->addKomentar($data);
     $this->statistikModel->updateKomentar($data['id_ebook']);
-    return response()->setJSON($data);
+    $komentar = $this->komentarModel->getKomentarByEbook($data['id_ebook']);
+    return response()->setJSON(['komentar' => $komentar, 'status' => 'success', 'csrf_hash' => csrf_hash()]);
   }
   public function add()
   {
