@@ -226,7 +226,8 @@ class Dashboard extends BaseController
           $data['img'] = 'img/ebook/' . explode('.', $newName)[0] . '.jpg';
           session()->set('cover_upload', $data['img']);
         }
-        return response()->setJSON($data);
+        // return response()->setJSON($data);
+        return view('dashboard/addMyEbook', $data);
       } else if (in_array($file->getExtension(), $doc_extension)) {
         $newName = $file->getRandomName();
         $file->move(WRITEPATH . 'uploads', $newName);
@@ -247,6 +248,7 @@ class Dashboard extends BaseController
 
 
         session()->set('file_upload', $data['path']);
+        return view('dashboard/addMyEbook', $data);
 
 
         // Get document properties
@@ -256,7 +258,7 @@ class Dashboard extends BaseController
       // error
       echo 'file error';
     }
-    return view('dashboard/addMyEbook', $data);
+
     // return view('test', $data);
   }
   public function test()
