@@ -44,15 +44,16 @@ class Auth extends BaseController
   }
   public function registerUser()
   {
-    $username = $this->request->getPost('username');
-    $password = $this->request->getPost('password');
-    $email = $this->request->getPost('email');
-    $user = [
-      'username' => $username,
-      'password' => $password,
-      'email' => $email
-    ];
-    print_r($user);
+    print_r($this->request->getVar());
+    // $username = $this->request->getPost('username');
+    // $password = $this->request->getPost('password');
+    // $email = $this->request->getPost('email');
+    // $user = [
+    //   'username' => $username,
+    //   'password' => $password,
+    //   'email' => $email
+    // ];
+    // print_r($user);
     // $data['title'] = 'Ebshare | Register';
     // if ($this->model->validate($user)) {
     //   // $this->model->register($user);
