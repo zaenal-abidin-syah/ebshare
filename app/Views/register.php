@@ -26,7 +26,7 @@
                     <?php endforeach ?>
                   </div>
                 <?php endif ?>
-                <form action="<?= base_url('/register') ?>/" method="post">
+                <form action="<?= base_url('/register') ?>" method="post">
                   <?= csrf_field() ?>
                   <!--Username input-->
                   <div class="relative" data-twe-input-wrapper-init>
