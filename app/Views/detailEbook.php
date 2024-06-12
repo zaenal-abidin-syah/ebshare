@@ -214,7 +214,6 @@
       });
     });
 
-    // updateRatingDisplay();
   });
   $(document).ready(function() {
 

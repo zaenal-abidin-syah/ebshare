@@ -21,7 +21,7 @@ class Auth extends BaseController
   public function verify()
   {
     $username = $this->request->getPost('username');
-    $password = $this->request->getPost('password') ?? '';
+    $password = $this->request->getPost('password');
 
     $user = $this->model->where('username', $username)->first();
     if ($user && hash('sha256', $password) == $user['password']) {
@@ -49,16 +49,23 @@ class Auth extends BaseController
     $email = $this->request->getPost('email');
     $user = [
       'username' => $username,
-      'password' => hash('sha256', $password),
+      'password' => $password,
       'email' => $email
     ];
-
     $data['title'] = 'Ebshare | Register';
-    if ($this->model->register($user) === false) {
+    if ($this->model->validate($user)) {
+      // $this->model->register($user);
+      $user['password'] = hash('sha256', $password);
+      if ($this->model->register($user) === false) {
+        $data['error'] = $this->model->errors();
+        return view('/register', $data);
+      } else {
+        return redirect()->to(base_url());
+      }
+    } else {
       $data['errors'] = $this->model->errors();
       return view('/register', $data);
-    } else {
-      return redirect()->to(base_url());
+      // return redirect()->to(base_url('/register'))->withInput();
     }
   }
   public function logout()

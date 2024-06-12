@@ -12,9 +12,9 @@ class UserModel extends Model
   protected $useAutoIncrement = true;
   protected $allowedFields = ['username', 'email', 'password', 'role'];
   protected $validationRules = [
-    'username'     => 'required|max_length[16]',
-    'email'        => 'required|valid_email',
-    'password'     => 'required|min_length[8]'
+    'username'     => 'required|max_length[16]|is_unique[user.username]',
+    'email'        => 'required|valid_email|is_unique[user.email]',
+    'password'     => 'required|min_length[8]|max_length[255]'
   ];
   public function allUser()
   {
@@ -31,7 +31,6 @@ class UserModel extends Model
 
   public function register($data)
   {
-
     return $this->save($data);
   }
   public function verify($data)
