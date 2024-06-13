@@ -207,6 +207,7 @@ class Dashboard extends BaseController
           $data['penulis'][] = $author->getName() ? $author->getName()  : '';
         }
         $data['penulis'] = implode(',', $data['penulis']);
+        // $data['extension'] = $ebook->getExtension();
         $data['penerbit'] = $ebook->getPublisher();
         $data['deskripsi'] = $ebook->getDescription();
         $data['type'] = $ebook->getExtension();
@@ -462,5 +463,9 @@ class Dashboard extends BaseController
     $data['ebook'] = $this->model->ebookById($id);
     $data['rating'] =  $this->statistikModel->getRating(['id_ebook' => $id]);
     return view('dashboard/detailMyEbook', $data);
+  }
+  public function dataFake()
+  {
+    $data['ebook'] = $this->model->ebookById($id);
   }
 }

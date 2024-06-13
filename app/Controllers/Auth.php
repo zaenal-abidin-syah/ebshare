@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\DetailUserModel;
 
 class Auth extends BaseController
 {
@@ -11,6 +12,7 @@ class Auth extends BaseController
   public function __construct()
   {
     $this->model = new UserModel();
+    $this->detailUserModel = new DetailUserModel();
   }
 
   public function login()
@@ -57,6 +59,8 @@ class Auth extends BaseController
       // $this->model->register($user);
       $user['password'] = hash('sha256', $password);
       if ($this->model->register($user) === false) {
+        // $insertId
+        // $this->detailUserModel->insert()
         $data['error'] = $this->model->errors();
         return view('register', $data);
       } else {

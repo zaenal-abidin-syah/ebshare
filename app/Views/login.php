@@ -2,11 +2,11 @@
 <?= $this->section('content'); ?>
 
 
-<section class="gradient-form h-full w-1/2">
-  <div class="container h-full p-10">
-    <div class="flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+<section class="h-full w-1/2  sm:w-full">
+  <div class="container  h-full p-10">
+    <div class="flex h-full flex-wrap items-center justify-center text-neutral-800">
       <div class="w-full">
-        <div class="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+        <div class="block rounded-lg bg-white shadow-lg">
           <div class="g-0 lg:flex lg:flex-wrap">
             <!-- Left column container-->
             <div class="px-4 md:px-0 lg:w-6/12">
