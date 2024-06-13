@@ -10,6 +10,9 @@ use App\Models\KategoriModel;
 use App\Models\StatistikModel;
 use App\Models\EbookTagModel;
 use App\Models\RatingModel;
+use App\Models\FavoriteModel;
+use App\Models\UnduhanModel;
+use App\Models\KomentarModel;
 use App\Models\TagModel;
 use Kiwilan\Ebook\Ebook;
 use Imagick;
@@ -30,6 +33,10 @@ class Dashboard extends BaseController
     $this->statistikModel = new StatistikModel();
     $this->ebookTagModel = new EbookTagModel();
     $this->ratingModel = new RatingModel();
+    $this->favoriteModel = new FavoriteModel();
+    $this->unduhanModel = new UnduhanModel();
+    $this->komentarModel = new KomentarModel();
+
     $this->tagModel = new TagModel();
     helper('form');
     // $this->image = \Config\Services::image('imagick');
@@ -310,6 +317,11 @@ class Dashboard extends BaseController
   public function deleteEbook($id)
   {
     $this->ebookTagModel->where('id_ebook', $id)->delete();
+    $this->favoriteModel->where('id_ebook', $id)->delete();
+    $this->komentarModel->where('id_ebook', $id)->delete();
+    $this->unduhanModel->where('id_ebook', $id)->delete();
+    $this->ratingModel->where('id_ebook', $id)->delete();
+
     $this->statistikModel->where('id_ebook', $id)->delete();
     $this->model->where('id', $id)->delete();
     return redirect()->to(base_url('/dashboard/ebook'));
@@ -317,6 +329,10 @@ class Dashboard extends BaseController
   public function deleteMyEbook($id)
   {
     $this->ebookTagModel->where('id_ebook', $id)->delete();
+    $this->favoriteModel->where('id_ebook', $id)->delete();
+    $this->komentarModel->where('id_ebook', $id)->delete();
+    $this->unduhanModel->where('id_ebook', $id)->delete();
+    $this->ratingModel->where('id_ebook', $id)->delete();
     $this->statistikModel->where('id_ebook', $id)->delete();
     $this->model->where('id', $id)->delete();
     return redirect()->to(base_url('/dashboard/myebook'));
