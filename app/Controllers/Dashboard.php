@@ -46,10 +46,12 @@ class Dashboard extends BaseController
     $id = (session()->get('role') == '0') ? session()->get('id') : False;
     $data['title'] = 'Ebshare | Ebook';
     $data['statistik'] = $this->model->allStatistik($id);
-    $data['statistikPerMonth'] = $this->model->allStatistikPerMonth($id);
 
     $data['ebooks'] = $this->model->allEbook();
     $data['kategori'] = $this->kategoriModel->allKategori();
+    $data['favoritePerMonth'] = json_encode($this->favoriteModel->favoritePerMonth());
+    $data['unduhanPerMonth'] = json_encode($this->unduhanModel->unduhanPerMonth());
+    $data['komentarPerMonth'] = json_encode($this->komentarModel->komentarPerMonth());
     return view('dashboard/index', $data);
   }
   public function profile()

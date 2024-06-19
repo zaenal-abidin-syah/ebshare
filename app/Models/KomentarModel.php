@@ -19,4 +19,19 @@ class KomentarModel extends Model
   {
     return $this->select('user.username user, komentar.content komentar, komentar.tanggal tanggal')->where('id_ebook', $id_ebook)->join('user', 'user.id = komentar.id_user')->get()->getResultArray();
   }
+
+  public function komentarPerMonth()
+  {
+
+    $sixMonthsAgo = date('Y-m-01', strtotime('-5 months'));
+
+    $query = $this->selectCount('id', 'total')
+      ->select("DATE_FORMAT(tanggal, '%M') bulan")
+      ->where("tanggal >= '$sixMonthsAgo'")
+      ->groupBy('bulan')
+      ->orderBy("DATE_FORMAT(tanggal, '%Y-%m')")
+      ->get();
+
+    return $query->getResultArray();
+  }
 }

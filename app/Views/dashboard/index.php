@@ -148,11 +148,6 @@
   <script src="<?= base_url('/') ?>assets/js/plugins/chartjs.min.js"></script>
 
   <script>
-    // const config = {
-    //   type: 'polarArea',
-    //   data: data,
-    //   options: {}
-    // };
     const unduhan = parseInt('<?= $statistik['jumlah_unduhan'] ?>')
     const favorite = parseInt('<?= $statistik['jumlah_favorite'] ?>')
     const komentar = parseInt('<?= $statistik['jumlah_komentar'] ?>')
@@ -182,24 +177,98 @@
       }
     });
 
-    const labels = [
-      'Januari',
-      'Februari',
-      'Maret',
-      'April',
-      'Mei',
-      'Juni',
-      'Juli'
-    ]
+    const komentarPerMonth = <?= $komentarPerMonth ?>;
+    const unduhanPerMonth = <?= $unduhanPerMonth ?>;
+    const favoritePerMonth = <?= $favoritePerMonth ?>;
+    let bulanKomentar = []
+    let totalKomentar = []
+    komentarPerMonth.forEach(k => {
+      bulanKomentar.push(k.bulan)
+      totalKomentar.push(k.total)
+    });
+    let bulanUnduhan = []
+    let totalUnduhan = []
+    unduhanPerMonth.forEach(k => {
+      bulanUnduhan.push(k.bulan)
+      totalUnduhan.push(k.total)
+    });
+
+    let bulanFavorite = []
+    let totalFavorite = []
+    favoritePerMonth.forEach(k => {
+      bulanFavorite.push(k.bulan)
+      totalFavorite.push(k.total)
+    });
+    // Buat array untuk menyimpan nama bulan dalam format yang diinginkan
+    let months = [];
+    let dataBulanKomentar = [];
+    let dataBulanUnduhan = [];
+    let dataBulanFavorite = [];
+    // Loop untuk mendapatkan bulan ini dan 5 bulan sebelumnya
+    for (let i = 5; i >= 0; i--) {
+      // Hitung tanggal untuk bulan yang akan diambil
+      let date = new Date();
+      date.setMonth(date.getMonth() - i);
+
+      // Format nama bulan sesuai dengan preferensi Anda (misalnya 'January', 'February', dst.)
+      let monthName = date.toLocaleString('default', {
+        month: 'long'
+      });
+
+      months.push(monthName);
+      if (!bulanKomentar.includes(monthName)) {
+        dataBulanKomentar.push(0);
+      } else {
+        dataBulanKomentar.push(totalKomentar[bulanKomentar.indexOf(monthName)]);
+      }
+      // for unduhan
+      if (!bulanUnduhan.includes(monthName)) {
+        dataBulanUnduhan.push(0);
+      } else {
+        dataBulanUnduhan.push(totalUnduhan[bulanUnduhan.indexOf(monthName)]);
+      }
+      // for favorite
+      if (!bulanFavorite.includes(monthName)) {
+        dataBulanFavorite.push(0);
+      } else {
+        dataBulanFavorite.push(totalFavorite[bulanFavorite.indexOf(monthName)]);
+      }
+
+    }
+
+
     const data2 = {
-      labels: labels,
+      // labels: labels,
+      labels: bulanKomentar,
       datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-      }]
+          label: 'Unduhan',
+          data: dataBulanUnduhan,
+          // data: [65, 59, 80, 81, 56, 55, 40],
+          fill: false,
+          borderColor: 'rgba(255, 99, 132, 0.5)',
+          borderWidth: 5,
+          tension: 0.1
+        },
+        {
+          label: 'Favorite',
+          data: dataBulanFavorite,
+          // data: [65, 59, 80, 81, 56, 55, 40],
+          fill: false,
+          borderColor: 'rgba(75, 192, 192, 0.5)',
+          borderWidth: 5,
+          tension: 0.1
+        },
+        {
+          label: 'Komentar',
+          data: dataBulanKomentar,
+          // data: [65, 59, 80, 81, 56, 55, 40],
+          fill: false,
+          borderColor: 'rgba(153, 102, 255, 0.5)',
+          borderWidth: 5,
+          tension: 0.1
+        }
+
+      ]
     };
 
     const ctx2 = document.getElementById('canvas2');
