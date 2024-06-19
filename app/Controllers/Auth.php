@@ -59,11 +59,11 @@ class Auth extends BaseController
       // $this->model->register($user);
       $user['password'] = hash('sha256', $password);
       if ($this->model->register($user) === false) {
-        // $insertId
-        // $this->detailUserModel->insert()
         $data['error'] = $this->model->errors();
         return view('register', $data);
       } else {
+        $insertId = $this->model->insertID();
+        $this->detailUserModel->insert(['id_user' => $insertId]);
         return redirect()->to(base_url(''));
       }
     } else {

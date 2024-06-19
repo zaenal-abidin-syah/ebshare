@@ -10,7 +10,7 @@ class DetailUserModel extends Model
   protected $primaryKey = 'id';
 
   protected $useAutoIncrement = true;
-  protected $allowedFields = ['no_telepon', 'alamat', 'kota', 'provinsi', 'negara'];
+  protected $allowedFields = ['id_user', 'no_telepon', 'alamat', 'kota', 'provinsi', 'negara'];
 
 
   public function updateUser($id, $data)
