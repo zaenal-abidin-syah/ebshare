@@ -239,7 +239,7 @@
 
     const data2 = {
       // labels: labels,
-      labels: bulanKomentar,
+      labels: months,
       datasets: [{
           label: 'Unduhan',
           data: dataBulanUnduhan,
