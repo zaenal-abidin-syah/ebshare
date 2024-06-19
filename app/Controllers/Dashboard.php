@@ -49,9 +49,9 @@ class Dashboard extends BaseController
 
     $data['ebooks'] = $this->model->allEbook();
     $data['kategori'] = $this->kategoriModel->allKategori();
-    $data['favoritePerMonth'] = json_encode($this->favoriteModel->favoritePerMonth());
-    $data['unduhanPerMonth'] = json_encode($this->unduhanModel->unduhanPerMonth());
-    $data['komentarPerMonth'] = json_encode($this->komentarModel->komentarPerMonth());
+    $data['favoritePerMonth'] = json_encode($this->favoriteModel->favoritePerMonth($id));
+    $data['unduhanPerMonth'] = json_encode($this->unduhanModel->unduhanPerMonth($id));
+    $data['komentarPerMonth'] = json_encode($this->komentarModel->komentarPerMonth($id));
     return view('dashboard/index', $data);
   }
   public function profile()
@@ -87,7 +87,6 @@ class Dashboard extends BaseController
 
   public function table()
   {
-    $data['ebook'] = $this->reportModel->findAll();
     $data['statistiks'] = $this->reportModel->allReport()->paginate(10);
     $data['dataByKategori'] = $this->reportModel->ebookGroupByKategoryReport();
     $data['pager'] = $this->reportModel->pager;

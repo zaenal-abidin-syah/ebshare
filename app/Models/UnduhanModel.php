@@ -23,17 +23,30 @@ class UnduhanModel extends Model
   //     ->get()
   //     ->getResultArray();
   // }
-  public function unduhanPerMonth()
+  public function unduhanPerMonth($id = False)
   {
-    $sixMonthsAgo = date('Y-m-01', strtotime('-5 months'));
+    if ($id == False) {
+      $sixMonthsAgo = date('Y-m-01', strtotime('-5 months'));
 
-    $query = $this->selectCount('id', 'total')
-      ->select("DATE_FORMAT(tanggal, '%M') bulan")
-      ->where("tanggal >= '$sixMonthsAgo'")
-      ->groupBy('bulan')
-      ->orderBy("DATE_FORMAT(tanggal, '%Y-%m')")
-      ->get();
+      $query = $this->selectCount('id', 'total')
+        ->select("DATE_FORMAT(tanggal, '%M') bulan")
+        ->where("tanggal >= '$sixMonthsAgo'")
+        ->groupBy('bulan')
+        ->orderBy("DATE_FORMAT(tanggal, '%Y-%m')")
+        ->get();
 
-    return $query->getResultArray();
+      return $query->getResultArray();
+    } else {
+      $sixMonthsAgo = date('Y-m-01', strtotime('-5 months'));
+      $query = $this->selectCount('id', 'total')
+        ->select("DATE_FORMAT(tanggal, '%M') bulan")
+        ->where("tanggal >= '$sixMonthsAgo'")
+        ->groupBy('bulan')
+        ->orderBy("DATE_FORMAT(tanggal, '%Y-%m')")
+        ->where('id_user', $id)
+        ->get();
+
+      return $query->getResultArray();
+    }
   }
 }

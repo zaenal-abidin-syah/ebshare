@@ -112,7 +112,7 @@ class Filters extends BaseFilters
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
-        'admin' => ['before' => ['/dashboard/ebook', '/dashboard/ebook/*', '/dashboard/user', '/dashboard/user/*']],
+        'admin' => ['before' => ['/dashboard/ebook', '/dashboard/ebook/*', '/dashboard/user', '/dashboard/user/*', '/dashboard/table']],
         'logout' => ['before' => ['/login']],
         'ebooks_permision' => ['before' => ['/dashboard/myebook/detail/*', '/dashboard/myebook/edit/*']]
     ];
