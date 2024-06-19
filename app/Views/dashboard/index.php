@@ -219,19 +219,19 @@
       if (!bulanKomentar.includes(monthName)) {
         dataBulanKomentar.push(0);
       } else {
-        dataBulanKomentar.push(totalKomentar[bulanKomentar.indexOf(monthName)]);
+        dataBulanKomentar.push(parseInt(totalKomentar[bulanKomentar.indexOf(monthName)]));
       }
       // for unduhan
       if (!bulanUnduhan.includes(monthName)) {
         dataBulanUnduhan.push(0);
       } else {
-        dataBulanUnduhan.push(totalUnduhan[bulanUnduhan.indexOf(monthName)]);
+        dataBulanUnduhan.push(parseInt(totalUnduhan[bulanUnduhan.indexOf(monthName)]));
       }
       // for favorite
       if (!bulanFavorite.includes(monthName)) {
         dataBulanFavorite.push(0);
       } else {
-        dataBulanFavorite.push(totalFavorite[bulanFavorite.indexOf(monthName)]);
+        dataBulanFavorite.push(parseInt(totalFavorite[bulanFavorite.indexOf(monthName)]));
       }
 
     }
