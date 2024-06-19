@@ -44,7 +44,7 @@ class Dashboard extends BaseController
   public function index()
   {
     $id = (session()->get('role') == '0') ? session()->get('id') : False;
-    $data['title'] = 'Ebshare | Ebook';
+    $data['title'] = 'Ebshare | Dashboard';
     $data['statistik'] = $this->model->allStatistik($id);
 
     $data['ebooks'] = $this->model->allEbook();
@@ -56,7 +56,7 @@ class Dashboard extends BaseController
   }
   public function profile()
   {
-    $data['title'] = 'Ebshare | Ebook';
+    $data['title'] = 'Ebshare | Profile Dashboard';
     $data['profile'] = $this->userModel->detailUser(session()->get('id'));
     return view('dashboard/profile', $data);
   }
@@ -87,6 +87,7 @@ class Dashboard extends BaseController
 
   public function table()
   {
+    $data['title'] = 'Ebshare | Table';
     $data['statistiks'] = $this->reportModel->allReport()->paginate(10);
     $data['dataByKategori'] = $this->reportModel->ebookGroupByKategoryReport();
     $data['pager'] = $this->reportModel->pager;
@@ -114,13 +115,13 @@ class Dashboard extends BaseController
   }
   public function detailUser($id)
   {
-    $data['title'] = 'Ebshare | Detail Ebook';
+    $data['title'] = 'Ebshare | Detail User';
     $data['detail'] = $this->userModel->detailUser($id);
     return view('dashboard/detailUser', $data);
   }
   public function editUser($id)
   {
-    $data['title'] = 'Ebshare | Edit Ebook';
+    $data['title'] = 'Ebshare | Edit User';
     $data['detail'] = $this->userModel->detailUser($id);
     return view('dashboard/editUser', $data);
   }
@@ -347,7 +348,7 @@ class Dashboard extends BaseController
   }
   public function editMyEbook($id)
   {
-    $data['title'] = 'Ebshare | Edit Ebook';
+    $data['title'] = 'Ebshare | Edit My Ebook';
     $data['ebook'] = $this->model->ebookById($id);
     $data['kategori'] = $this->kategoriModel->allKategori();
     return view('/dashboard/editMyEbook', $data);
@@ -476,13 +477,9 @@ class Dashboard extends BaseController
   }
   public function detailMyEbook($id)
   {
-    $data['title'] = 'Ebshare | Detail Ebook';
+    $data['title'] = 'Ebshare | Detail My Ebook';
     $data['ebook'] = $this->model->ebookById($id);
     $data['rating'] =  $this->statistikModel->getRating(['id_ebook' => $id]);
     return view('dashboard/detailMyEbook', $data);
-  }
-  public function dataFake()
-  {
-    $data['ebook'] = $this->model->ebookById($id);
   }
 }
