@@ -56,7 +56,7 @@
     <div class="items-center block w-auto max-h-screen overflow-auto grow basis-full">
       <ul class="flex flex-col pl-0 mb-0">
         <li class="mt-0.5 w-full">
-          <a class="py-[0.675rem] bg-purple-50 text-sm my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="<?= base_url('/dashboard') ?>">
+          <a class="py-[0.675rem] <?= uri_string() == 'dashboard' ? 'bg-purple-50' : '' ?> text-sm my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="<?= base_url('/dashboard') ?>">
             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
               <i class="relative top-0 text-sm leading-[1.5] text-purple-500 ni ni-tv-2"></i>
             </div>
@@ -65,7 +65,7 @@
         </li>
         <?php if (session()->get('login') && session()->get('role')  == '1') { ?>
           <li class="mt-0.5 w-full">
-            <a class="py-[0.675rem] text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/table') ?>">
+            <a class="py-[0.675rem] <?= (strpos(uri_string(), 'dashboard/table') === 0) ? 'bg-purple-50' : '' ?> text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/table') ?>">
               <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                 <i class="relative top-0 text-sm leading-[1.5] text-orange-500 ni ni-calendar-grid-58"></i>
               </div>
@@ -88,7 +88,7 @@
         </li>
 
         <li class="mt-0.5 w-full">
-          <a class="py-[0.675rem] text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/profile') ?>">
+          <a class="py-[0.675rem] <?= (strpos(uri_string(), 'dashboard/profile') === 0) ? 'bg-purple-50' : '' ?> text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/profile') ?>">
             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
               <i class="relative top-0 text-sm leading-[1.5] text-slate-700 ni ni-single-02"></i>
             </div>
@@ -96,7 +96,7 @@
           </a>
         </li>
         <li class="mt-0.5 w-full">
-          <a class="py-[0.675rem] text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/myebook') ?>">
+          <a class="py-[0.675rem] <?= (strpos(uri_string(), 'dashboard/myebook') === 0) ? 'bg-purple-50' : '' ?> text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/myebook') ?>">
             <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
               <i class="relative top-0 text-sm leading-[1.5] text-slate-700 fa fa-book"></i>
             </div>
@@ -105,7 +105,7 @@
         </li>
         <?php if (session()->get('login') && session()->get('role')  == '1') { ?>
           <li class="mt-0.5 w-full">
-            <a class="py-[0.675rem] text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/user') ?>">
+            <a class="py-[0.675rem] <?= (strpos(uri_string(), 'dashboard/user') === 0) ? 'bg-purple-50' : '' ?> text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/user') ?>">
               <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                 <i class="relative top-0 text-sm leading-[1.5] text-slate-700 ni ni-single-02"></i>
               </div>
@@ -113,7 +113,7 @@
             </a>
           </li>
           <li class="mt-0.5 w-full">
-            <a class="py-[0.675rem] text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/ebook') ?>">
+            <a class="py-[0.675rem] <?= (strpos(uri_string(), 'dashboard/ebook') === 0) ? 'bg-purple-50' : '' ?> text-sm my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="<?= base_url('/dashboard/ebook') ?>">
               <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                 <i class="relative top-0 text-sm leading-[1.5] text-slate-700 fa fa-book"></i>
               </div>
