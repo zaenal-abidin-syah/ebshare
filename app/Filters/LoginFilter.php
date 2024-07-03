@@ -13,7 +13,6 @@ class LoginFilter implements FilterInterface
     if (!session()->get('login')) {
       return redirect()->to(base_url('/login'));
     }
-    // Do something here
   }
 
   public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)

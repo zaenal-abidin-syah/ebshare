@@ -24,12 +24,4 @@ class Home extends BaseController
 
     return view('home', $data);
   }
-  // public function pass(){
-  //   $data['title'] = 'Ebshare | Home';
-  //   $data['statistik'] = $this->model->allStatistik();
-  //   $data['ebook_kategori'] = $this->model->countEbookByKategori();
-
-  //   $data['test'] = $this->userModel->changePass();
-  //   return view('test', $data);
-  // }
 }

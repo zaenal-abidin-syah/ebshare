@@ -13,7 +13,6 @@ class AdminFilter implements FilterInterface
     if (!session()->get('role')) {
       return redirect()->to(base_url('/dashboard'));
     }
-    // Do something here
   }
 
   public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)

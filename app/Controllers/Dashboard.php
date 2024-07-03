@@ -15,7 +15,6 @@ use App\Models\UnduhanModel;
 use App\Models\KomentarModel;
 use App\Models\TagModel;
 use Kiwilan\Ebook\Ebook;
-use Imagick;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -39,7 +38,6 @@ class Dashboard extends BaseController
 
     $this->tagModel = new TagModel();
     helper('form');
-    // $this->image = \Config\Services::image('imagick');
   }
   public function index()
   {
@@ -355,7 +353,6 @@ class Dashboard extends BaseController
   }
   public function updateEbook()
   {
-    // print_r($this->request->getVar());
     $data['id'] = $this->request->getPost('id_ebook');
     $judul = $this->request->getPost('judul');
     $data['penulis'] = $this->request->getPost('penulis');
@@ -364,8 +361,6 @@ class Dashboard extends BaseController
     $data['id_kategori'] = $this->request->getPost('kategori');
     $data['tahun_terbit'] = $this->request->getPost('tahun_terbit');
     $tags = explode(',', $this->request->getPost('tag') ?? '');
-
-    // $inputString = $this->request->getPost('inputString');
 
     // Pola reguler untuk karakter yang ingin dihilangkan
     $pattern = '/[^a-zA-Z0-9.,\s]/';

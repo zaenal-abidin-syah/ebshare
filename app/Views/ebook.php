@@ -146,27 +146,5 @@
 </div>
 
 
-<!-- <script>
-  const buttonModal = document.querySelectorAll(".button-modal");
-  const ebooks = JSON.parse('<= json_encode($ebooks) ?>')
-  // console.log(ebooks);
-
-  buttonModal.forEach((button) => {
-    button.addEventListener("click", () => {
-      const dataEbook = button.getAttribute("data-ebook");
-      const modalJudul = document.querySelector("#modalJudul");
-      const modalPenulis = document.querySelector("#modalPenulis");
-      const modalPenerbit = document.querySelector("#modalPenerbit");
-      const modalUkuran = document.querySelector("#modalUkuran");
-      const modalDeskripsi = document.querySelector("#modalDeskripsi");
-
-      modalJudul.textContent = 'judul       :' + ebooks[dataEbook]['judul']
-      modalPenerbit.textContent = 'pengarang       :' + ebooks[dataEbook]['penerbit']
-      modalPenulis.textContent = 'penulis       :' + ebooks[dataEbook]['penulis']
-      modalUkuran.textContent = 'ukuran       :' + ebooks[dataEbook]['ukuran']
-      modalDeskripsi.textContent = 'deskripsi       :' + ebooks[dataEbook]['deskripsi']
-    })
-  });
-</script> -->
 
 <?= $this->endSection(); ?>
