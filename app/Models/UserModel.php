@@ -39,20 +39,4 @@ class UserModel extends Model
     $this->where('password', $data['password']);
     return $this->first();
   }
-  public function changePass()
-  {
-    $user = $this->select('id, password')->get()->getResultArray();
-
-    foreach ($user as $u) {
-      // $data[id]
-      print('======pass');
-      print($u['password']);
-      print('======id');
-      print($u['id']);
-      // $this->where('id', $u["id"])->update(['password' => hash('sha256', $u['password'])]);
-      $this->save(['id' => $u['id'], 'password' => hash('sha256', $u['password'])]);
-      // print_r($u['id']);
-    }
-    return $user;
-  }
 }
